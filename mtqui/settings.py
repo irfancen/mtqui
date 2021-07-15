@@ -84,6 +84,22 @@ DATABASES = {
     }
 }
 
+PRODUCTION = os.environ.get('DATABASE_URL') is not None
+if PRODUCTION:
+    DEBUG = False
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mtqui.id']
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mtqui',
+            'USER': 'postgres',
+            'PASSWORD': '2bHPq7QTWTA6PXebxFhV',
+            'HOST': 'mtqui.cpro322xadcb.ap-southeast-1.rds.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
