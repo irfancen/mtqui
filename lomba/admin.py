@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(Lomba)
+admin.site.register(LombaRules)
+admin.site.register(Mentor)
+admin.site.register(LombaLearned)
+admin.site.register(LombaTimeline)
