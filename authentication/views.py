@@ -24,6 +24,9 @@ def login(request):
             if user is not None:
                 django_login(request, user)
                 return HttpResponseRedirect(reverse("dashboard:home"))
+        else:
+            context["form"] = form
+            return render(request, "authentication/login.html", context)
 
     context["form"] = AuthenticationForm()
     return render(request, "authentication/login.html", context)
