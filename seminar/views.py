@@ -5,4 +5,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def seminarlanding(request):
-    return HttpResponse('This is seminar landing')
+    return render(request, 'base_seminar.html')
