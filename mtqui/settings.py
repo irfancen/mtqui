@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gallery',
-    'seminar'
+    'seminar',
+    'lomba',
 ]
 
 MIDDLEWARE = [
@@ -112,8 +113,6 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Jakarta'
 
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
 USE_L10N = True
@@ -129,7 +128,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-    
+
 # This is the directory for storing `collectstatic` results.
 # This shouldn't be included in your Git repository.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
