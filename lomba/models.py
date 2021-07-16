@@ -9,29 +9,32 @@ class Mentor(models.Model):
 class Lomba(models.Model):
     nama_lomba = models.CharField(max_length=100)
     about = models.TextField()
-    mentor = models.ManyToManyField(Mentor)
+    start_date = models.DateField()
+    finish_date = models.DateField()
+    guidebook_link = models.CharField(max_length=200)
+    nama_mentor = models.ManyToManyField(Mentor)
 
     def __str__(self):
         return self.nama_lomba
 
-class LombaRules(models.Model):
-    lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
+class LombaRule(models.Model):
+    nama_lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
     rule = models.TextField()
 
     def __str__(self):
-        return "Rule " + str(self.lomba) + ": " + str(self.rule)
+        return "%s -> LombaRule: %s" % (str(self.nama_lomba), self.rule)
 
-class LombaLearned(models.Model):
-    lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
-    learned = models.TextField()
+class TrainingLearnt(models.Model):
+    nama_lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
+    learnt = models.TextField()
 
     def __str__(self):
-        return "Learned " + str(self.lomba) + ": " + str(self.learned)
+        return "%s -> TrainingLearnt: %s" % (str(self.nama_lomba), self.learnt)
 
-class LombaTimeline(models.Model):
-    lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
+class TrainingTimeline(models.Model):
+    nama_lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
     timeline = models.DateField()
     deskripsi = models.CharField(max_length=100)
 
     def __str__(self):
-        return "Timeline " + str(self.lomba) + ": " + str(self.timeline) + " -> " + self.deskripsi
+        return "%s -> TrainingTimeline: %s -> %s" % (str(self.nama_lomba), str(self.timeline), self.deskripsi)
