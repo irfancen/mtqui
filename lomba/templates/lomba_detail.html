@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="lomba-detail">
+                <div>
+                    <h3>About</h3>
+                    <p>{{ lomba.about }}</p>
+                </div>
+                <div>
+                    <h3>Timeline</h3>
+                    <p>{{ lomba.start_date }} - {{ lomba.finish_date }}</p>
+                </div>
+                <div>
+                    <h3>General Rules</h3>
+                    <ul>
+                        {% for item in rules %}
+                            <li>{{ item.rule }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <h3>Guidebook</h3>
+                    <a href={{ lomba.guidebook_link }}>Get the guidebook here!</a>
+                </div>
+            </div>
+
+            <div class="training">
+                <h1>Training</h1>
+                <div>
+                    <h3>Mentors</h3>
+                    <ul>
+                        {% for mentor in mentors %}
+                            <li>{{ mentor }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <h3>You will learn..</h3>
+                    <ul>
+                        {% for item in learnt %}
+                            <li>{{ item.learnt }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <h3>Timeline</h3>
+                    <ul>
+                        {% for item in timeline %}
+                            <li>{{ item.timeline }}</li>
+                            <p>{{ item.deskripsi }}</p>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% if isLoggedIn == True %}
+                <h5>Interested?</h5>
+                <a href="#" class="btn btn-primary">
+                    ENROLL VIA
+                    <br>
+                    DASHBOARD
+                </a>
+            {% endif %}
+        </div>
+    </body>
+</html>
