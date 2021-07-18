@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Dashboard</title>
+    </head>
+
+    <body>
+        <h1>Dashboard</h1>
+        <p><img src="https://static.remove.bg/sample-gallery/products/analogue-aperture-black-and-white-1203819-thumbnail.jpg" alt="" style="width: 50px; vertical-align: middle;"> {{ metadata_fakultas.singkatan_fakultas }}</p>
+
+        <p><a href="{% url 'authentication:logout' %}">Logout</a></p>
+
+        <h2>Available Competitions</h2>
+
+        {% if competitions is not None %}
+            {% for competition in competitions %}
+                <div style="background-color: bisque;">
+                    <h3></h3>
+                    <p>QUOTA 1</p>
+                    <p>ENROLLED 0</p>
+                    <p>XX - JAN - 2021</p>
+                    <p><a href="#">ENROLL NOW!</a></p>
+                    <p><a href="#">SEE OR EDIT ENROLLMENTS</a></p>
+                    <p><a href="#">SEE ENROLLMENTS</a></p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </body>
+</html>
