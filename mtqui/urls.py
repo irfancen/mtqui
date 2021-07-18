@@ -21,4 +21,6 @@ urlpatterns = [
     path('gallery/', include('gallery.urls')),
     path('auth/', include('authentication.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('seminar/', include('seminar.urls')),
+    path('lomba/', include('lomba.urls')),
 ]
