@@ -1,0 +1,76 @@
+{% extends 'base_seminar.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="landing_container">
+    </div>
+
+
+    <div class="info_container" style="padding: 50px">
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <h2>About</h2>
+        <p style="width: 40%">{{ seminar.about }}</p>
+    </li>
+    <li class="list-group-item">
+        <h2>Guest Stars</h2>
+        <ul class="guest_stars">
+            {% for guest_star in guest_stars %}
+                <li>{{ guest_star.nama }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+
+    <li class="list-group-item">
+        <h2>You will earn...</h2>
+        <ul class="received">
+            {% for received in all_received %}
+                <li>{{ received }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+
+    <li class="list-group-item">
+        <h2>You will need...</h2>
+        <ul class="reqs">
+            {% for req in all_reqs %}
+                <li>{{ req }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+
+    <li class="list-group-item">
+        <h2>Timeline</h2>
+        <ul class="guest_stars">
+            {% for timeline in all_timeline %}
+                <li>
+                    <p>{{ timeline.date }}</p>
+                    <p>{{ timeline.nama_kegiatan }}</p>
+
+                </li>
+            {% endfor %}
+        </ul>
+
+    </li>
+
+    <li class="list-group-item">
+        <p>Interested?</p>
+        {% if not seminar.is_past %}
+        <a href=""><button class="btn btn-info">ENROLL NOW!</button></a>
+        {% else %}
+        <button class="btn btn-info" disabled>ENROLL NOW!</button>
+        {% endif %}
+        <p>Opens in {{ pendaftaran_date.date }}</p>
+
+    </li>
+
+    </ul>
+
+    </div>
+
+
+
+
+
+{% endblock %}

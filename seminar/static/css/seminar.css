@@ -45,9 +45,23 @@
     height: 100px;
     justify-content: space-between;
     padding: 5px;
+    background-color: white;
 }
 
 .judul_seminar_cont p {
     font-size: 15px;
     font-weight: 600;
+}
+
+.info_container h2 {
+    font-weight: 600;
+}
+
+.card_container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.seminar_card {
+    margin: 20px;
 }

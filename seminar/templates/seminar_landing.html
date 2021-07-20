@@ -21,7 +21,7 @@
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
                     <div class="know_more" style="width: 40%; display: flex">
-                        <a href="#"><p style="font-size: 13px; font-weight: 500">Know More!</p></a></div>
+                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 13px; font-weight: 500">Know More!</p></a></div>
                 </div>
 
             </div>
@@ -32,13 +32,13 @@
 
     </div>
 
-    <div class="past_seminar" style="padding: 40px">
+    <div class="past_seminar" style="padding: 40px; background-color: #e8f0ff">
     <h2 style="font-weight: bold"> Past Seminar </h2>
       <div class="card_container">
          {% for seminar in seminar_list %}
 
         {% if seminar.is_past %}
-            <div class="upcoming_card" style="width: 250px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+            <div class="seminar_card" style="width: 250px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                 <div class="seminar_img_cont" style="width: 250px; height: 250px; background-color: #51B1F6">
 {#                    <img src="{% static 'img/' %}">#}
 
@@ -47,7 +47,7 @@
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
                     <div class="know_more" style="width: 40%; display: flex" >
-                        <a href="#"><p style="font-size: 13px; font-weight: 500">Know More!</p></a>
+                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 13px; font-weight: 500">Know More!</p></a>
                     </div>
                 </div>
 
