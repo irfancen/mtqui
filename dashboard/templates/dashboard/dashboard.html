@@ -7,7 +7,7 @@ Dashboard
 
 {% block content %}
     <h1>Dashboard</h1>
-    <p><img src="https://static.remove.bg/sample-gallery/products/analogue-aperture-black-and-white-1203819-thumbnail.jpg" alt="" style="width: 50px; vertical-align: middle;"> {{ metadata_fakultas.singkatan_fakultas }}</p>
+    <p><img src="{% get_static_prefix %}img/makara/{{ metadata_fakultas.makara_image_code }}.png" alt="" style="width: 50px; vertical-align: middle;"> {{ metadata_fakultas.singkatan_fakultas }}</p>
 
     <p><a href="{% url 'authentication:logout' %}">Logout</a></p>
 
