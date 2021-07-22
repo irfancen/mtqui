@@ -23,7 +23,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Grand Opening</a>
-                    <a class="dropdown-item" href="#">Competitions</a>
+                    <a class="dropdown-item" href="{% url 'lomba:lomba_list' %}">Competitions</a>
                     <a class="dropdown-item" href="#">Grand Closing</a>
                 </div>
             </li>
@@ -31,7 +31,7 @@
                 <a class="nav-link" href="{% url 'seminar:seminar_landing' %}">Workshop</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Competition</a>
+                <a class="nav-link" href="{% url 'lomba:lomba_list' %}">Competition</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Guidebook</a>
