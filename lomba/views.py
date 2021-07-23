@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from django.http import HttpResponse
+import datetime
 
 def lomba_list(request):
     lombaList = Lomba.objects.all()
@@ -27,6 +27,7 @@ def lomba_detail(request, nama_lomba):
         'mentors': mentors,
         'learnt': learnt,
         'timeline': timeline,
+        'today': datetime.date.today(),
         'isLoggedIn': isLoggedIn
     }
     return render(request, "lomba_detail.html", args)

@@ -1,0 +1,35 @@
+h2, h4, h5 {
+    font-weight: 650;
+}
+
+.carousel-indicators li {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 100%;
+}
+
+.lomba-list {
+    padding: 6em 3em 3em;
+}
+
+.card-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.card {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    flex: 0 0 25%;
+}
+
+.card-body {
+    padding: 1em;
+}
+
+.card-img-top {
+    max-width: 20em;
+}
+
+hr {
+    border-top: 1px solid #3D54A6;
+}
