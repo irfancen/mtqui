@@ -2,13 +2,14 @@ h2, h4, h5 {
     font-weight: 650;
 }
 
+.carousel-indicators li {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 100%;
+}
+
 .lomba-list {
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
-    justify-self: center;
-    align-self: center;
+    padding: 6em 3em 3em;
 }
 
 .card-container {
