@@ -1,77 +1,112 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/lomba.css' %}">
+{% endblock %}
 
-    </head>
-    <body>
-        <div class="container">
-            <div class="lomba-detail">
-                <div>
-                    <h3>About</h3>
-                    <p>{{ lomba.about }}</p>
-                </div>
-                <div>
-                    <h3>Timeline</h3>
-                    <p>{{ lomba.start_date }} - {{ lomba.finish_date }}</p>
-                </div>
-                <div>
-                    <h3>General Rules</h3>
-                    <ul>
-                        {% for item in rules %}
-                            <li>{{ item.rule }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div>
-                    <h3>Guidebook</h3>
-                    <a href={{ lomba.guidebook_link }}>Get the guidebook here!</a>
-                </div>
+{% block content %}
+    <div class="kenta-head">
+        <div class="kenta-head-content">
+            <div>
+                <span class="kenta-blurlable">AIRING NOW!</span>
+                <h1>{{ lomba.alias }}</h1>
+                <h3>{{ lomba.nama_lomba }}</h3>
             </div>
-
-            <div class="training">
-                <h1>Training</h1>
-                <div>
-                    <h3>Mentors</h3>
-                    <ul>
-                        {% for mentor in mentors %}
-                            <li>{{ mentor }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div>
-                    <h3>You will learn..</h3>
-                    <ul>
-                        {% for item in learnt %}
-                            <li>{{ item.learnt }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div>
-                    <h3>Timeline</h3>
-                    <ul>
-                        {% for item in timeline %}
-                            <li>{{ item.timeline }}</li>
-                            <p>{{ item.deskripsi }}</p>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            {% if isLoggedIn == True %}
-                <h5>Interested?</h5>
-                <a href="#" class="btn btn-primary">
-                    ENROLL VIA
-                    <br>
-                    DASHBOARD
-                </a>
-            {% endif %}
         </div>
-    </body>
-</html>
+        <div class="kenta-head-img"
+             style="background-image: url('{{ lomba.image_url }}')">
+        </div>
+    </div>
+
+    <div class="lomba-detail" style="padding: 3em">
+        <div style="padding: 3.5em">
+            <h4>About</h4>
+            <p>{{ lomba.about }}</p>
+
+            <h4>Timeline</h4>
+            <p>{{ lomba.start_date }} - {{ lomba.finish_date }}</p>
+
+            <hr>
+
+            <h4>General Rules</h4>
+            <ul>
+                {% for item in rules %}
+                    <li>{{ item.rule }}</li>
+                {% endfor %}
+            </ul>
+
+            <h4>Guidebook</h4>
+            <div class="d-flex flex-row">
+                <img src="{% static 'svg/guidebook.svg' %}" width="15em" alt="guidebook">
+                <a class="ml-2" href={{ lomba.guidebook_link }}>Get the guidebook here!</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="training" style="padding: 3em; background-color: #e8f0ff">
+        <h2>Training</h2>
+        <div style="padding: 3.5em">
+            <div>
+                <h4>Mentors</h4>
+                <ul>
+                    {% for mentor in mentors %}
+                        <li>{{ mentor }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <hr>
+
+            <h4>You will learn..</h4>
+            <ul>
+                {% for item in learnt %}
+                    <li>{{ item.learnt }}</li>
+                {% endfor %}
+            </ul>
+
+            <hr>
+
+            <h4>Timeline</h4>
+            <div class="kenta-timeline">
+                {% for item in timeline %}
+                <div class="kenta-timeline-bullet">
+                    {% if item.timeline < today %}
+                        <svg class="kenta-timeline-past"
+                    {% elif item.timeline == today %}
+                        <svg class="kenta-timeline-now"
+                    {% else %}
+                        <svg
+                                {% endif %}
+                                width="40" height="59" viewBox="0 0 40 59" fill="yellow"
+                                xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
+                            ></path>
+                            <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
+                            ></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
+                            ></path>
+                        </svg>
+                    <div style="display: flex; flex-direction: column; font-size: large">
+                        <span class="kenta-timeline-date">{{ item.timeline }}</span>
+                        <span style="font-size: medium">{{ item.deskripsi }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if isLoggedIn == True %}
+        <div class="text-center mt-4 mb-5">
+            <h5>Interested?</h5>
+            <a href="{% url 'dashboard:home' %}" class="btn btn-primary" style="width: 10em">
+                ENROLL VIA
+                <br>
+                DASHBOARD
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

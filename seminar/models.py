@@ -13,6 +13,7 @@ class Seminar(models.Model):
     guest_stars = models.ManyToManyField(GuestStars)
     received = models.CharField(max_length=500)
     requirement = models.CharField(max_length=500)
+    is_past = models.BooleanField(default=False)
 
     def __str__(self):
         return self.judul_seminar
