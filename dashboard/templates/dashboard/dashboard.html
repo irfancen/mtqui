@@ -13,13 +13,13 @@ Dashboard
 
     <h2>Available Competitions</h2>
 
-    {% if competitions is not None %}
+    {% if competitions %}
         {% for competition in competitions %}
             <div style="background-color: bisque;">
-                <h3></h3>
-                <p>QUOTA 1</p>
-                <p>ENROLLED 0</p>
-                <p>XX - JAN - 2021</p>
+                <h3>{{ competition.judul }}</h3>
+                <p>QUOTA {{ competition.kuota }}</p>
+                <p>ENROLLED {{ competition.peserta.all.count }}</p>
+                <p>{{ competition.get_deadline }}</p>
                 <p><a href="#">ENROLL NOW!</a></p>
                 <p><a href="#">SEE OR EDIT ENROLLMENTS</a></p>
                 <p><a href="#">SEE ENROLLMENTS</a></p>

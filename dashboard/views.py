@@ -13,7 +13,7 @@ def home(request):
     context = {}
 
     context["metadata_fakultas"] = request.user.metadata
-    context["competitions"] = [1,2,3,]
+    context["competitions"] = request.user.kompetisi.all()
 
     return render(request, "dashboard/dashboard.html", context)
 

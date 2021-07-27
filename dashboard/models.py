@@ -28,5 +28,8 @@ class Kompetisi(models.Model):
     fakultas = models.ForeignKey(User, on_delete=models.CASCADE, related_name="kompetisi")
     peserta = models.ManyToManyField(Peserta, blank=True, related_name="kompetisi")
 
+    def get_deadline(self):
+        return self.deadline_pendaftaran.strftime("%d - %b - %Y")
+
     def __str__(self):
         return f"{self.judul} ({self.fakultas.metadata.nama_fakultas})"
