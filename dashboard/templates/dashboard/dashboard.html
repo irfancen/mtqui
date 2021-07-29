@@ -20,9 +20,18 @@ Dashboard
                 <p>QUOTA {{ competition.kuota }}</p>
                 <p>ENROLLED {{ competition.peserta.all.count }}</p>
                 <p>{{ competition.get_deadline }}</p>
-                <p><a href="#">ENROLL NOW!</a></p>
-                <p><a href="#">SEE OR EDIT ENROLLMENTS</a></p>
-                <p><a href="#">SEE ENROLLMENTS</a></p>
+
+                {% if competition.can_see_enrollments %}
+                    <p><a href="#">SEE ENROLLMENTS</a></p>
+                {% endif %}
+
+                {% if competition.can_edit_enrollments %}
+                    <p><a href="#">SEE OR EDIT ENROLLMENTS</a></p>
+                {% endif %}
+
+                {% if competition.can_enroll %}
+                    <p><a href="#">ENROLL NOW!</a></p>
+                {% endif %}
             </div>
         {% endfor %}
     {% endif %}
