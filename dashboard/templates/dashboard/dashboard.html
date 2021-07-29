@@ -30,7 +30,7 @@ Dashboard
                 {% endif %}
 
                 {% if competition.can_enroll %}
-                    <p><a href="#">ENROLL NOW!</a></p>
+                    <p><a href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">ENROLL NOW!</a></p>
                 {% endif %}
             </div>
         {% endfor %}

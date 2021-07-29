@@ -17,6 +17,27 @@ def home(request):
 
     return render(request, "dashboard/dashboard.html", context)
 
+@login_required(redirect_field_name="dashboard:home")
+def enroll(request, id_kompetisi):
+    context = {}
+
+    context["competition"] = Kompetisi.objects.get(id=id_kompetisi)
+
+    return render(request, "dashboard/enroll.html", context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def debug(request):
     print("====================== START ======================")
 
