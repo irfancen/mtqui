@@ -41,7 +41,7 @@ def debug(request):
     print("=== PESERTA ===")
     for peserta in Peserta.objects.all():
         print(peserta)
-        print(peserta.kompetisi.all())
+        print(peserta.kompetisi)
         print("-----")
 
     print("======================  END  ======================")

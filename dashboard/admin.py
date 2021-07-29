@@ -17,6 +17,6 @@ class KompetisiPanelConfig(admin.ModelAdmin):
 
 @admin.register(Peserta)
 class PesertaPanelConfig(admin.ModelAdmin):
-    search_fields = ("nama", "npm")
-    ordering = ("npm", "nama")
-    list_display = ("npm", "nama")
+    search_fields = ("nama", "npm", "kompetisi__judul", "kompetisi__fakultas__username")
+    ordering = ("npm", "nama", "kompetisi")
+    list_display = ("npm", "nama", "kompetisi")
