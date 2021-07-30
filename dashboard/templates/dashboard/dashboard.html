@@ -26,7 +26,7 @@ Dashboard
                 {% endif %}
 
                 {% if competition.can_edit_enrollments %}
-                    <p><a href="#">SEE OR EDIT ENROLLMENTS</a></p>
+                    <p><a href="{% url 'dashboard:edit' id_kompetisi=competition.id %}">SEE OR EDIT ENROLLMENTS</a></p>
                 {% endif %}
 
                 {% if competition.can_enroll %}

@@ -1,4 +1,3 @@
-from django.utils import translation
 from dashboard.forms import BaseEnrollmentFormSet, EnrollmentForm
 from django.contrib.auth.models import User
 from dashboard.models import Kompetisi, Peserta
@@ -25,19 +24,19 @@ def home(request):
 def enroll(request, id_kompetisi):
     context = {}
 
-    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet)
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+
+    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=(kompetisi.kuota - kompetisi.peserta.all().count()))
 
     if request.method == "POST":
         enrollment_formset = EnrollmentFormSet(request.POST)
 
         if enrollment_formset.is_valid():
-            kompetisi = Kompetisi.objects.get(id=id_kompetisi)
-
             peserta_baru = []
 
             for enrollment_form in enrollment_formset:
-                nama = enrollment_form.cleaned_data["nama"]
-                npm = enrollment_form.cleaned_data["npm"]
+                nama = enrollment_form.cleaned_data.get("nama")
+                npm = enrollment_form.cleaned_data.get("npm")
 
                 if nama and npm:
                     peserta_baru.append(Peserta(nama=nama, npm=npm, kompetisi=kompetisi))
@@ -53,7 +52,40 @@ def enroll(request, id_kompetisi):
     context["enrollment_forms"] = EnrollmentFormSet()
     return render(request, "dashboard/enroll.html", context)
 
+@login_required(redirect_field_name="dashboard:home")
+def edit_enrollments(request, id_kompetisi):
+    context = {}
 
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+
+    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota)
+
+    if request.method == "POST":
+        enrollment_formset = EnrollmentFormSet(request.POST)
+
+        if enrollment_formset.is_valid():
+            peserta_baru = []
+
+            for enrollment_form in enrollment_formset:
+                nama = enrollment_form.cleaned_data.get("nama")
+                npm = enrollment_form.cleaned_data.get("npm")
+
+                if nama and npm:
+                    peserta_baru.append(Peserta(nama=nama, npm=npm, kompetisi=kompetisi))
+            
+            Peserta.objects.filter(kompetisi=kompetisi).delete()
+            Peserta.objects.bulk_create(peserta_baru)
+
+            return redirect(reverse("dashboard:home"))
+        
+        else:
+            context["enrollment_forms"] = enrollment_formset
+            return render(request, "dashboard/edit_enrollments.html", context)
+
+    current_peserta = Peserta.objects.filter(kompetisi=kompetisi)
+    initial_data = [{"nama": peserta.nama, "npm": peserta.npm} for peserta in current_peserta]
+    context["enrollment_forms"] = EnrollmentFormSet(initial=initial_data)
+    return render(request, "dashboard/edit_enrollments.html", context)
 
 
 
