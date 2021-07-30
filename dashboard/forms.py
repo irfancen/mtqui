@@ -16,6 +16,23 @@ class EnrollmentForm(forms.Form):
                     }),
                     required=False)
 
+class EnrollmentListForm(forms.Form):
+    nama = forms.CharField(
+                    max_length=100,
+                    widget=forms.TextInput(attrs={
+                        'placeholder' : 'Nama Peserta',
+                        'readonly' : True,
+                    }),
+                    required=False)
+
+    npm = forms.CharField(
+                    max_length=10,
+                    widget=forms.TextInput(attrs={
+                        'placeholder' : 'NPM',
+                        'readonly' : True,
+                    }),
+                    required=False)
+
 class BaseEnrollmentFormSet(BaseFormSet):
     def clean(self):
         if any(self.errors):

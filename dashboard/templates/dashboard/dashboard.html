@@ -22,7 +22,7 @@ Dashboard
                 <p>{{ competition.get_deadline }}</p>
 
                 {% if competition.can_see_enrollments %}
-                    <p><a href="#">SEE ENROLLMENTS</a></p>
+                    <p><a href="{% url 'dashboard:view' id_kompetisi=competition.id %}">SEE ENROLLMENTS</a></p>
                 {% endif %}
 
                 {% if competition.can_edit_enrollments %}

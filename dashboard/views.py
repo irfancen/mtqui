@@ -1,4 +1,4 @@
-from dashboard.forms import BaseEnrollmentFormSet, EnrollmentForm
+from dashboard.forms import BaseEnrollmentFormSet, EnrollmentForm, EnrollmentListForm
 from django.contrib.auth.models import User
 from dashboard.models import Kompetisi, Peserta
 from django.contrib.auth.decorators import login_required
@@ -87,9 +87,17 @@ def edit_enrollments(request, id_kompetisi):
     context["enrollment_forms"] = EnrollmentFormSet(initial=initial_data)
     return render(request, "dashboard/edit_enrollments.html", context)
 
+@login_required(redirect_field_name="dashboard:home")
+def view_enrollments(request, id_kompetisi):
+    context = {}
 
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+    EnrollmentListFormSet = formset_factory(EnrollmentListForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota, extra=0)
+    current_peserta = Peserta.objects.filter(kompetisi=kompetisi)
+    initial_data = [{"nama": peserta.nama, "npm": peserta.npm} for peserta in current_peserta]
+    context["enrollments"] = EnrollmentListFormSet(initial=initial_data)
 
-
+    return render(request, "dashboard/view_enrollments.html", context)
 
 
 
