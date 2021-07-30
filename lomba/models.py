@@ -36,6 +36,7 @@ class TrainingLearnt(models.Model):
 class TrainingTimeline(models.Model):
     nama_lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
     timeline = models.DateField()
+    active = models.BooleanField(null=True, blank=True, default=False)
     deskripsi = models.CharField(max_length=100)
 
     def __str__(self):
