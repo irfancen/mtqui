@@ -38,9 +38,9 @@ class Kompetisi(models.Model):
 
     def can_enroll(self):
         is_before_deadline = not self.is_deadline()
-        have_quota = self.peserta.all().count() < self.kuota
+        no_participants = self.peserta.all().count() == 0
 
-        return (is_before_deadline and have_quota)
+        return (is_before_deadline and no_participants)
     
     def can_edit_enrollments(self):
         is_before_deadline = not self.is_deadline()
