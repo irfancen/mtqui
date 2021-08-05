@@ -5,34 +5,71 @@
 Dashboard
 {% endblock title %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+{% endblock head %}
+
 {% block content %}
+<div class="kenta-content">
     <h1>Dashboard</h1>
-    <p><img src="{% get_static_prefix %}dashboard/img/makara/{{ metadata_fakultas.makara_image_code }}.png" alt="" style="width: 50px; vertical-align: middle;"> {{ metadata_fakultas.singkatan_fakultas }}</p>
 
-    <p><a href="{% url 'authentication:logout' %}">Logout</a></p>
+    <div class="dashboard-container user-details">
+        <img class="makara-image" src="{% get_static_prefix %}dashboard/img/makara/{{ metadata_fakultas.makara_image_code }}.png" alt="Makara Fakultas">
+        <p class="username">{{ metadata_fakultas.singkatan_fakultas }}</p>
+    </div>
 
-    <h2>Available Competitions</h2>
+    <!-- <div class="dashboard-container logout">
+        <a href="{% url 'authentication:logout' %}">Logout</a>
+    </div> -->
 
-    {% if competitions %}
-        {% for competition in competitions %}
-            <div style="background-color: bisque;">
-                <h3>{{ competition.judul }}</h3>
-                <p>QUOTA {{ competition.kuota }}</p>
-                <p>ENROLLED {{ competition.peserta.all.count }}</p>
-                <p>{{ competition.get_deadline }}</p>
+    <div class="dashboard-container competition-section">
+        <h2>Available Competitions</h2>
 
-                {% if competition.can_see_enrollments %}
-                    <p><a href="{% url 'dashboard:view' id_kompetisi=competition.id %}">SEE ENROLLMENTS</a></p>
-                {% endif %}
+        {% if competitions %}
+            {% for competition in competitions %}
+                <div class="competition-card">
+                    <h3 class="competition-title">{{ competition.judul }}</h3>
+                    
+                    <table class="competition-detail">
+                        <tr>
+                            <td class="detail-key">Quota</td>
+                            <td>{{ competition.kuota }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="detail-key">Enrolled</td>
+                            <td>{{ competition.peserta.all.count }}</td>
+                        </tr>
+                    </table>
+                    
+                    {% if competition.is_deadline %}
+                    <div class="competition-deadline past-deadline">
+                    {% else %}
+                    <div class="competition-deadline">
+                    {% endif %}
+                        <img src="{% static 'dashboard/svg/clock.svg' %}">
+                        <p>{{ competition.get_deadline }}</p>
+                    </div>
 
-                {% if competition.can_edit_enrollments %}
-                    <p><a href="{% url 'dashboard:edit' id_kompetisi=competition.id %}">SEE OR EDIT ENROLLMENTS</a></p>
-                {% endif %}
+                    {% if competition.can_see_enrollments %}
+                        <p><a href="{% url 'dashboard:view' id_kompetisi=competition.id %}">SEE ENROLLMENTS</a></p>
+                    {% endif %}
 
-                {% if competition.can_enroll %}
-                    <p><a href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">ENROLL NOW!</a></p>
-                {% endif %}
-            </div>
-        {% endfor %}
-    {% endif %}
+                    {% if competition.can_edit_enrollments %}
+                        <p><a href="{% url 'dashboard:edit' id_kompetisi=competition.id %}">SEE OR EDIT ENROLLMENTS</a></p>
+                    {% endif %}
+
+                    {% if competition.can_enroll %}
+                        <p><a href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">ENROLL NOW!</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+                <div>no competition</div>
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}
