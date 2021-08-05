@@ -26,7 +26,7 @@ def enroll(request, id_kompetisi):
 
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
 
-    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=(kompetisi.kuota - kompetisi.peserta.all().count()))
+    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota)
 
     if request.method == "POST":
         enrollment_formset = EnrollmentFormSet(request.POST)
@@ -36,10 +36,23 @@ def enroll(request, id_kompetisi):
 
             for enrollment_form in enrollment_formset:
                 nama = enrollment_form.cleaned_data.get("nama")
-                npm = enrollment_form.cleaned_data.get("npm")
+                fakultas = request.user.metadata.nama_fakultas
+                jurusan = enrollment_form.cleaned_data.get("jurusan")
+                angkatan = enrollment_form.cleaned_data.get("angkatan")
+                no_hp = enrollment_form.cleaned_data.get("no_hp")
+                line_id = enrollment_form.cleaned_data.get("line_id")
+                is_ketua = enrollment_form.cleaned_data.get("is_ketua")
 
-                if nama and npm:
-                    peserta_baru.append(Peserta(nama=nama, npm=npm, kompetisi=kompetisi))
+                if (nama and fakultas and jurusan and angkatan and no_hp and line_id):
+                    peserta_baru.append(Peserta(
+                                            nama=nama, 
+                                            fakultas=fakultas, 
+                                            jurusan=jurusan, 
+                                            angkatan=angkatan, 
+                                            no_hp=no_hp, 
+                                            line_id=line_id, 
+                                            is_ketua=is_ketua, 
+                                            kompetisi=kompetisi))
             
             Peserta.objects.bulk_create(peserta_baru)
 
@@ -58,7 +71,7 @@ def edit_enrollments(request, id_kompetisi):
 
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
 
-    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota)
+    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota, extra=0)
 
     if request.method == "POST":
         enrollment_formset = EnrollmentFormSet(request.POST)
@@ -68,10 +81,23 @@ def edit_enrollments(request, id_kompetisi):
 
             for enrollment_form in enrollment_formset:
                 nama = enrollment_form.cleaned_data.get("nama")
-                npm = enrollment_form.cleaned_data.get("npm")
+                fakultas = request.user.metadata.nama_fakultas
+                jurusan = enrollment_form.cleaned_data.get("jurusan")
+                angkatan = enrollment_form.cleaned_data.get("angkatan")
+                no_hp = enrollment_form.cleaned_data.get("no_hp")
+                line_id = enrollment_form.cleaned_data.get("line_id")
+                is_ketua = enrollment_form.cleaned_data.get("is_ketua")
 
-                if nama and npm:
-                    peserta_baru.append(Peserta(nama=nama, npm=npm, kompetisi=kompetisi))
+                if (nama and fakultas and jurusan and angkatan and no_hp and line_id):
+                    peserta_baru.append(Peserta(
+                                            nama=nama, 
+                                            fakultas=fakultas, 
+                                            jurusan=jurusan, 
+                                            angkatan=angkatan, 
+                                            no_hp=no_hp, 
+                                            line_id=line_id, 
+                                            is_ketua=is_ketua, 
+                                            kompetisi=kompetisi))
             
             Peserta.objects.filter(kompetisi=kompetisi).delete()
             Peserta.objects.bulk_create(peserta_baru)
@@ -83,7 +109,15 @@ def edit_enrollments(request, id_kompetisi):
             return render(request, "dashboard/edit_enrollments.html", context)
 
     current_peserta = Peserta.objects.filter(kompetisi=kompetisi)
-    initial_data = [{"nama": peserta.nama, "npm": peserta.npm} for peserta in current_peserta]
+
+    initial_data = [{"nama": peserta.nama,
+                    "jurusan": peserta.jurusan,
+                    "angkatan": peserta.angkatan,
+                    "no_hp": peserta.no_hp,
+                    "line_id": peserta.line_id,
+                    "is_ketua": peserta.is_ketua} 
+                    for peserta in current_peserta]
+
     context["enrollment_forms"] = EnrollmentFormSet(initial=initial_data)
     return render(request, "dashboard/edit_enrollments.html", context)
 
@@ -94,9 +128,17 @@ def view_enrollments(request, id_kompetisi):
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
     EnrollmentListFormSet = formset_factory(EnrollmentListForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota, extra=0)
     current_peserta = Peserta.objects.filter(kompetisi=kompetisi)
-    initial_data = [{"nama": peserta.nama, "npm": peserta.npm} for peserta in current_peserta]
-    context["enrollments"] = EnrollmentListFormSet(initial=initial_data)
 
+    initial_data = [{"nama": peserta.nama,
+                    "fakultas": peserta.fakultas,
+                    "jurusan": peserta.jurusan,
+                    "angkatan": peserta.angkatan,
+                    "no_hp": peserta.no_hp,
+                    "line_id": peserta.line_id,
+                    "is_ketua": peserta.is_ketua} 
+                    for peserta in current_peserta]
+
+    context["enrollments"] = EnrollmentListFormSet(initial=initial_data)
     return render(request, "dashboard/view_enrollments.html", context)
 
 

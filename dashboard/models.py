@@ -20,6 +20,16 @@ class Kompetisi(models.Model):
     deadline_pendaftaran = models.DateField()
     fakultas = models.ForeignKey(User, on_delete=models.CASCADE, related_name="kompetisi")
 
+    def get_ketua(self):
+        result = None
+
+        for peserta in self.peserta.all():
+            if peserta.is_ketua:
+                result = peserta
+                break
+
+        return result
+
     def get_deadline(self):
         return self.deadline_pendaftaran.strftime("%d - %b - %Y")
     
@@ -49,8 +59,15 @@ class Kompetisi(models.Model):
 
 class Peserta(models.Model):
     nama = models.CharField(max_length=100)
-    npm = models.CharField(max_length=10)
+    fakultas = models.CharField(max_length=50)
+    jurusan = models.CharField(max_length=50)
+    angkatan = models.CharField(max_length=4)
+    no_hp = models.CharField(max_length=15)
+    line_id = models.CharField(max_length=30)
+    # foto_ktm = models.ImageField()
+    # screenshot_siak = models.ImageField()
+    is_ketua = models.BooleanField()
     kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="peserta")
 
     def __str__(self):
-        return f"{self.npm} - {self.nama}"
+        return f"{self.nama}"

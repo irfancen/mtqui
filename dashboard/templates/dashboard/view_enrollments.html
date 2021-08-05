@@ -11,8 +11,13 @@ View - {{ competition.judul }}
 
     {% for enrollment in enrollments %}
         <div class="link-formset">
-            {{ enrollment.nama }}
-            {{ enrollment.npm }}
+            {{ enrollment.nama }} <br>
+            {{ enrollment.fakultas }}
+            {{ enrollment.jurusan }}
+            {{ enrollment.angkatan }} <br>
+            {{ enrollment.no_hp }}
+            {{ enrollment.line_id }} <br>
+            Ketua: {{ enrollment.is_ketua }}
         </div>
     {% endfor %}
 

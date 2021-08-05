@@ -13,8 +13,12 @@ Edit - {{ competition.judul }}
 
     {% for enrollment_form in enrollment_forms %}
         <div class="link-formset">
-            {{ enrollment_form.nama }}
-            {{ enrollment_form.npm }}
+            {{ enrollment_form.nama }} <br>
+            {{ enrollment_form.jurusan }}
+            {{ enrollment_form.angkatan }} <br>
+            {{ enrollment_form.no_hp }}
+            {{ enrollment_form.line_id }} <br>
+            Ketua: {{ enrollment_form.is_ketua }}
         </div>
     {% endfor %}
 
