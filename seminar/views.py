@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Seminar, EventDate
+from .models import Seminar
 from django.utils import timezone
 
 
@@ -12,9 +12,9 @@ def seminarlanding(request):
     for seminar in semua_seminar:
 
         # Find latest event from a list of events from a seminar
-        latest_event = EventDate.objects.filter(nama_seminar=seminar.id).last()
+        # latest_event = EventDate.objects.filter(nama_seminar=seminar.id).last()
 
-        if latest_event.date < timezone.localdate():
+        if seminar.d_day < timezone.localtime():
             seminar.is_past = True
 
 
@@ -28,22 +28,22 @@ def seminarlanding(request):
 def getseminar(request, id_seminar):
     seminar = Seminar.objects.get(id = id_seminar)
     guest_stars = seminar.guest_stars.all()
-    all_timeline = EventDate.objects.filter(nama_seminar=id_seminar)
-    all_received = [x for x in seminar.received.split(';') if x]
-    all_reqs = [x for x in seminar.requirement.split(';') if x]
-    pendaftaran_date = EventDate.objects.filter(nama_seminar=id_seminar, nama_kegiatan='Pendaftaran').first()
+    all_subjects = [x for x in seminar.subjects.split(';') if x]
 
-    latest_event = EventDate.objects.filter(nama_seminar=seminar.id).last()
-    if latest_event.date < timezone.localdate():
+    if seminar.d_day < timezone.localtime():
         seminar.is_past = True
+
+    dt = seminar.d_day - timezone.localtime()
+    air_time = str(dt.days) + "days" + " " + str(dt.seconds//3600) + "hrs" + " " + str((dt.seconds//60)%60) + "mins"
 
     argument = {
         'seminar': seminar,
         'guest_stars': guest_stars,
-        'all_timeline': all_timeline,
-        'all_received': all_received,
-        'all_reqs': all_reqs,
-        'pendaftaran_date': pendaftaran_date
+        'all_subjects': all_subjects,
+        'air_time': air_time
     }
     return render(request, 'each_seminar.html', argument)
+
+def getseminarform(request):
+    return render(request, 'form_template.html')
 

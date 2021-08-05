@@ -1,9 +1,33 @@
-{% extends 'base_seminar.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 
+{% block title %}
+    {{ seminar.judul_seminar }}
+{% endblock %}
+
+{% block head %}
+     <!-- My CSS-->
+    <link rel="stylesheet" href="{% static 'css/seminar.css' %}">
+{% endblock %}
+
+
 {% block content %}
-    <div class="landing_container">
+    <div class="kenta-head">
+        <div class="kenta-head-content">
+            <div>
+                {% if not seminar.is_past %}
+                 <span class="kenta-blurlable">🔴 AIRING IN: {{ air_time }} </span>
+                {% else %}
+                <span class="kenta-blurlable">🔴 AIRED IN: {{ seminar.d_day }} </span>
+                {% endif %}
+                <h2 style="font-weight: 700">{{ seminar.judul_seminar }}</h2>
+                <h3>Musabaqah Tilawatil Quran <br> Universitas Indonesia</h3>
+            </div>
+        </div>
+        <div class="kenta-head-img"
+             style="background-image: url('{% static 'img/workshop.svg' %}')">
+        </div>
     </div>
 
 
@@ -11,7 +35,7 @@
     <ul class="list-group list-group-flush">
     <li class="list-group-item">
         <h2>About</h2>
-        <p style="width: 40%">{{ seminar.about }}</p>
+        <p style="width: 60%" class="about">{{ seminar.about }}</p>
     </li>
     <li class="list-group-item">
         <h2>Guest Stars</h2>
@@ -23,54 +47,49 @@
     </li>
 
     <li class="list-group-item">
-        <h2>You will earn...</h2>
-        <ul class="received">
-            {% for received in all_received %}
-                <li>{{ received }}</li>
+        <h2>We’ll be talking about...</h2>
+        <ul class="subjects">
+            {% for subject in all_subjects %}
+                <li>{{ subject }}</li>
             {% endfor %}
         </ul>
     </li>
 
-    <li class="list-group-item">
-        <h2>You will need...</h2>
-        <ul class="reqs">
-            {% for req in all_reqs %}
-                <li>{{ req }}</li>
-            {% endfor %}
-        </ul>
-    </li>
+{#    <li class="list-group-item">#}
+{#        <h2>You will need...</h2>#}
+{#        <ul class="reqs">#}
+{#            {% for req in all_reqs %}#}
+{#                <li>{{ req }}</li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </li>#}
 
-    <li class="list-group-item">
-        <h2>Timeline</h2>
-        <ul class="guest_stars">
-            {% for timeline in all_timeline %}
-                <li>
-                    <p>{{ timeline.date }}</p>
-                    <p>{{ timeline.nama_kegiatan }}</p>
+{#    <li class="list-group-item">#}
+{#        <h2>Timeline</h2>#}
+{#        <ul class="timeline">#}
+{#            {% for timeline in all_timeline %}#}
+{#                <li>#}
+{#                    <p>{{ timeline.date }}</p>#}
+{#                    <p>{{ timeline.nama_kegiatan }}</p>#}
+{##}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{##}
+{#    </li>#}
 
-                </li>
-            {% endfor %}
-        </ul>
-
-    </li>
-
-    <li class="list-group-item">
-        <p>Interested?</p>
+    <li class="list-group-item" style="display:flex; justify-content: center;align-items: center; flex-direction: column">
+        <p style="margin: 5px">Interested?</p>
         {% if not seminar.is_past %}
-        <a href=""><button class="btn btn-info">ENROLL NOW!</button></a>
+        <a href="{% url 'seminar:get_seminar_form' %}"><button class="btn btn-info">ENROLL NOW!</button></a>
         {% else %}
         <button class="btn btn-info" disabled>ENROLL NOW!</button>
         {% endif %}
-        <p>Opens in {{ pendaftaran_date.date }}</p>
 
     </li>
 
     </ul>
 
     </div>
-
-
-
-
 
 {% endblock %}

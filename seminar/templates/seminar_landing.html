@@ -1,8 +1,28 @@
-{% extends 'base_seminar.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
+
+{% block title %}
+    Workshop
+{% endblock %}
+
+{% block head %}
+     <!-- My CSS-->
+    <link rel="stylesheet" href="{% static 'css/seminar.css' %}">
+{% endblock %}
+
 {% block content %}
-    <div class="landing_container">
+    <div class="kenta-head">
+        <div class="kenta-head-content">
+            <div>
+                <span class="kenta-blurlable">ABOUT US</span>
+                <h1>MTQ UI</h1>
+                <h3>Musabaqah Tilawatil Quran <br> Universitas Indonesia</h3>
+            </div>
+        </div>
+        <div class="kenta-head-img"
+             style="background-image: url('{% static 'img/landing_seminar.svg' %}')">
+        </div>
     </div>
 
 
@@ -12,16 +32,16 @@
     <div class="card_container">
         {% for seminar in seminar_list %}
         {% if not seminar.is_past %}
-            <div class="seminar_card" style="width: 250px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px">
-                <div class="seminar_img_cont" style="width: 250px; height: 250px; background-color: #51B1F6">
-{#                    <img src="{% static 'img/' %}">#}
+            <div class="seminar_card">
+                <div class="seminar_img_cont"">
+                    <img src="{{ seminar.seminar_image.url }}" alt="">
 
                 </div>
 
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
-                    <div class="know_more" style="width: 40%; display: flex">
-                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 13px; font-weight: 500">Know More!</p></a></div>
+                    <div class="know_more">
+                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 12px; font-weight: 500">Know More!</p></a></div>
                 </div>
 
             </div>
@@ -38,21 +58,21 @@
          {% for seminar in seminar_list %}
 
         {% if seminar.is_past %}
-            <div class="seminar_card" style="width: 250px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                <div class="seminar_img_cont" style="width: 250px; height: 250px; background-color: #51B1F6">
-{#                    <img src="{% static 'img/' %}">#}
+            <div class="seminar_card">
+                <div class="seminar_img_cont">
+                    <img src="{{ seminar.seminar_image.url }}" alt="">
 
                 </div>
 
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
-                    <div class="know_more" style="width: 40%; display: flex" >
-                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 13px; font-weight: 500">Know More!</p></a>
+                    <div class="know_more">
+                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 12px; font-weight: 500">Know More!</p></a>
                     </div>
                 </div>
 
             </div>
-        {% endif%}
+        {% endif %}
         {% endfor %}
     </div>
     </div>
