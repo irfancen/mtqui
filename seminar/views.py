@@ -24,7 +24,6 @@ def seminarlanding(request):
     randomized_seminar = random.sample(id_list, 3)
 
     for i in randomized_seminar:
-        # print(type(i))
         temp_seminar = Seminar.objects.get(id=i)
         air_time.append(temp_seminar.d_day - timezone.localtime())
 
@@ -35,13 +34,8 @@ def seminarlanding(request):
 
     for seminar in semua_seminar:
 
-        # Find latest event from a list of events from a seminar
-        # latest_event = EventDate.objects.filter(nama_seminar=seminar.id).last()
-
         if seminar.d_day < timezone.localtime():
             seminar.is_past = True
-
-    print(type(random_seminar[0]))
 
     argument = {
         'seminar_list': semua_seminar,
