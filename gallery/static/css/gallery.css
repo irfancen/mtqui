@@ -1,0 +1,45 @@
+.square{
+    float:left;
+    position: relative;
+    width: 20%;
+    padding-bottom : 20%; /* = width for a 1:1 aspect ratio */
+    margin:1.66%;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.img-modal-content{
+    width: 100%;
+    padding-bottom: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#imgmodal .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 50%;
+    margin: 0 auto;
+}
+
+.img_1_1{background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOzi229MsHahvEtnnmptgqINd0--GLp8yknA&usqp=CAU');}
+.img_1_2{background-image:url('https://media.comicbook.com/2021/05/rent-a-girlfriend-chizuru-1269746-1280x0.jpeg');}
+.img_1_3{background-image:url('https://i1.wp.com/anievo.id/wp-content/uploads/2021/04/Chizuru-Mizuhara-attack-on-titan-1.jpg');}
+.img_1_4{background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXbwMUcpAbPUcMfPpoJYT6AkL8S_kmXsGURg&usqp=CAU');}
+
+.img_2_1{background-image:url('https://9tailedkitsune.com/wp-content/uploads/2021/06/Mai-Sakurajima.jpg');}
+.img_2_2{background-image:url('https://images7.alphacoders.com/959/thumb-1920-959381.jpg');}
+.img_2_3{background-image:url('https://cdn.statically.io/img/66.media.tumblr.com/8c609f565e3f88a059c289168f293a6e/tumblr_pgx6guWU1e1v7g2l9_1280.png');}
+.img_2_4{background-image:url('https://i.pinimg.com/originals/64/c8/3f/64c83fcface19e4df22dc63da8e003bb.jpg');}
+
+.img_c_1_1{background-image:url('https://www.akibanation.com/wp-content/uploads/2019/11/golok-nata-shima-rin-1024x573.jpg');}
+.img_c_1_2{background-image:url('https://i.pinimg.com/736x/9f/a0/65/9fa06586a37730da2308a13ecee4dba2.jpg');}
+.img_c_1_3{background-image:url('https://i.pinimg.com/originals/2d/89/1f/2d891fabdbb77c381559abfdac679878.jpg');}
+.img_c_1_4{background-image:url('https://i.pinimg.com/originals/5e/d0/16/5ed016f97f9eee5bbcebd6c95cd8c419.jpg');}
+
+.img_c_2_1{background-image:url('https://static1.thegamerimages.com/wordpress/wp-content/uploads/2021/01/Beidou-Strong-Genshin-Impact-Cropped.jpg');}
+.img_c_2_2{background-image:url('https://img.esportsku.com/wp-content/uploads//2020/12/Beidou-e1610852458607-1200x1200.png');}
+.img_c_2_3{background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfBrj5xN_AizxqDKiZuAK1wJuVsTSSdbXqkA&usqp=CAU');}
+.img_c_2_4{background-image:url('https://oyster.ignimgs.com/mediawiki/apis.ign.com/genshin-impact/c/cd/Beidou.jpg');}
