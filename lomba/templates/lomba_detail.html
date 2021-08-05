@@ -9,7 +9,12 @@
     <div class="kenta-head">
         <div class="kenta-head-content">
             <div>
-                <span class="kenta-blurlable">AIRING NOW!</span>
+                {% if isActive %}
+                    <span class="kenta-blurlable">
+                        <span class="dot mr-1"></span>
+                        AIRING NOW!
+                    </span>
+                {% endif %}
                 <h1>{{ lomba.alias }}</h1>
                 <h3>{{ lomba.nama_lomba }}</h3>
             </div>
@@ -71,11 +76,11 @@
             <div class="kenta-timeline">
                 {% for item in timeline %}
                 <div class="kenta-timeline-bullet">
-                    {% if item.timeline < today %}
+                    {% if item.active == False %}
                         <svg class="kenta-timeline-past"
-                    {% elif item.timeline == today %}
+                    {% elif item.active == True %}
                         <svg class="kenta-timeline-now"
-                    {% else %}
+                    {% elif item.active == None %}
                         <svg
                                 {% endif %}
                                 width="40" height="59" viewBox="0 0 40 59" fill="yellow"
