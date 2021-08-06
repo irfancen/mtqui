@@ -141,10 +141,6 @@ STATIC_URL = '/static/'
 # This shouldn't be included in your Git repository.
 STATIC_ROOT = BASE_DIR / 'static'
 
-# You can use this directory to store project-wide static files.
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
