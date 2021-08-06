@@ -1,5 +1,6 @@
 .kenta-content > h1 {
     margin-bottom: 0em;
+    padding-top: 1em;
 }
 
 .dashboard-container {
@@ -10,7 +11,6 @@
 .user-details {
     display: flex;
     align-items: center;
-    /* padding-left: 1em !important; */
 }
 
 .makara-image {
@@ -42,11 +42,12 @@
     margin-bottom: 2em;
     border-radius: .5em;
     box-shadow: 0 0 .5em .1em #ddd;
-    /* font-weight: 500; */
+    font-weight: 500;
 }
 
 .competition-title {
     margin-bottom: .5em;
+    font-weight: 600;
 }
 
 .competition-detail {
@@ -92,4 +93,66 @@
 .competition-buttons:hover {
     text-decoration: none;
     color: blue;
+}
+
+@media only screen and (max-width: 768px) {
+    .kenta-content > h1 {
+        font-size: 3em;
+    }
+
+    .username {
+        font-size: 1.5em;
+    }
+
+    .makara-image {
+        width: 1.5em;
+    }
+
+    .competition-section > h2 {
+        font-size: 2em;
+    }
+
+    .competition-title {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .kenta-content > h1 {
+        font-size: 2.5em;
+    }
+
+    .username {
+        font-size: 1.25em;
+    }
+
+    .makara-image {
+        width: 1.25em;
+    }
+
+    .competition-section > h2 {
+        font-size: 1.5em;
+    }
+
+    .competition-card {
+        font-size: .8em;
+        padding-bottom: 1.2em;
+    }
+
+    .competition-title {
+        font-size: 1.5em;
+    }
+    
+    .competition-buttons {
+        border: none !important;
+        background-color: blue;
+        color: white;
+    }
+
+    .competition-buttons:hover {
+        border: none !important;
+        background-color: white;
+        color: blue;
+        border: 1px solid blue !important;
+    }
 }
