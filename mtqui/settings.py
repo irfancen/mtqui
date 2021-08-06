@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'dashboard',
     'seminar',
     'lomba',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,16 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = "authentication:login"
+
+
+# AWS S3 Bucket Config
+AWS_QUERYSTRING_AUTH = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIAWLMEKB3IFVREY53K'
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'mtqui2021'
