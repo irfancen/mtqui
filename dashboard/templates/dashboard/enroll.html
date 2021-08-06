@@ -5,25 +5,37 @@
 Enroll - {{ competition.judul }}
 {% endblock title %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+{% endblock head %}
+
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token  %}
+<div class="kenta-content">
+    <h2>{{ competition.judul }}</h2>
 
-    {{ enrollment_forms.management_form }}
-
-    {% for enrollment_form in enrollment_forms %}
-        <div class="link-formset">
-            {{ enrollment_form.nama }} <br>
-            {{ enrollment_form.jurusan }}
-            {{ enrollment_form.angkatan }} <br>
-            {{ enrollment_form.no_hp }}
-            {{ enrollment_form.line_id }} <br>
-            Ketua: {{ enrollment_form.is_ketua }}
-        </div>
-    {% endfor %}
-
-    <br><button type="submit">Daftar</button>
-</form>
+    <div class="dashboard-container enrollment-form">
+        <form method="POST">
+            {% csrf_token  %}
+        
+            {{ enrollment_forms.management_form }}
+        
+            {% for enrollment_form in enrollment_forms %}
+                <div class="link-formset">
+                    {{ enrollment_form.nama }} <br>
+                    {{ enrollment_form.jurusan }}
+                    {{ enrollment_form.angkatan }} <br>
+                    {{ enrollment_form.no_hp }}
+                    {{ enrollment_form.line_id }} <br>
+                    Ketua: {{ enrollment_form.is_ketua }}
+                </div>
+            {% endfor %}
+            
+            <div>
+                <button type="submit">Daftar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 

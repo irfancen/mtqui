@@ -60,9 +60,11 @@ def enroll(request, id_kompetisi):
         
         else:
             context["enrollment_forms"] = enrollment_formset
+            context["competition"] = kompetisi
             return render(request, "dashboard/enroll.html", context)
 
     context["enrollment_forms"] = EnrollmentFormSet()
+    context["competition"] = kompetisi
     return render(request, "dashboard/enroll.html", context)
 
 @login_required(redirect_field_name="dashboard:home")
@@ -106,6 +108,7 @@ def edit_enrollments(request, id_kompetisi):
         
         else:
             context["enrollment_forms"] = enrollment_formset
+            context["competition"] = kompetisi
             return render(request, "dashboard/edit_enrollments.html", context)
 
     current_peserta = Peserta.objects.filter(kompetisi=kompetisi)
@@ -119,6 +122,7 @@ def edit_enrollments(request, id_kompetisi):
                     for peserta in current_peserta]
 
     context["enrollment_forms"] = EnrollmentFormSet(initial=initial_data)
+    context["competition"] = kompetisi
     return render(request, "dashboard/edit_enrollments.html", context)
 
 @login_required(redirect_field_name="dashboard:home")
@@ -139,6 +143,7 @@ def view_enrollments(request, id_kompetisi):
                     for peserta in current_peserta]
 
     context["enrollments"] = EnrollmentListFormSet(initial=initial_data)
+    context["competition"] = kompetisi
     return render(request, "dashboard/view_enrollments.html", context)
 
 
