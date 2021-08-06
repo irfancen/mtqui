@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'mtqui.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'mtqui',
+            'NAME': 'postgres',
             'USER': 'postgres',
             'PASSWORD': '2bHPq7QTWTA6PXebxFhV',
             'HOST': 'mtqui.cpro322xadcb.ap-southeast-1.rds.amazonaws.com',
