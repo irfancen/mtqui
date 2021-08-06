@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0(9qab8gumh_k=4btp4_d(^n86_31dptpm1un@-c0-5g%-ft(t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mtqui.id']
 
 
 # Application definition
@@ -78,17 +78,6 @@ WSGI_APPLICATION = 'mtqui.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-PRODUCTION = os.environ.get('DATABASE_URL') is not None
-if PRODUCTION:
-    DEBUG = False
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mtqui.id']
-    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'mtqui',
@@ -98,7 +87,6 @@ if PRODUCTION:
             'PORT': '5432',
         }
     }
-
 
 
 # Password validation
