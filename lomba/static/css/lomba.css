@@ -35,10 +35,6 @@ h2, h4, h5 {
     width: 5%;
 }
 
-.lomba-list {
-    padding: 5em 4em 3em;
-}
-
 .card-container {
     display: flex;
     flex-flow: row wrap;
@@ -55,7 +51,7 @@ h2, h4, h5 {
 
 .card-img-top {
     overflow: hidden;
-    height: 25vh;
+    height: 40vh;
 }
 
 .card-content {
