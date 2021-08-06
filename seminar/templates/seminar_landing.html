@@ -12,18 +12,6 @@
 {% endblock %}
 
 {% block content %}
-{#    <div class="kenta-head">#}
-{#        <div class="kenta-head-content">#}
-{#            <div>#}
-{#                <span class="kenta-blurlable">ABOUT US</span>#}
-{#                <h1>MTQ UI</h1>#}
-{#                <h3>Musabaqah Tilawatil Quran <br> Universitas Indonesia</h3>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="kenta-head-img"#}
-{#             style="background-image: url('{% static 'img/landing_seminar.svg' %}')">#}
-{#        </div>#}
-{#    </div>#}
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -43,7 +31,7 @@
                 {% endif %}
                 <h2 style="font-weight: 700">{{ first_seminar.judul_seminar }}</h2>
                 <h5>{{ first_seminar.about }}</h5>
-            <a href="{% url 'seminar:get_seminar' first_seminar.id %}"><button class="btn btn-light" style="width: 150px">Know More!</button></a>
+            <a href="{% url 'seminar:get_seminar' first_seminar.id %}"><button class="btn btn-light" style="width: 150px" id="know_more_car">Know More!</button></a>
             </div>
         </div>
         <div class="kenta-head-img"
@@ -62,7 +50,7 @@
                 {% endif %}
                 <h2 style="font-weight: 700">{{ second_seminar.judul_seminar }}</h2>
                 <h5>{{ second_seminar.about }}</h5>
-                <a href="{% url 'seminar:get_seminar' second_seminar.id %}"><button class="btn btn-light" style="width: 150px">Know More!</button></a>
+                <a href="{% url 'seminar:get_seminar' second_seminar.id %}"><button class="btn btn-light" style="width: 150px" id="know_more_car">Know More!</button></a>
             </div>
         </div>
         <div class="kenta-head-img"
@@ -81,7 +69,7 @@
                 {% endif %}
                 <h2 style="font-weight: 700">{{ third_seminar.judul_seminar }}</h2>
                 <h5>{{ third_seminar.about }}</h5>
-                <a href="{% url 'seminar:get_seminar' third_seminar.id %}"><button class="btn btn-light" style="width: 150px">Know More!</button></a>
+                <a href="{% url 'seminar:get_seminar' third_seminar.id %}"><button class="btn btn-light" style="width: 150px" id="know_more_car">Know More!</button></a>
             </div>
         </div>
         <div class="kenta-head-img"

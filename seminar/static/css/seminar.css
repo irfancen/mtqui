@@ -95,6 +95,19 @@ svg {
     max-height: 100%;
 }
 
+#ff-title-root {
+        font-weight: 700;
+}
+
+#know_more_car {
+    background-color: rgba(61, 84, 166, 0.2);
+    background-blend-mode: multiply;
+    backdrop-filter: blur(50px);
+    color: white;
+    border-style: none;
+
+}
+
 @media screen and (max-width: 1024px) {
 
     .about {
