@@ -38,6 +38,7 @@
 
 .competition-card {
     padding: 1.5em;
+    padding-bottom: .75em;
     margin-bottom: 2em;
     border-radius: .5em;
     box-shadow: 0 0 .5em .1em #ddd;
@@ -77,3 +78,18 @@
     filter: invert(38%) sepia(87%) saturate(1762%) hue-rotate(332deg) brightness(106%) contrast(107%);
 }
 
+.competition-buttons {
+    text-transform: uppercase;
+    border-top: 1px solid blue !important;
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: blue;
+    text-align: center;
+}
+
+.competition-buttons:hover {
+    text-decoration: none;
+    color: blue;
+}
