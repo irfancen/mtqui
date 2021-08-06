@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <p><img src="{% get_static_prefix %}img/makara/{{ metadata_fakultas.makara_image_code }}.png" alt="" style="width: 50px; vertical-align: middle;"> {{ metadata_fakultas.singkatan_fakultas }}</p>
+
+    <p><a href="{% url 'authentication:logout' %}">Logout</a></p>
+
+    <h2>Available Competitions</h2>
+
+    {% if competitions %}
+        {% for competition in competitions %}
+            <div style="background-color: bisque;">
+                <h3>{{ competition.judul }}</h3>
+                <p>QUOTA {{ competition.kuota }}</p>
+                <p>ENROLLED {{ competition.peserta.all.count }}</p>
+                <p>{{ competition.get_deadline }}</p>
+
+                {% if competition.can_see_enrollments %}
+                    <p><a href="{% url 'dashboard:view' id_kompetisi=competition.id %}">SEE ENROLLMENTS</a></p>
+                {% endif %}
+
+                {% if competition.can_edit_enrollments %}
+                    <p><a href="{% url 'dashboard:edit' id_kompetisi=competition.id %}">SEE OR EDIT ENROLLMENTS</a></p>
+                {% endif %}
+
+                {% if competition.can_enroll %}
+                    <p><a href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">ENROLL NOW!</a></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

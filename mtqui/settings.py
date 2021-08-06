@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'homepage',
     'gallery',
+    'authentication',
+    'dashboard',
+    'seminar',
+    'lomba',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +64,7 @@ ROOT_URLCONF = 'mtqui.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(os.path.join(BASE_DIR, 'templates')), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,8 +121,6 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Jakarta'
 
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
 USE_L10N = True
@@ -146,3 +150,16 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = "authentication:login"
+
+
+# AWS S3 Bucket Config
+AWS_QUERYSTRING_AUTH = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIAWLMEKB3IFVREY53K'
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'mtqui2021'
