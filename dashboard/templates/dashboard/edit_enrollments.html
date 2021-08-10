@@ -13,24 +13,40 @@ Edit - {{ competition.judul }}
 <div class="kenta-content">
     <h2>{{ competition.judul }}</h2>
 
-    <div class="dashboard-container enrollment-form">
-        <form method="POST">
-            {% csrf_token  %}
-        
+    <div class="dashboard-container form-container">
+        <form method="POST"> {% csrf_token  %}
             {{ enrollment_forms.management_form }}
         
             {% for enrollment_form in enrollment_forms %}
-                <div class="link-formset">
-                    {{ enrollment_form.nama }} <br>
-                    {{ enrollment_form.jurusan }}
-                    {{ enrollment_form.angkatan }} <br>
-                    {{ enrollment_form.no_hp }}
-                    {{ enrollment_form.line_id }} <br>
-                    Ketua: {{ enrollment_form.is_ketua }}
+                <div class="form-single">
+                    <div class="form-checkbox">
+                        Ketua: {{ enrollment_form.is_ketua }}
+                    </div>
+
+                    <div class="form-fields">
+                        <table class="form-fields-table">
+                            <tr>
+                                <td colspan="2">{{ enrollment_form.nama }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ enrollment_form.jurusan }}</td>
+                                <td>{{ enrollment_form.angkatan }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ enrollment_form.no_hp }}</td>
+                                <td>{{ enrollment_form.line_id }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- delete row button -->
                 </div>
             {% endfor %}
-            
-            <div>
+                
+            <!-- add row button -->
+            <div class="form-submit">
                 <button type="submit">Daftar</button>
             </div>
         </form>
@@ -42,7 +58,7 @@ Edit - {{ competition.judul }}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{% static 'dashboard/js/jquery.formset.js' %}"></script>
 <script>
-    $('.link-formset').formset({
+    $('.form-single').formset({
         addText: 'add peserta',
         deleteText: 'hapus'
     });

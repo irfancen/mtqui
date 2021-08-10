@@ -95,6 +95,51 @@
     color: blue;
 }
 
+.form-single {
+    background-color: bisque;
+    border: 1px solid black;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.form-checkbox {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-fields {
+    flex-grow: 10;
+}
+
+.form-fields-table {
+    width: 100%;
+}
+
+td {
+    padding: .25em;
+}
+
+.form-input-field {
+    width: 100%;
+}
+
+.form-delete {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-add {
+    margin-bottom: 1em;
+}
+
+.form-submit {
+    margin-bottom: 1em;
+}
+
 @media only screen and (max-width: 768px) {
     .kenta-content > h1 {
         font-size: 3em;

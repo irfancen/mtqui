@@ -6,6 +6,7 @@ class EnrollmentForm(forms.Form):
                     max_length=100,
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'Nama Peserta',
+                        'class' : 'form-input-field',
                     }),
                     required=False)
    
@@ -13,6 +14,7 @@ class EnrollmentForm(forms.Form):
                     max_length=50,
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'Jurusan',
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -20,6 +22,7 @@ class EnrollmentForm(forms.Form):
                     max_length=4,
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'Angkatan',
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -27,6 +30,7 @@ class EnrollmentForm(forms.Form):
                     max_length=15,
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'No. HP',
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -34,6 +38,7 @@ class EnrollmentForm(forms.Form):
                     max_length=30,
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'ID Line',
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -45,6 +50,7 @@ class EnrollmentListForm(forms.Form):
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'Nama Peserta',
                         'readonly' : True,
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -53,6 +59,7 @@ class EnrollmentListForm(forms.Form):
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'Fakultas',
                         'readonly' : True,
+                        'class' : 'form-input-field',
                     }),
                     required=False)
     
@@ -61,6 +68,7 @@ class EnrollmentListForm(forms.Form):
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'Jurusan',
                         'readonly' : True,
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -69,6 +77,7 @@ class EnrollmentListForm(forms.Form):
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'Angkatan',
                         'readonly' : True,
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -77,6 +86,7 @@ class EnrollmentListForm(forms.Form):
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'No. HP',
                         'readonly' : True,
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
@@ -85,6 +95,7 @@ class EnrollmentListForm(forms.Form):
                     widget=forms.TextInput(attrs={
                         'placeholder' : 'ID Line',
                         'readonly' : True,
+                        'class' : 'form-input-field',
                     }),
                     required=False)
 
