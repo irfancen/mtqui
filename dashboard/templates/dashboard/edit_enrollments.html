@@ -6,6 +6,7 @@ Edit - {{ competition.judul }}
 {% endblock title %}
 
 {% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
 {% endblock head %}
 
@@ -20,7 +21,7 @@ Edit - {{ competition.judul }}
             {% for enrollment_form in enrollment_forms %}
                 <div class="form-single">
                     <div class="form-checkbox">
-                        Ketua: {{ enrollment_form.is_ketua }}
+                        {{ enrollment_form.is_ketua }}
                     </div>
 
                     <div class="form-fields">

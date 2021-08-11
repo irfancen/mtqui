@@ -42,7 +42,11 @@ class EnrollmentForm(forms.Form):
                     }),
                     required=False)
 
-    is_ketua = forms.BooleanField(required=False)
+    is_ketua = forms.BooleanField(
+                    widget=forms.CheckboxInput(attrs={
+                        'class' : 'checkbox',
+                    }),
+                    required=False)
 
 class EnrollmentListForm(forms.Form):
     nama = forms.CharField(
@@ -102,6 +106,7 @@ class EnrollmentListForm(forms.Form):
     is_ketua = forms.BooleanField(
                     widget=forms.CheckboxInput(attrs={
                         'disabled' : True,
+                        'class' : 'checkbox',
                     }),
                     required=False)
 

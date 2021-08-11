@@ -109,6 +109,32 @@
     justify-content: center;
 }
 
+.checkbox {
+    appearance: none;
+    height: 3em;
+    width: 3em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox::after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f521";
+    font-weight: 900;
+    font-size: 2em;
+    color: #bbb;
+}
+
+.checkbox:hover::after {
+    color: black;
+}
+
+.checkbox:checked::after {
+    color: rgb(230, 186, 66);
+}
+
 .form-fields {
     flex-grow: 10;
 }
