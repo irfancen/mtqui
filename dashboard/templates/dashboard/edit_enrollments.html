@@ -27,17 +27,52 @@ Edit - {{ competition.judul }}
                     <div class="form-fields">
                         <table class="form-fields-table">
                             <tr>
-                                <td colspan="2">{{ enrollment_form.nama }}</td>
+                                <td colspan="2">
+                                    {{ enrollment_form.nama }}
+                                    {% if enrollment_form.nama.errors %}
+                                        {% for error in enrollment_form.nama.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
                             </tr>
 
                             <tr>
-                                <td>{{ enrollment_form.jurusan }}</td>
-                                <td>{{ enrollment_form.angkatan }}</td>
+                                <td>
+                                    {{ enrollment_form.jurusan }}
+                                    {% if enrollment_form.jurusan.errors %}
+                                        {% for error in enrollment_form.jurusan.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ enrollment_form.angkatan }}
+                                    {% if enrollment_form.angkatan.errors %}
+                                        {% for error in enrollment_form.angkatan.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
                             </tr>
 
                             <tr>
-                                <td>{{ enrollment_form.no_hp }}</td>
-                                <td>{{ enrollment_form.line_id }}</td>
+                                <td>
+                                    {{ enrollment_form.no_hp }}
+                                    {% if enrollment_form.no_hp.errors %}
+                                        {% for error in enrollment_form.no_hp.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ enrollment_form.line_id }}
+                                    {% if enrollment_form.line_id.errors %}
+                                        {% for error in enrollment_form.line_id.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -45,6 +80,12 @@ Edit - {{ competition.judul }}
                     <!-- delete row button -->
                 </div>
             {% endfor %}
+
+            {% if enrollment_forms.non_form_errors %}
+                {% for error in enrollment_forms.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
                 
             <!-- add row button -->
             <div class="form-submit">
