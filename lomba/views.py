@@ -50,6 +50,7 @@ def lomba_detail(request, nama_lomba):
                 if temp.timeline <= today:
                     trainingTL.filter(timeline=temp.timeline).update(active=True)
             elif item.timeline < today:
+                trainingTL.filter(timeline=item.timeline).update(active=False)
                 trainingTL.filter(timeline=temp.timeline).update(active=False)
             temp = item
 
