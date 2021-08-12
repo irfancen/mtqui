@@ -64,8 +64,9 @@ class Peserta(models.Model):
     angkatan = models.CharField(max_length=4)
     no_hp = models.CharField(max_length=15)
     line_id = models.CharField(max_length=30)
-    # foto_ktm = models.ImageField()
-    # screenshot_siak = models.ImageField()
+    foto_ktm = models.ImageField(upload_to="foto_ktm")
+    screenshot_siak = models.ImageField(upload_to="screenshot_siak")
+    file_cv = models.FileField(upload_to="file_cv")
     is_ketua = models.BooleanField()
     kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="peserta")
 

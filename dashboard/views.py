@@ -156,28 +156,30 @@ def view_enrollments(request, id_kompetisi):
 def debug(request):
     print("====================== START ======================")
 
-    print("=== USER ===")
-    for user in User.objects.all():
-        if user.username == "admin":
-            continue
+    # print("=== USER ===")
+    # for user in User.objects.all():
+    #     if user.username == "admin":
+    #         continue
 
-        print(user.username)
-        print(user.metadata.nama_fakultas)
-        print(user.metadata.singkatan_fakultas)
-        print(user.metadata.makara_image_code)
-        print(user.kompetisi.all())
-        print("-----")
+    #     print(user.username)
+    #     print(user.metadata.nama_fakultas)
+    #     print(user.metadata.singkatan_fakultas)
+    #     print(user.metadata.makara_image_code)
+    #     print(user.kompetisi.all())
+    #     print("-----")
 
-    print("=== KOMPETISI ===")
-    for kompetisi in Kompetisi.objects.all():
-        print(kompetisi)
-        print(kompetisi.peserta.all())
-        print("-----")
+    # print("=== KOMPETISI ===")
+    # for kompetisi in Kompetisi.objects.all():
+    #     print(kompetisi)
+    #     print(kompetisi.peserta.all())
+    #     print("-----")
 
     print("=== PESERTA ===")
     for peserta in Peserta.objects.all():
         print(peserta)
-        print(peserta.kompetisi)
+        print(peserta.foto_ktm.url)
+        print(peserta.screenshot_siak.url)
+        print(peserta.file_cv.url)
         print("-----")
 
     print("======================  END  ======================")
