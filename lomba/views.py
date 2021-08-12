@@ -21,8 +21,8 @@ def lomba_list(request):
 
     return render(request, "lomba.html", args)
 
-def lomba_detail(request, nama_lomba):
-    lomba = Lomba.objects.get(nama_lomba=nama_lomba)
+def lomba_detail(request, alias):
+    lomba = Lomba.objects.get(alias=alias)
     rules = LombaRule.objects.filter(nama_lomba=lomba)
     learnt = TrainingLearnt.objects.filter(nama_lomba=lomba)
     trainingTL = TrainingTimeline.objects.filter(nama_lomba=lomba)

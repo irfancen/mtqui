@@ -40,7 +40,7 @@
 
                                 <h1>{{ lomba.alias }}</h1>
                                 <h3>{{ lomba.nama_lomba }}</h3>
-                                <a href="{% url 'lomba:lomba_detail' lomba.nama_lomba %}" class="btn btn-dark">
+                                <a href="{% url 'lomba:lomba_detail' lomba.alias %}" class="btn btn-dark">
                                     KNOW MORE!
                                 </a>
                             </div>
@@ -84,7 +84,7 @@
                                     {% endfor %}
                                 </div>
                                 <div class="card-know-more">
-                                    <a href="{% url 'lomba:lomba_detail' lomba.nama_lomba %}">KNOW MORE!</a>
+                                    <a href="{% url 'lomba:lomba_detail' lomba.alias %}">KNOW MORE!</a>
                                 </div>
                             </div>
 
