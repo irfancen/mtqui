@@ -10,7 +10,7 @@ class Lomba(models.Model):
     nama_lomba = models.CharField(max_length=100)
     alias = models.CharField(max_length=20)
     image = models.ImageField(null=True, blank=True)
-    image_url = models.TextField()
+    image_url = models.TextField(null=True, blank=True, default='https://images.unsplash.com/photo-1519818187420-8e49de7adeef')
     about = models.TextField()
     start_date = models.DateField()
     finish_date = models.DateField()
