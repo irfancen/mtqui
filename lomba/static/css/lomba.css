@@ -36,14 +36,13 @@ h2, h4, h5 {
 }
 
 .card-container {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
 }
 
 .card {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    flex: 0 0 25%;
-    min-width: 30%;
 }
 
 .card-body {
@@ -52,7 +51,7 @@ h2, h4, h5 {
 
 .card-img-top {
     object-fit: cover;
-    height: 40vh;
+    height: 50vh;
 }
 
 .card-content {
@@ -97,13 +96,15 @@ hr {
     border-top: 1px solid #3D54A6;
 }
 
-@media only screen and (max-width: 976px) {
+@media only screen and (max-width: 991px) {
     .card-container {
-        display: unset;
-        flex-flow: unset;
+        grid-template-columns: repeat(2, 1fr);
     }
+}
 
-    .card {
-        max-width: 40%;
+@media only screen and (max-width: 828px) {
+    .card-container {
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0 20%;
     }
 }
