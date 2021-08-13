@@ -67,38 +67,36 @@
     </div>
     <div class="kenta-content">
         <h1>Know <br> Now!</h1>
-        <div>
-            <div class="card-container">
-                {% for lomba in lombaList %}
-                    <div class="card m-3">
-                        {% if lomba.image %}
-                            <img class="card-img-top" src="{{ lomba.image.url }}" alt="Card image">
-                        {% else %}
-                            <img class="card-img-top" src="{{ lomba.image_url }}" alt="Card image">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5>{{ lomba.nama_lomba }}</h5>
-                            <div class="card-content mt-4">
-                                <div class="card-timeline-now">
-                                    <span class="dot mr-1"></span>
-                                    {% for k,v in active.items %}
-                                        {% if k.nama_lomba == lomba.nama_lomba %}
-                                            {% if v == None %}
-                                                Tidak ada kegiatan
-                                            {% else %}
-                                                {{ v.deskripsi }}
-                                            {% endif %}
+        <div class="card-container">
+            {% for lomba in lombaList %}
+                <div class="card m-3">
+                    {% if lomba.image %}
+                        <img class="card-img-top" src="{{ lomba.image.url }}" alt="Card image">
+                    {% else %}
+                        <img class="card-img-top" src="{{ lomba.image_url }}" alt="Card image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5>{{ lomba.nama_lomba }}</h5>
+                        <div class="card-content mt-4">
+                            <div class="card-timeline-now">
+                                <span class="dot mr-1"></span>
+                                {% for k,v in active.items %}
+                                    {% if k.nama_lomba == lomba.nama_lomba %}
+                                        {% if v == None %}
+                                            Tidak ada kegiatan
+                                        {% else %}
+                                            {{ v.deskripsi }}
                                         {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div class="card-know-more">
-                                    <a href="{% url 'lomba:lomba_detail' lomba.alias %}">KNOW MORE!</a>
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="card-know-more">
+                                <a href="{% url 'lomba:lomba_detail' lomba.alias %}">KNOW MORE!</a>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
