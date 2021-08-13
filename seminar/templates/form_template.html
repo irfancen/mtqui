@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+   Form Pendaftaran Workshop
+{% endblock %}
+
+{% block head %}
+     <!-- My CSS-->
+    <link rel="stylesheet" href="{% static 'css/seminar.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="kenta-head">
+        <div class="kenta-head-content">
+            <div>
+                <span class="kenta-blurlable">ABOUT US</span>
+                <h1>MTQ UI</h1>
+                <h3>Musabaqah Tilawatil Quran <br> Universitas Indonesia</h3>
+            </div>
+        </div>
+        <div class="kenta-head-img"
+             style="background-image: url('{% static 'img/landing_seminar.svg' %}')">
+        </div>
+    </div>
+
+    <div style="margin-top: 70px; margin-bottom: 70px">
+    <div class="container" id="ff-compose"></div>
+    <script async defer src="https://formfacade.com/include/114999475763209462002/form/1FAIpQLSfSdiuYWFLnPEzjmIo6QwpV7QzR5VLEv48qAFUu6OLrRffbzg/bootstrap.js?div=ff-compose"></script>
+    </div>
+{% endblock %}

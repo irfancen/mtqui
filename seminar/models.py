@@ -11,20 +11,13 @@ class Seminar(models.Model):
     judul_seminar = models.CharField(max_length=200)
     about = models.CharField(max_length=300)
     guest_stars = models.ManyToManyField(GuestStars)
-    received = models.CharField(max_length=500)
-    requirement = models.CharField(max_length=500)
+    subjects = models.TextField()
+    d_day = models.DateTimeField()
+    seminar_image = models.ImageField(default='1955361.jpg')
     is_past = models.BooleanField(default=False)
 
     def __str__(self):
         return self.judul_seminar
 
-
-class EventDate(models.Model):
-    nama_seminar = models.ForeignKey(Seminar, on_delete=models.CASCADE)
-    nama_kegiatan = models.CharField(max_length=200)
-    date = models.DateField()
-
-    def __str__(self):
-        return "[" + str(self.nama_seminar) + "] " + self.nama_kegiatan + " pada " + str(self.date)
 
 
