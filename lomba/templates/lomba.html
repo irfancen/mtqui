@@ -3,6 +3,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/lomba.css' %}">
+    <script src="{% static 'js/lomba.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -39,13 +40,17 @@
 
                                 <h1>{{ lomba.alias }}</h1>
                                 <h3>{{ lomba.nama_lomba }}</h3>
-                                <a href="{% url 'lomba:lomba_detail' lomba.nama_lomba %}" class="btn btn-dark">
+                                <a href="{% url 'lomba:lomba_detail' lomba.alias %}" class="btn btn-dark">
                                     KNOW MORE!
                                 </a>
                             </div>
                         </div>
                         <div class="kenta-head-img">
-                            <img class="d-block w-100" src="{{ lomba.image_url }}" alt="Lomba Image">
+                            {% if lomba.image %}
+                                <img class="d-block w-100" style="object-fit: cover" src="{{ lomba.image.url }}" alt="Lomba Image">
+                            {% else %}
+                                <img class="d-block w-100" style="object-fit: cover" src="{{ lomba.image_url }}" alt="Lomba Image">
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -62,35 +67,36 @@
     </div>
     <div class="kenta-content">
         <h1>Know <br> Now!</h1>
-        <div>
-            <div class="card-container">
-                {% for lomba in lombaList %}
-                    <div class="card m-3">
-                        <img class="card-img-top" src="{{ lomba.image_url }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5>{{ lomba.nama_lomba }}</h5>
-                            <div class="card-content mt-4">
-                                <div class="card-timeline-now">
-                                    <span class="dot mr-1"></span>
-                                    {% for k,v in active.items %}
-                                        {% if k.nama_lomba == lomba.nama_lomba %}
-                                            {% if v == None %}
-                                                Tidak ada kegiatan
-                                            {% else %}
-                                                {{ v.deskripsi }}
-                                            {% endif %}
+        <div class="card-container">
+            {% for lomba in lombaList %}
+                <div class="card m-3">
+                    {% if lomba.image %}
+                        <img class="card-img-top" src="{{ lomba.image.url }}" alt="Card image">
+                    {% else %}
+                        <img class="card-img-top" src="{{ lomba.image_url }}" alt="Card image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5>{{ lomba.nama_lomba }}</h5>
+                        <div class="card-content mt-4">
+                            <div class="card-timeline-now">
+                                <span class="dot mr-1"></span>
+                                {% for k,v in active.items %}
+                                    {% if k.nama_lomba == lomba.nama_lomba %}
+                                        {% if v == None %}
+                                            Tidak ada kegiatan
+                                        {% else %}
+                                            {{ v.deskripsi }}
                                         {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div class="card-know-more">
-                                    <a href="{% url 'lomba:lomba_detail' lomba.nama_lomba %}">KNOW MORE!</a>
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
-
+                            <div class="card-know-more">
+                                <a href="{% url 'lomba:lomba_detail' lomba.alias %}">KNOW MORE!</a>
+                            </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
