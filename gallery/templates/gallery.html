@@ -11,51 +11,58 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Judul -->
-    <h1>Gallery</h1>
+    <div class="kenta-content">
+        <!-- Judul -->
+        <h1>Gallery</h1>
 
-    <!-- Section Grand Opening -->
-    <div>
-        <h3>Grand Opening</h3>
-        <div class="container" id="gallery-go">
-            <div class="row" id="gallery-go1">
-                <div class="img_1_1 col square"></div>
-                <div class="img_1_2 col square"></div>
-                <div class="img_1_3 col square"></div>
-                <div class="img_1_4 col square"></div>
-            </div>
-            <div class="row" id="gallery-go2">
-                <div class="img_2_1 col square"></div>
-                <div class="img_2_2 col square"></div>
-                <div class="img_2_3 col square"></div>
-                <div class="img_2_4 col square"></div>
+        <!-- Section Grand Opening -->
+        <div>
+            <h3>Grand Opening</h3>
+            <div class="img-gallery">
+                <ul class="rafi-grid">
+                    {% for img in go_img %}
+                    <li class="rafi-li-grid">
+                        <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-    </div>
 
-    <!-- Section Competition -->
-    <div>
-        <h3>Competition</h3>
-        <div class="container" id="gallery-competition">
-            <div class="row" id="gallery-c1">
-                <div class="img_c_1_1 col square"></div>
-                <div class="img_c_1_2 col square"></div>
-                <div class="img_c_1_3 col square"></div>
-                <div class="img_c_1_4 col square"></div>
-            </div>
-            <div class="row" id="gallery-c2">
-                <div class="img_c_2_1 col square"></div>
-                <div class="img_c_2_2 col square"></div>
-                <div class="img_c_2_3 col square"></div>
-                <div class="img_c_2_4 col square"></div>
+        <!-- Section Competition -->
+        <div>
+            <h3>Competition</h3>
+            <div class="img-gallery">
+                <ul class="rafi-grid">
+                    {% for img in comp_img %}
+                    <li class="rafi-li-grid">
+                        <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="imgmodal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <img class="img-responsive" id="show-img">
+        <!-- Section Closing Ceremony -->
+        <div>
+            <h3>Closing Ceremony</h3>
+            <div class="img-gallery">
+                <ul class="rafi-grid">
+                    {% for img in cc_img %}
+                    <li class="rafi-li-grid">
+                        <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="imgmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <img class="img-responsive" id="show-img">
+                </div>
             </div>
         </div>
     </div>
