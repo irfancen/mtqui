@@ -9,6 +9,7 @@ class Mentor(models.Model):
 class Lomba(models.Model):
     nama_lomba = models.CharField(max_length=100)
     alias = models.CharField(max_length=20)
+    image = models.ImageField(null=True, blank=True)
     image_url = models.TextField()
     about = models.TextField()
     start_date = models.DateField()

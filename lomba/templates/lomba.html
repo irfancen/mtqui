@@ -46,7 +46,11 @@
                             </div>
                         </div>
                         <div class="kenta-head-img">
-                            <img class="d-block w-100" src="{{ lomba.image_url }}" alt="Lomba Image">
+                            {% if lomba.image %}
+                                <img class="d-block w-100" style="object-fit: cover" src="{{ lomba.image.url }}" alt="Lomba Image">
+                            {% else %}
+                                <img class="d-block w-100" style="object-fit: cover" src="{{ lomba.image_url }}" alt="Lomba Image">
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -67,7 +71,11 @@
             <div class="card-container">
                 {% for lomba in lombaList %}
                     <div class="card m-3">
-                        <img class="card-img-top" src="{{ lomba.image_url }}" alt="Card image cap">
+                        {% if lomba.image %}
+                            <img class="card-img-top" src="{{ lomba.image.url }}" alt="Card image">
+                        {% else %}
+                            <img class="card-img-top" src="{{ lomba.image_url }}" alt="Card image">
+                        {% endif %}
                         <div class="card-body">
                             <h5>{{ lomba.nama_lomba }}</h5>
                             <div class="card-content mt-4">
