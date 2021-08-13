@@ -42,6 +42,12 @@ class EnrollmentForm(forms.Form):
                     }),
                     required=False)
 
+    foto_ktm = forms.ImageField(required=False)
+
+    screenshot_siak = forms.ImageField(required=False)
+
+    file_cv = forms.FileField(required=False)
+
     is_ketua = forms.BooleanField(
                     widget=forms.CheckboxInput(attrs={
                         'class' : 'checkbox',

@@ -76,7 +76,7 @@ def edit_enrollments(request, id_kompetisi):
     EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota, extra=0)
 
     if request.method == "POST":
-        enrollment_formset = EnrollmentFormSet(request.POST)
+        enrollment_formset = EnrollmentFormSet(request.POST, request.FILES)
 
         if enrollment_formset.is_valid():
             peserta_baru = []
@@ -88,6 +88,9 @@ def edit_enrollments(request, id_kompetisi):
                 angkatan = enrollment_form.cleaned_data.get("angkatan")
                 no_hp = enrollment_form.cleaned_data.get("no_hp")
                 line_id = enrollment_form.cleaned_data.get("line_id")
+                foto_ktm = enrollment_form.cleaned_data.get("foto_ktm")
+                screenshot_siak = enrollment_form.cleaned_data.get("screenshot_siak")
+                file_cv = enrollment_form.cleaned_data.get("file_cv")
                 is_ketua = enrollment_form.cleaned_data.get("is_ketua")
 
                 if (nama and fakultas and jurusan and angkatan and no_hp and line_id):
@@ -98,7 +101,10 @@ def edit_enrollments(request, id_kompetisi):
                                             angkatan=angkatan, 
                                             no_hp=no_hp, 
                                             line_id=line_id, 
-                                            is_ketua=is_ketua, 
+                                            foto_ktm=foto_ktm,
+                                            screenshot_siak=screenshot_siak,
+                                            file_cv=file_cv,
+                                            is_ketua=is_ketua,
                                             kompetisi=kompetisi))
             
             Peserta.objects.filter(kompetisi=kompetisi).delete()
@@ -118,7 +124,10 @@ def edit_enrollments(request, id_kompetisi):
                     "angkatan": peserta.angkatan,
                     "no_hp": peserta.no_hp,
                     "line_id": peserta.line_id,
-                    "is_ketua": peserta.is_ketua} 
+                    "foto_ktm": peserta.foto_ktm,
+                    "screenshot_siak": peserta.screenshot_siak,
+                    "file_cv": peserta.file_cv,
+                    "is_ketua": peserta.is_ketua}
                     for peserta in current_peserta]
 
     context["enrollment_forms"] = EnrollmentFormSet(initial=initial_data)

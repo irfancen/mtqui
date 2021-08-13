@@ -15,7 +15,7 @@ Edit - {{ competition.judul }}
     <h2>{{ competition.judul }}</h2>
 
     <div class="dashboard-container form-container">
-        <form method="POST"> {% csrf_token  %}
+        <form method="POST" enctype="multipart/form-data"> {% csrf_token  %}
             {{ enrollment_forms.management_form }}
         
             {% for enrollment_form in enrollment_forms %}
@@ -69,6 +69,38 @@ Edit - {{ competition.judul }}
                                     {{ enrollment_form.line_id }}
                                     {% if enrollment_form.line_id.errors %}
                                         {% for error in enrollment_form.line_id.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Foto KTM
+                                    {{ enrollment_form.foto_ktm }}
+                                    {% if enrollment_form.foto_ktm.errors %}
+                                        {% for error in enrollment_form.foto_ktm.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    Screenshot SIAK
+                                    {{ enrollment_form.screenshot_siak }}
+                                    {% if enrollment_form.screenshot_siak.errors %}
+                                        {% for error in enrollment_form.screenshot_siak.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    CV
+                                    {{ enrollment_form.file_cv }}
+                                    {% if enrollment_form.file_cv.errors %}
+                                        {% for error in enrollment_form.file_cv.errors %}
                                             {{ error|escape }}
                                         {% endfor %}
                                     {% endif %}
