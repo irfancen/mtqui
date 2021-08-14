@@ -27,6 +27,7 @@ class Kompetisi(models.Model):
     kuota = models.IntegerField()
     deadline_pendaftaran = models.DateField()
     tipe = models.ForeignKey(TipeKompetisi, on_delete=models.SET_NULL, related_name="kompetisi", null=True)
+    kapasitas_kelompok = models.IntegerField(null=True, blank=True)
     fakultas = models.ForeignKey(User, on_delete=models.CASCADE, related_name="kompetisi")
 
     def get_enrollment_count(self):
@@ -58,6 +59,17 @@ class Kompetisi(models.Model):
 
     def __str__(self):
         return f"{self.judul} ({self.fakultas.metadata.nama_fakultas})"
+
+
+class Kelompok(models.Model):
+    nama = models.CharField(max_length=100)
+    kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="kelompok")
+
+    def get_kapasitas(self):
+        return self.kompetisi.kapasitas_kelompok
+    
+    def __str__(self):
+        return self.nama
 
 
 class Peserta(models.Model):

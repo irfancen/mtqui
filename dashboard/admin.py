@@ -21,6 +21,13 @@ class KompetisiPanelConfig(admin.ModelAdmin):
     list_display = ("judul", "fakultas", "tipe", "deadline_pendaftaran")
     list_filter = ("judul", "fakultas__username", "tipe__tipe")
 
+@admin.register(Kelompok)
+class KelompokPanelConfig(admin.ModelAdmin):
+    search_fields = ("nama", "kompetisi__judul", "kompetisi__fakultas__username")
+    ordering = ("nama", "kompetisi")
+    list_display = ("nama", "kompetisi")
+    list_filter = ("kompetisi",)
+
 @admin.register(Peserta)
 class PesertaPanelConfig(admin.ModelAdmin):
     search_fields = ("nama", "fakultas", "kompetisi__judul", "kompetisi__fakultas__username")
