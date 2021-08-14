@@ -72,6 +72,25 @@ class Kelompok(models.Model):
         return self.nama
 
 
+class Anggota(models.Model):
+    nama = models.CharField(max_length=100)
+    fakultas = models.CharField(max_length=50)
+    jurusan = models.CharField(max_length=50)
+    angkatan = models.CharField(max_length=4)
+    no_hp = models.CharField(max_length=15)
+    line_id = models.CharField(max_length=30)
+    is_ketua = models.BooleanField(null=True, blank=True) # Only for DAQ
+
+    foto_ktm = models.ImageField()
+    screenshot_siak = models.ImageField()
+    file_cv = models.FileField(null=True, blank=True) # Only for DAQ
+
+    kelompok = models.ForeignKey(Kelompok, on_delete=models.CASCADE, related_name="anggota")
+
+    def __str__(self):
+        return self.nama
+
+
 class Peserta(models.Model):
     nama = models.CharField(max_length=100)
     fakultas = models.CharField(max_length=50)
@@ -79,11 +98,11 @@ class Peserta(models.Model):
     angkatan = models.CharField(max_length=4)
     no_hp = models.CharField(max_length=15)
     line_id = models.CharField(max_length=30)
-    foto_ktm = models.ImageField(upload_to="foto_ktm")
-    screenshot_siak = models.ImageField(upload_to="screenshot_siak")
-    file_cv = models.FileField(upload_to="file_cv")
-    is_ketua = models.BooleanField()
+
+    foto_ktm = models.ImageField()
+    screenshot_siak = models.ImageField()
+
     kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="peserta")
 
     def __str__(self):
-        return f"{self.nama}"
+        return self.nama
