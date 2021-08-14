@@ -14,6 +14,12 @@ class MetadataFakultas(models.Model):
     def __str__(self):
         return self.nama_fakultas
 
+class TipeKompetisi(models.Model):
+    tipe = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.tipe
+
 class Kompetisi(models.Model):
     judul = models.CharField(max_length=100)
     kuota = models.IntegerField()

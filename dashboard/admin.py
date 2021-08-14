@@ -8,6 +8,12 @@ class MetadataFakultasPanelConfig(admin.ModelAdmin):
     ordering = ("nama_fakultas",)
     list_display = ("nama_fakultas", "username_fakultas")
 
+@admin.register(TipeKompetisi)
+class TipeKompetisiPanelConfig(admin.ModelAdmin):
+    search_fields = ("tipe",)
+    ordering = ("tipe",)
+    list_display = ("tipe",)
+
 @admin.register(Kompetisi)
 class KompetisiPanelConfig(admin.ModelAdmin):
     search_fields = ("judul", "fakultas__username")
