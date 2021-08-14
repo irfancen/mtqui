@@ -17,7 +17,7 @@
         <div class="kenta-head-content">
             <div>
                 {% if not seminar.is_past %}
-                 <span class="kenta-blurlable">🔴 AIRING IN: {{ air_time }} </span>
+                 <span class="kenta-blurlable">🔴 AIRING IN: {{ seminar.air_time }} </span>
                 {% else %}
                 <span class="kenta-blurlable">🔴 AIRED IN: {{ seminar.d_day }} </span>
                 {% endif %}
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="kenta-head-img"
-             style="background-image: url('{% static 'img/workshop.svg' %}')">
+             style="background-image: url('{{ seminar.seminar_image.url }}')">
         </div>
     </div>
 

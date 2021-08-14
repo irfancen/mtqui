@@ -108,6 +108,19 @@ svg {
 
 }
 
+.carousel-indicators li {
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 100%;
+    background-color: transparent;
+    border: 0.1em solid white;
+}
+
+.carousel-indicators li.active {
+    background-color: white;
+}
+
+
 @media screen and (max-width: 1024px) {
 
     .about {
