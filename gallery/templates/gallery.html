@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Gallery
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <script src="{% static 'js/gallery.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="kenta-content">
+        <!-- Judul -->
+        <h1>Gallery</h1>
+
+        <!-- Section Grand Opening -->
+        <div>
+            <h3>Grand Opening</h3>
+            <div class="img-gallery">
+                <ul class="rafi-grid">
+                    {% for img in go_img %}
+                    <li class="rafi-li-grid">
+                        <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section Competition -->
+        <div>
+            <h3>Competition</h3>
+            <div class="img-gallery">
+                <ul class="rafi-grid">
+                    {% for img in comp_img %}
+                    <li class="rafi-li-grid">
+                        <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section Closing Ceremony -->
+        <div>
+            <h3>Closing Ceremony</h3>
+            <div class="img-gallery">
+                <ul class="rafi-grid">
+                    {% for img in cc_img %}
+                    <li class="rafi-li-grid">
+                        <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="imgmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <img class="img-responsive" id="show-img">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
