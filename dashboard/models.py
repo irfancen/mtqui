@@ -9,7 +9,7 @@ class MetadataFakultas(models.Model):
     username_fakultas = models.OneToOneField(User, on_delete=models.CASCADE, related_name="metadata")
     nama_fakultas = models.CharField(max_length=50)
     singkatan_fakultas = models.CharField(max_length=20)
-    makara_image_code = models.CharField(max_length=20)
+    makara = models.ImageField(upload_to="makara/")
 
     def __str__(self):
         return self.nama_fakultas
