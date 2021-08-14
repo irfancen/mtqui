@@ -177,19 +177,19 @@ def debug(request):
     #     print(user.kompetisi.all())
     #     print("-----")
 
-    # print("=== KOMPETISI ===")
-    # for kompetisi in Kompetisi.objects.all():
-    #     print(kompetisi)
-    #     print(kompetisi.peserta.all())
-    #     print("-----")
-
-    print("=== PESERTA ===")
-    for peserta in Peserta.objects.all():
-        print(peserta)
-        print(peserta.foto_ktm.url)
-        print(peserta.screenshot_siak.url)
-        print(peserta.file_cv.url)
+    print("=== KOMPETISI ===")
+    for kompetisi in Kompetisi.objects.all():
+        print(kompetisi)
+        print(kompetisi.get_enrollment_count())
         print("-----")
+
+    # print("=== PESERTA ===")
+    # for peserta in Peserta.objects.all():
+    #     print(peserta)
+    #     print(peserta.foto_ktm.url)
+    #     print(peserta.screenshot_siak.url)
+    #     print(peserta.file_cv.url)
+    #     print("-----")
 
     print("======================  END  ======================")
 
