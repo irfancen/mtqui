@@ -35,18 +35,14 @@ h2, h4, h5 {
     width: 5%;
 }
 
-.lomba-list {
-    padding: 5em 4em 3em;
-}
-
 .card-container {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
 }
 
 .card {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    flex: 0 0 25%;
 }
 
 .card-body {
@@ -54,8 +50,8 @@ h2, h4, h5 {
 }
 
 .card-img-top {
-    overflow: hidden;
-    height: 25vh;
+    object-fit: cover;
+    height: 50vh;
 }
 
 .card-content {
@@ -91,6 +87,24 @@ h2, h4, h5 {
     margin-top: 20px;
 }
 
+.card-know-more > a:hover {
+    color: #45BDFF;
+    text-decoration: none;
+}
+
 hr {
     border-top: 1px solid #3D54A6;
+}
+
+@media only screen and (max-width: 991px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 828px) {
+    .card-container {
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0 20%;
+    }
 }
