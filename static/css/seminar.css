@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+/** {*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    box-sizing: border-box;*/
+/*    font-family: 'Poppins', sans-serif;*/
+/*    color: black;*/
+/*}*/
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+svg {
+    flex-shrink: 0;
+}
+
+#li_nav_container li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 5px 0px 5px;
+}
+
+/*.know_more {*/
+/*    width: 90px;*/
+/*    display: flex;*/
+/*}*/
+
+.know_more {
+    display: flex;
+}
+
+.know_more p {
+    color: white;
+    background-color: darkblue;
+    text-align: center;
+    width: 90px;
+    margin-bottom: 0px;
+}
+
+.know_more a {
+    align-self: flex-end;
+    width: 100%;
+    text-decoration: none;
+}
+
+
+.judul_seminar_cont {
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: white;
+}
+
+.judul_seminar_cont p {
+    font-size: 15px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.info_container h2 {
+    font-weight: 600;
+}
+
+.card_container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.seminar_card {
+    margin: 20px;
+    width: 250px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+
+.seminar_img_cont {
+    width: 250px;
+    height: 250px;
+    background-color: #51B1F6;
+
+}
+
+.seminar_img_cont img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .about {
+        width: auto !important;
+    }
+
+    .info_container {
+        padding: 20px !important;
+    }
+
+
+}
