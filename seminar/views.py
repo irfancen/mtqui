@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Seminar
 from django.utils import timezone
 import random
@@ -14,19 +13,26 @@ def getairtime(dt_data):
 
 def seminarlanding(request):
     semua_seminar = Seminar.objects.all()
+    print(semua_seminar)
 
     id_list = []
     random_seminar = []
-    air_time = []
+
     for seminar in semua_seminar:
         id_list.append(seminar.id)
 
-    randomized_seminar = random.sample(id_list, 3)
+    # randomized_seminar = random.sample(id_list, 3)
 
+    # Get 3 or less random seminar
+    if(Seminar.objects.count() < 3):
+        randomized_seminar = random.sample(id_list, Seminar.objects.count())
+    else:
+        randomized_seminar = random.sample(id_list, 3)
+
+    # For each carousel seminar, get its air time and check if past or not
     for i in randomized_seminar:
-        # print(type(i))
         temp_seminar = Seminar.objects.get(id=i)
-        air_time.append(temp_seminar.d_day - timezone.localtime())
+        temp_seminar.air_time = getairtime(temp_seminar.d_day - timezone.localtime())
 
         if temp_seminar.d_day < timezone.localtime():
             temp_seminar.is_past = True
@@ -34,23 +40,12 @@ def seminarlanding(request):
         random_seminar.append(temp_seminar)
 
     for seminar in semua_seminar:
-
-        # Find latest event from a list of events from a seminar
-        # latest_event = EventDate.objects.filter(nama_seminar=seminar.id).last()
-
         if seminar.d_day < timezone.localtime():
             seminar.is_past = True
 
-    print(type(random_seminar[0]))
-
     argument = {
         'seminar_list': semua_seminar,
-        'first_seminar': random_seminar[0],
-        'second_seminar': random_seminar[1],
-        'third_seminar': random_seminar[2],
-        'first_air_time': getairtime(air_time[0]),
-        'second_air_time': getairtime(air_time[1]),
-        'third_air_time': getairtime(air_time[2]),
+        'carousel_seminar': random_seminar,
     }
 
     return render(request, 'seminar_landing.html', argument)
@@ -64,14 +59,12 @@ def getseminar(request, id_seminar):
     if seminar.d_day < timezone.localtime():
         seminar.is_past = True
 
-    dt = seminar.d_day - timezone.localtime()
-    air_time = getairtime(dt)
+    seminar.air_time = getairtime(seminar.d_day - timezone.localtime())
 
     argument = {
         'seminar': seminar,
         'guest_stars': guest_stars,
         'all_subjects': all_subjects,
-        'air_time': air_time
     }
     return render(request, 'each_seminar.html', argument)
 
