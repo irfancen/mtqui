@@ -297,7 +297,6 @@ def add_anggota_kelompok_daq(request, id_kelompok):
     return render(request, "dashboard/add_anggota_kelompok_daq.html", context)
 
 
-# TODO: Add Initial data on Edit Kelompok
 @login_required(redirect_field_name="dashboard:home")
 def edit_kelompok(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
@@ -329,8 +328,12 @@ def edit_kelompok_biasa(request, id_kelompok):
             context["kelompok_form"] = kelompok_form
             return render(request, "dashboard/edit_kelompok_biasa.html", context)
 
+    initial_data = {
+        "nama" : kelompok.nama,
+    }
+
     context["kelompok"] = kelompok
-    context["kelompok_form"] = KelompokForm()
+    context["kelompok_form"] = KelompokForm(initial=initial_data)
     return render(request, "dashboard/edit_kelompok_biasa.html", context)
 
 
@@ -340,7 +343,7 @@ def edit_kelompok_daq(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
 
     if request.method == "POST":
-        edit_kelompok_daq_form = EditKelompokDAQForm(request.POST)
+        edit_kelompok_daq_form = EditKelompokDAQForm(request.POST, ketua_choices=get_ketua_choices(kelompok))
 
         if edit_kelompok_daq_form.is_valid():
             kelompok.nama = edit_kelompok_daq_form.cleaned_data.get("nama")
@@ -362,8 +365,13 @@ def edit_kelompok_daq(request, id_kelompok):
             context["edit_kelompok_daq_form"] = edit_kelompok_daq_form
             return render(request, "dashboard/edit_kelompok_daq.html", context)
     
+    initial_data = {
+        "nama" : kelompok.nama,
+        "ketua" : kelompok.get_ketua().id
+    }
+
     context["kelompok"] = kelompok
-    context["edit_kelompok_daq_form"] = EditKelompokDAQForm()
+    context["edit_kelompok_daq_form"] = EditKelompokDAQForm(initial=initial_data, ketua_choices=get_ketua_choices(kelompok))
     return render(request, "dashboard/edit_kelompok_daq.html", context)
 
 
@@ -401,8 +409,18 @@ def edit_peserta(request, id_peserta):
             context["peserta_form"] = peserta_form
             return render(request, "dashboard/edit_peserta.html", context)
     
+    initial_data = {
+        "nama" : peserta.nama,
+        "jurusan" : peserta.jurusan,
+        "angkatan" : peserta.angkatan,
+        "no_hp" : peserta.no_hp,
+        "line_id" : peserta.line_id,
+        "foto_ktm" : peserta.foto_ktm,
+        "screenshot_siak" : peserta.screenshot_siak
+    }
+
     context["peserta"] = peserta
-    context["peserta_form"] = PesertaForm(edit_form=True)
+    context["peserta_form"] = PesertaForm(initial=initial_data, edit_form=True)
     return render(request, "dashboard/edit_peserta.html", context)
 
 
@@ -444,8 +462,18 @@ def edit_anggota_biasa(request, id_anggota):
             context["anggota_form"] = anggota_form
             return render(request, "dashboard/edit_anggota_biasa.html", context)
 
+    initial_data = {
+        "nama" : anggota.nama,
+        "jurusan" : anggota.jurusan,
+        "angkatan" : anggota.angkatan,
+        "no_hp" : anggota.no_hp,
+        "line_id" : anggota.line_id,
+        "foto_ktm" : anggota.foto_ktm,
+        "screenshot_siak" : anggota.screenshot_siak
+    }
+
     context["anggota"] = anggota
-    context["anggota_form"] = AnggotaForm(edit_form=True)
+    context["anggota_form"] = AnggotaForm(initial=initial_data, edit_form=True)
     return render(request, "dashboard/edit_anggota_biasa.html", context)
 
 
@@ -476,8 +504,19 @@ def edit_anggota_daq(request, id_anggota):
             context["anggota_daq_form"] = anggota_daq_form
             return render(request, "dashboard/edit_anggota_daq.html", context)
 
+    initial_data = {
+        "nama" : anggota.nama,
+        "jurusan" : anggota.jurusan,
+        "angkatan" : anggota.angkatan,
+        "no_hp" : anggota.no_hp,
+        "line_id" : anggota.line_id,
+        "foto_ktm" : anggota.foto_ktm,
+        "screenshot_siak" : anggota.screenshot_siak,
+        "file_cv" : anggota.file_cv
+    }
+
     context["anggota"] = anggota
-    context["anggota_daq_form"] = AnggotaDAQForm(edit_form=True)
+    context["anggota_daq_form"] = AnggotaDAQForm(initial=initial_data, edit_form=True)
     return render(request, "dashboard/edit_anggota_daq.html", context)
 
 
@@ -528,6 +567,13 @@ def view_kelompok(request, id_kelompok):
 
     elif tipe_kompetisi == "DAQ":
         return render(request, "dashboard/view_kelompok_daq.html", context)
+
+
+
+
+
+def get_ketua_choices(kelompok):
+    return ( (anggota.id, anggota.nama) for anggota in kelompok.anggota )
 
 
 

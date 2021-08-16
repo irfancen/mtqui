@@ -68,6 +68,12 @@ class Kelompok(models.Model):
     def get_kapasitas(self):
         return self.kompetisi.kapasitas_kelompok
     
+    def get_ketua(self):
+        for anggota in self.anggota:
+            if anggota.is_ketua:
+                return anggota
+        return None
+    
     def __str__(self):
         return self.nama
 
