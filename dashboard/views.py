@@ -297,6 +297,80 @@ def add_anggota_kelompok_daq(request, id_kelompok):
     return render(request, "dashboard/add_anggota_kelompok_daq.html", context)
 
 
+@login_required(redirect_field_name="dashboard:home")
+def edit_kelompok(request, id_kelompok):
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+    tipe_kompetisi = str(kelompok.kompetisi.tipe)
+
+    if tipe_kompetisi == "Kelompok":
+        edit_kelompok_biasa(request, id_kelompok)
+
+    elif tipe_kompetisi == "DAQ":
+        edit_kelompok_daq(request, id_kelompok)
+
+
+def edit_kelompok_biasa(request, id_kelompok):
+    context = {}
+
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+
+    if request.method == "POST":
+        kelompok_form = KelompokForm(request.POST)
+
+        if kelompok_form.is_valid():
+            nama_kelompok = kelompok_form.cleaned_data.get("nama")
+
+            kelompok.nama = nama_kelompok
+            kelompok.save()
+
+            return redirect(reverse("dashboard:home"))
+        
+        else:
+            context["kelompok"] = kelompok
+            context["kelompok_form"] = kelompok_form
+            return render(request, "dashboard/edit_kelompok_biasa.html", context)
+
+    context["kelompok"] = kelompok
+    context["kelompok_form"] = KelompokForm()
+    return render(request, "dashboard/edit_kelompok_biasa.html", context)
+
+
+def edit_kelompok_daq(request, id_kelompok):
+    context = {}
+
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+
+    if request.method == "POST":
+        edit_kelompok_daq_form = EditKelompokDAQForm(request.POST)
+
+        if edit_kelompok_daq_form.is_valid():
+            nama_kelompok = edit_kelompok_daq_form.cleaned_data.get("nama")
+            id_ketua_baru = edit_kelompok_daq_form.cleaned_data.get("ketua")
+
+            kelompok.nama = nama_kelompok
+            kelompok.save()
+
+            for anggota_kelompok in Anggota.objects.filter(kelompok=kelompok):
+                anggota_kelompok.is_ketua = False
+                anggota_kelompok.save()
+            
+            ketua_baru = Anggota.objects.get(id=id_ketua_baru)
+            ketua_baru.is_ketua = True
+            ketua_baru.save()
+
+            return redirect(reverse("dashboard:home"))
+
+        else:
+            context["kelompok"] = kelompok
+            context["edit_kelompok_daq_form"] = edit_kelompok_daq_form
+            return render(request, "dashboard/edit_kelompok_daq.html", context)
+    
+    context["kelompok"] = kelompok
+    context["edit_kelompok_daq_form"] = EditKelompokDAQForm()
+    return render(request, "dashboard/edit_kelompok_daq.html", context)
+
+
+
 
 
 
