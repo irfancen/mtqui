@@ -579,39 +579,6 @@ def get_ketua_choices(kelompok):
 
 
 
-@login_required(redirect_field_name="dashboard:home")
-def edit_enrollments(request, id_kompetisi):
-    return HttpResponse("Hello")
-
-@login_required(redirect_field_name="dashboard:home")
-def view_enrollments(request, id_kompetisi):
-    return HttpResponse("Hello")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def debug(request):
     print("====================== START ======================")
 
