@@ -297,6 +297,7 @@ def add_anggota_kelompok_daq(request, id_kelompok):
     return render(request, "dashboard/add_anggota_kelompok_daq.html", context)
 
 
+# TODO: Add Initial data on Edit Kelompok
 @login_required(redirect_field_name="dashboard:home")
 def edit_kelompok(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
@@ -377,6 +378,117 @@ def delete_kelompok(request, id_kelompok):
     return redirect(reverse("dashboard:home"))
 
 
+# TODO: Edit Enrollment
+@login_required(redirect_field_name="dashboard:home")
+def edit_peserta(request, id_peserta):
+    context = {}
+
+    peserta = Peserta.objects.get(id=id_peserta)
+
+    if request.method == "POST":
+        peserta_form = PesertaForm(request.POST, request.FILES, edit_form=True)
+
+        if peserta_form.is_valid():
+            peserta.nama = peserta_form.cleaned_data.get("nama")
+            peserta.fakultas = request.user.metadata.nama_fakultas
+            peserta.jurusan = peserta_form.cleaned_data.get("jurusan")
+            peserta.angkatan = peserta_form.cleaned_data.get("angkatan")
+            peserta.no_hp = peserta_form.cleaned_data.get("no_hp")
+            peserta.line_id = peserta_form.cleaned_data.get("line_id")
+            peserta.foto_ktm = peserta_form.cleaned_data.get("foto_ktm") or peserta.foto_ktm
+            peserta.screenshot_siak = peserta_form.cleaned_data.get("screenshot_siak") or peserta.screenshot_siak
+            peserta.save()
+
+            return redirect(reverse("dashboard:home"))
+        
+        else:
+            context["peserta"] = peserta
+            context["peserta_form"] = peserta_form
+            return render(request, "dashboard/edit_peserta.html", context)
+    
+    context["peserta"] = peserta
+    context["peserta_form"] = PesertaForm(edit_form=True)
+    return render(request, "dashboard/edit_peserta.html", context)
+
+
+@login_required(redirect_field_name="dashboard:home")
+def edit_anggota(request, id_anggota):
+    anggota = Anggota.objects.get(id=id_anggota)
+    tipe_kompetisi = str(anggota.kelompok.kompetisi.tipe)
+
+    if tipe_kompetisi == "Kelompok":
+        edit_anggota_biasa(request, id_anggota)
+
+    elif tipe_kompetisi == "DAQ":
+        edit_anggota_daq(request, id_anggota)
+
+
+def edit_anggota_biasa(request, id_anggota):
+    context = {}
+
+    anggota = Anggota.objects.get(id=id_anggota)
+
+    if request.method == "POST":
+        anggota_form = AnggotaForm(request.POST, request.FILES, edit_form=True)
+
+        if anggota_form.is_valid():
+            anggota.nama = anggota_form.cleaned_data.get("nama")
+            anggota.fakultas = request.user.metadata.nama_fakultas
+            anggota.jurusan = anggota_form.cleaned_data.get("jurusan")
+            anggota.angkatan = anggota_form.cleaned_data.get("angkatan")
+            anggota.no_hp = anggota_form.cleaned_data.get("no_hp")
+            anggota.line_id = anggota_form.cleaned_data.get("line_id")
+            anggota.foto_ktm = anggota_form.cleaned_data.get("foto_ktm") or anggota.foto_ktm
+            anggota.screenshot_siak = anggota_form.cleaned_data.get("screenshot_siak") or anggota.screenshot_siak
+            anggota.save()
+
+            return redirect(reverse("dashboard:home"))
+        
+        else:
+            context["anggota"] = anggota
+            context["anggota_form"] = anggota_form
+            return render(request, "dashboard/edit_anggota_biasa.html", context)
+
+    context["anggota"] = anggota
+    context["anggota_form"] = AnggotaForm(edit_form=True)
+    return render(request, "dashboard/edit_anggota_biasa.html", context)
+
+
+def edit_anggota_daq(request, id_anggota):
+    context = {}
+
+    anggota = Anggota.objects.get(id=id_anggota)
+
+    if request.method == "POST":
+        anggota_daq_form = AnggotaDAQForm(request.POST, request.FILES, edit_form=True)
+
+        if anggota_daq_form.is_valid():
+            anggota.nama = anggota_daq_form.cleaned_data.get("nama")
+            anggota.fakultas = request.user.metadata.nama_fakultas
+            anggota.jurusan = anggota_daq_form.cleaned_data.get("jurusan")
+            anggota.angkatan = anggota_daq_form.cleaned_data.get("angkatan")
+            anggota.no_hp = anggota_daq_form.cleaned_data.get("no_hp")
+            anggota.line_id = anggota_daq_form.cleaned_data.get("line_id")
+            anggota.foto_ktm = anggota_daq_form.cleaned_data.get("foto_ktm") or anggota.foto_ktm
+            anggota.screenshot_siak = anggota_daq_form.cleaned_data.get("screenshot_siak") or anggota.screenshot_siak
+            anggota.file_cv = anggota_daq_form.cleaned_data.get("file_cv") or anggota.file_cv
+            anggota.save()
+
+            return redirect(reverse("dashboard:home"))
+        
+        else:
+            context["anggota"] = anggota
+            context["anggota_daq_form"] = anggota_daq_form
+            return render(request, "dashboard/edit_anggota_daq.html", context)
+
+    context["anggota"] = anggota
+    context["anggota_daq_form"] = AnggotaDAQForm(edit_form=True)
+    return render(request, "dashboard/edit_anggota_daq.html", context)
+
+
+
+# TODO: Delete Enrollment
+# TODO: View Enrollment
 
 
 @login_required(redirect_field_name="dashboard:home")
