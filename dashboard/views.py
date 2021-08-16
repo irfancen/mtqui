@@ -24,14 +24,15 @@ def home(request):
 @login_required(redirect_field_name="dashboard:home")
 def enroll(request, id_kompetisi):
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+    tipe_kompetisi = str(kompetisi.tipe)
 
-    if str(kompetisi.tipe) == "Individu":
+    if tipe_kompetisi == "Individu":
         enroll_individu(request, id_kompetisi)
 
-    elif str(kompetisi.tipe) == "Kelompok":
+    elif tipe_kompetisi == "Kelompok":
         enroll_kelompok(request, id_kompetisi)
 
-    elif str(kompetisi.tipe) == "DAQ":
+    elif tipe_kompetisi == "DAQ":
         enroll_daq(request, id_kompetisi)
 
 
@@ -192,8 +193,108 @@ def enroll_daq(request, id_kompetisi):
     context["kelompok_form"] = KelompokForm()
     context["anggota_daq_formset"] = AnggotaDAQFormSet()
     return render(request, "dashboard/enroll_daq.html", context)
-            
 
+
+@login_required(redirect_field_name="dashboard:home")
+def add_anggota(request, id_kelompok):
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+    tipe_kompetisi = str(kelompok.kompetisi.tipe)
+
+    if tipe_kompetisi == "Kelompok":
+        add_anggota_kelompok(request, id_kelompok)
+
+    elif tipe_kompetisi == "DAQ":
+        add_anggota_kelompok_daq(request, id_kelompok)
+
+
+def add_anggota_kelompok(request, id_kelompok):
+    context = {}
+
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+
+    if request.method == "POST":
+        anggota_form = AnggotaForm(request.POST, request.FILES)
+
+        if anggota_form.is_valid():
+            nama = anggota_form.cleaned_data.get("nama")
+            fakultas = request.user.metadata.nama_fakultas
+            jurusan = anggota_form.cleaned_data.get("jurusan")
+            angkatan = anggota_form.cleaned_data.get("angkatan")
+            no_hp = anggota_form.cleaned_data.get("no_hp")
+            line_id = anggota_form.cleaned_data.get("line_id")
+            foto_ktm = anggota_form.cleaned_data.get("foto_ktm")
+            screenshot_siak = anggota_form.cleaned_data.get("screenshot_siak")
+
+            anggota = Anggota(
+                        nama=nama, 
+                        fakultas=fakultas, 
+                        jurusan=jurusan, 
+                        angkatan=angkatan, 
+                        no_hp=no_hp, 
+                        line_id=line_id, 
+                        foto_ktm=foto_ktm, 
+                        screenshot_siak=screenshot_siak, 
+                        kelompok=kelompok
+                    )
+            anggota.save()
+
+            return redirect(reverse("dashboard:home"))
+        
+        else:
+            context["kelompok"] = kelompok
+            context["anggota_form"] = anggota_form
+            return render(request, "dashboard/add_anggota_kelompok.html", context)
+
+    context["kelompok"] = kelompok
+    context["anggota_form"] = AnggotaForm()
+    return render(request, "dashboard/add_anggota_kelompok.html", context)
+
+
+def add_anggota_kelompok_daq(request, id_kelompok):
+    context = {}
+
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+
+    if request.method == "POST":
+        anggota_daq_form = AnggotaDAQForm(request.POST, request.FILES)
+
+        if anggota_daq_form.is_valid():
+            nama = anggota_daq_form.cleaned_data.get("nama")
+            fakultas = request.user.metadata.nama_fakultas
+            jurusan = anggota_daq_form.cleaned_data.get("jurusan")
+            angkatan = anggota_daq_form.cleaned_data.get("angkatan")
+            no_hp = anggota_daq_form.cleaned_data.get("no_hp")
+            line_id = anggota_daq_form.cleaned_data.get("line_id")
+            is_ketua = False
+            foto_ktm = anggota_daq_form.cleaned_data.get("foto_ktm")
+            screenshot_siak = anggota_daq_form.cleaned_data.get("screenshot_siak")
+            file_cv = anggota_daq_form.cleaned_data.get("file_cv")
+
+            anggota = Anggota(
+                        nama=nama,
+                        fakultas=fakultas,
+                        jurusan=jurusan,
+                        angkatan=angkatan,
+                        no_hp=no_hp,
+                        line_id=line_id,
+                        is_ketua=is_ketua,
+                        foto_ktm=foto_ktm,
+                        screenshot_siak=screenshot_siak,
+                        file_cv=file_cv,
+                        kelompok=kelompok
+                    )
+            anggota.save()
+
+            return redirect(reverse("dashboard:home"))
+        
+        else:
+            context["kelompok"] = kelompok
+            context["anggota_daq_form"] = anggota_daq_form
+            return render(request, "dashboard/add_anggota_kelompok_daq.html", context)
+
+    context["kelompok"] = kelompok
+    context["anggota_daq_form"] = AnggotaDAQForm()
+    return render(request, "dashboard/add_anggota_kelompok_daq.html", context)
 
 
 
