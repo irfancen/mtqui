@@ -374,7 +374,6 @@ def delete_kelompok(request, id_kelompok):
     return redirect(reverse("dashboard:home"))
 
 
-# TODO: Edit Enrollment
 @login_required(redirect_field_name="dashboard:home")
 def edit_peserta(request, id_peserta):
     context = {}
@@ -482,8 +481,22 @@ def edit_anggota_daq(request, id_anggota):
     return render(request, "dashboard/edit_anggota_daq.html", context)
 
 
+@login_required(redirect_field_name="dashboard:home")
+def delete_peserta(request, id_peserta):
+    Peserta.objects.get(id=id_peserta).delete()
 
-# TODO: Delete Enrollment
+    return redirect(reverse("dashboard:home"))
+
+
+@login_required(redirect_field_name="dashboard:home")
+def delete_anggota(request, id_anggota):
+    Anggota.objects.get(id=id_anggota).delete()
+
+    return redirect(reverse("dashboard:home"))
+
+
+
+
 # TODO: View Enrollment
 
 
