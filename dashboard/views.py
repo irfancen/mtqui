@@ -1,6 +1,6 @@
-from dashboard.forms import BaseEnrollmentFormSet, EnrollmentForm, EnrollmentListForm
+from dashboard.forms import *
 from django.contrib.auth.models import User
-from dashboard.models import Kompetisi, Peserta
+from dashboard.models import Anggota, Kelompok, Kompetisi, Peserta
 from django.contrib.auth.decorators import login_required
 from django.forms.formsets import formset_factory
 from django.http.response import HttpResponse, HttpResponseRedirect
@@ -20,140 +20,211 @@ def home(request):
 
     return render(request, "dashboard/dashboard.html", context)
 
+
 @login_required(redirect_field_name="dashboard:home")
 def enroll(request, id_kompetisi):
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+
+    if str(kompetisi.tipe) == "Individu":
+        enroll_individu(request, id_kompetisi)
+
+    elif str(kompetisi.tipe) == "Kelompok":
+        enroll_kelompok(request, id_kompetisi)
+
+    elif str(kompetisi.tipe) == "DAQ":
+        enroll_daq(request, id_kompetisi)
+
+
+def enroll_individu(request, id_kompetisi):
     context = {}
 
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
 
-    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota)
-
     if request.method == "POST":
-        enrollment_formset = EnrollmentFormSet(request.POST)
+        peserta_form = PesertaForm(request.POST, request.FILES)
 
-        if enrollment_formset.is_valid():
-            peserta_baru = []
+        if peserta_form.is_valid():
+            nama = peserta_form.cleaned_data.get("nama")
+            fakultas = request.user.metadata.nama_fakultas
+            jurusan = peserta_form.cleaned_data.get("jurusan")
+            angkatan = peserta_form.cleaned_data.get("angkatan")
+            no_hp = peserta_form.cleaned_data.get("no_hp")
+            line_id = peserta_form.cleaned_data.get("line_id")
+            foto_ktm = peserta_form.cleaned_data.get("foto_ktm")
+            screenshot_siak = peserta_form.cleaned_data.get("screenshot_siak")
 
-            for enrollment_form in enrollment_formset:
-                nama = enrollment_form.cleaned_data.get("nama")
-                fakultas = request.user.metadata.nama_fakultas
-                jurusan = enrollment_form.cleaned_data.get("jurusan")
-                angkatan = enrollment_form.cleaned_data.get("angkatan")
-                no_hp = enrollment_form.cleaned_data.get("no_hp")
-                line_id = enrollment_form.cleaned_data.get("line_id")
-                is_ketua = enrollment_form.cleaned_data.get("is_ketua")
-
-                if (nama and fakultas and jurusan and angkatan and no_hp and line_id):
-                    peserta_baru.append(Peserta(
-                                            nama=nama, 
-                                            fakultas=fakultas, 
-                                            jurusan=jurusan, 
-                                            angkatan=angkatan, 
-                                            no_hp=no_hp, 
-                                            line_id=line_id, 
-                                            is_ketua=is_ketua, 
-                                            kompetisi=kompetisi))
-            
-            Peserta.objects.bulk_create(peserta_baru)
+            peserta = Peserta(
+                        nama=nama, 
+                        fakultas=fakultas, 
+                        jurusan=jurusan, 
+                        angkatan=angkatan, 
+                        no_hp=no_hp, 
+                        line_id=line_id, 
+                        foto_ktm=foto_ktm, 
+                        screenshot_siak=screenshot_siak, 
+                        kompetisi=kompetisi
+                    )
+            peserta.save()
 
             return redirect(reverse("dashboard:home"))
         
         else:
-            context["enrollment_forms"] = enrollment_formset
             context["competition"] = kompetisi
-            return render(request, "dashboard/enroll.html", context)
-
-    context["enrollment_forms"] = EnrollmentFormSet()
+            context["peserta_form"] = peserta_form
+            return render(request, "dashboard/enroll_individu.html", context)
+    
     context["competition"] = kompetisi
-    return render(request, "dashboard/enroll.html", context)
+    context["peserta_form"] = PesertaForm()
+    return render(request, "dashboard/enroll_individu.html", context)
+
+
+def enroll_kelompok(request, id_kompetisi):
+    context = {}
+
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+    AnggotaFormSet = formset_factory(AnggotaForm, max_num=kompetisi.kapasitas_kelompok)
+
+    if request.method == "POST":
+        kelompok_form = KelompokForm(request.POST)
+        anggota_formset = AnggotaFormSet(request.POST, request.FILES)
+
+        if kelompok_form.is_valid() and anggota_formset.is_valid():
+            nama_kelompok = kelompok_form.cleaned_data.get("nama")
+
+            kelompok = Kelompok(nama=nama_kelompok, kompetisi=kompetisi)
+            kelompok.save()
+
+            anggota_list = []
+
+            for anggota_form in anggota_formset:
+                nama = anggota_form.cleaned_data.get("nama")
+                fakultas = request.user.metadata.nama_fakultas
+                jurusan = anggota_form.cleaned_data.get("jurusan")
+                angkatan = anggota_form.cleaned_data.get("angkatan")
+                no_hp = anggota_form.cleaned_data.get("no_hp")
+                line_id = anggota_form.cleaned_data.get("line_id")
+                foto_ktm = anggota_form.cleaned_data.get("foto_ktm")
+                screenshot_siak = anggota_form.cleaned_data.get("screenshot_siak")
+
+                anggota_list.append(Anggota(
+                            nama=nama, 
+                            fakultas=fakultas, 
+                            jurusan=jurusan, 
+                            angkatan=angkatan, 
+                            no_hp=no_hp, 
+                            line_id=line_id, 
+                            foto_ktm=foto_ktm, 
+                            screenshot_siak=screenshot_siak, 
+                            kelompok=kelompok
+                        ))
+
+            Anggota.objects.bulk_create(anggota_list)
+
+            return redirect(reverse("dashboard:home"))
+    
+        else:
+            context["competition"] = kompetisi
+            context["kelompok_form"] = kelompok_form
+            context["anggota_formset"] = anggota_formset
+            return render(request, "dashboard/enroll_kelompok.html", context)
+    
+    context["competition"] = kompetisi
+    context["kelompok_form"] = KelompokForm()
+    context["anggota_formset"] = AnggotaFormSet()
+    return render(request, "dashboard/enroll_kelompok.html", context)
+
+
+def enroll_daq(request, id_kompetisi):
+    context = {}
+
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+    AnggotaDAQFormSet = formset_factory(AnggotaDAQForm, max_num=kompetisi.kapasitas_kelompok)
+
+    if request.method == "POST":
+        kelompok_form = KelompokForm(request.POST)
+        anggota_daq_formset = AnggotaDAQFormSet(request.POST, request.FILES)
+
+        if kelompok_form.is_valid() and anggota_daq_formset.is_valid():
+            nama_kelompok = kelompok_form.cleaned_data.get("nama")
+
+            kelompok = Kelompok(nama=nama_kelompok, kompetisi=kompetisi)
+            kelompok.save()
+
+            anggota_daq_list = []
+
+            for anggota_daq_form in anggota_daq_formset:
+                nama = anggota_daq_form.cleaned_data.get("nama")
+                fakultas = request.user.metadata.nama_fakultas
+                jurusan = anggota_daq_form.cleaned_data.get("jurusan")
+                angkatan = anggota_daq_form.cleaned_data.get("angkatan")
+                no_hp = anggota_daq_form.cleaned_data.get("no_hp")
+                line_id = anggota_daq_form.cleaned_data.get("line_id")
+                is_ketua = anggota_daq_form.cleaned_data.get("is_ketua")
+                foto_ktm = anggota_daq_form.cleaned_data.get("foto_ktm")
+                screenshot_siak = anggota_daq_form.cleaned_data.get("screenshot_siak")
+                file_cv = anggota_daq_form.cleaned_data.get("file_cv")
+
+                anggota_daq_list.append(Anggota(
+                            nama=nama,
+                            fakultas=fakultas,
+                            jurusan=jurusan,
+                            angkatan=angkatan,
+                            no_hp=no_hp,
+                            line_id=line_id,
+                            is_ketua=is_ketua,
+                            foto_ktm=foto_ktm,
+                            screenshot_siak=screenshot_siak,
+                            file_cv=file_cv,
+                            kelompok=kelompok
+                        ))
+            
+            Anggota.objects.bulk_create(anggota_daq_list)
+
+            return redirect(reverse("dashboard:home"))
+
+        else:
+            context["competition"] = kompetisi
+            context["kelompok_form"] = kelompok_form
+            context["anggota_daq_formset"] = anggota_daq_formset
+            return render(request, "dashboard/enroll_daq.html", context)
+    
+    context["competition"] = kompetisi
+    context["kelompok_form"] = KelompokForm()
+    context["anggota_daq_formset"] = AnggotaDAQFormSet()
+    return render(request, "dashboard/enroll_daq.html", context)
+            
+
+
+
+
+
+
 
 @login_required(redirect_field_name="dashboard:home")
 def edit_enrollments(request, id_kompetisi):
-    context = {}
-
-    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
-
-    EnrollmentFormSet = formset_factory(EnrollmentForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota, extra=0)
-
-    if request.method == "POST":
-        enrollment_formset = EnrollmentFormSet(request.POST, request.FILES)
-
-        if enrollment_formset.is_valid():
-            peserta_baru = []
-
-            for enrollment_form in enrollment_formset:
-                nama = enrollment_form.cleaned_data.get("nama")
-                fakultas = request.user.metadata.nama_fakultas
-                jurusan = enrollment_form.cleaned_data.get("jurusan")
-                angkatan = enrollment_form.cleaned_data.get("angkatan")
-                no_hp = enrollment_form.cleaned_data.get("no_hp")
-                line_id = enrollment_form.cleaned_data.get("line_id")
-                foto_ktm = enrollment_form.cleaned_data.get("foto_ktm")
-                screenshot_siak = enrollment_form.cleaned_data.get("screenshot_siak")
-                file_cv = enrollment_form.cleaned_data.get("file_cv")
-                is_ketua = enrollment_form.cleaned_data.get("is_ketua")
-
-                if (nama and fakultas and jurusan and angkatan and no_hp and line_id):
-                    peserta_baru.append(Peserta(
-                                            nama=nama, 
-                                            fakultas=fakultas, 
-                                            jurusan=jurusan, 
-                                            angkatan=angkatan, 
-                                            no_hp=no_hp, 
-                                            line_id=line_id, 
-                                            foto_ktm=foto_ktm,
-                                            screenshot_siak=screenshot_siak,
-                                            file_cv=file_cv,
-                                            is_ketua=is_ketua,
-                                            kompetisi=kompetisi))
-            
-            Peserta.objects.filter(kompetisi=kompetisi).delete()
-            Peserta.objects.bulk_create(peserta_baru)
-
-            return redirect(reverse("dashboard:home"))
-        
-        else:
-            context["enrollment_forms"] = enrollment_formset
-            context["competition"] = kompetisi
-            return render(request, "dashboard/edit_enrollments.html", context)
-
-    current_peserta = Peserta.objects.filter(kompetisi=kompetisi)
-
-    initial_data = [{"nama": peserta.nama,
-                    "jurusan": peserta.jurusan,
-                    "angkatan": peserta.angkatan,
-                    "no_hp": peserta.no_hp,
-                    "line_id": peserta.line_id,
-                    "foto_ktm": peserta.foto_ktm,
-                    "screenshot_siak": peserta.screenshot_siak,
-                    "file_cv": peserta.file_cv,
-                    "is_ketua": peserta.is_ketua}
-                    for peserta in current_peserta]
-
-    context["enrollment_forms"] = EnrollmentFormSet(initial=initial_data)
-    context["competition"] = kompetisi
-    return render(request, "dashboard/edit_enrollments.html", context)
+    return HttpResponse("Hello")
 
 @login_required(redirect_field_name="dashboard:home")
 def view_enrollments(request, id_kompetisi):
-    context = {}
+    return HttpResponse("Hello")
 
-    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
-    EnrollmentListFormSet = formset_factory(EnrollmentListForm, formset=BaseEnrollmentFormSet, max_num=kompetisi.kuota, extra=0)
-    current_peserta = Peserta.objects.filter(kompetisi=kompetisi)
 
-    initial_data = [{"nama": peserta.nama,
-                    "fakultas": peserta.fakultas,
-                    "jurusan": peserta.jurusan,
-                    "angkatan": peserta.angkatan,
-                    "no_hp": peserta.no_hp,
-                    "line_id": peserta.line_id,
-                    "is_ketua": peserta.is_ketua} 
-                    for peserta in current_peserta]
 
-    context["enrollments"] = EnrollmentListFormSet(initial=initial_data)
-    context["competition"] = kompetisi
-    return render(request, "dashboard/view_enrollments.html", context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -177,11 +248,11 @@ def debug(request):
     #     print(user.kompetisi.all())
     #     print("-----")
 
-    print("=== KOMPETISI ===")
-    for kompetisi in Kompetisi.objects.all():
-        print(kompetisi)
-        print(kompetisi.get_enrollment_count())
-        print("-----")
+    # print("=== KOMPETISI ===")
+    # for kompetisi in Kompetisi.objects.all():
+    #     print(kompetisi)
+    #     print(kompetisi.get_enrollment_count())
+    #     print("-----")
 
     # print("=== PESERTA ===")
     # for peserta in Peserta.objects.all():
