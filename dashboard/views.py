@@ -495,9 +495,42 @@ def delete_anggota(request, id_anggota):
     return redirect(reverse("dashboard:home"))
 
 
+@login_required(redirect_field_name="dashboard:home")
+def view_enrollments(request, id_kompetisi):
+    context = {}
+
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+    tipe_kompetisi = str(kompetisi.tipe)
+
+    context["competition"] = kompetisi
+
+    if tipe_kompetisi == "Individu":
+        return render(request, "dashboard/view_kompetisi_individu.html", context)
+
+    elif tipe_kompetisi == "Kelompok":
+        return render(request, "dashboard/view_kompetisi_kelompok.html", context)
+
+    elif tipe_kompetisi == "DAQ":
+        return render(request, "dashboard/view_kompetisi_daq.html", context)
 
 
-# TODO: View Enrollment
+@login_required(redirect_field_name="dashboard:home")
+def view_kelompok(request, id_kelompok):
+    context = {}
+
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+    tipe_kompetisi = str(kelompok.kompetisi.tipe)
+
+    context["kelompok"] = kelompok
+
+    if tipe_kompetisi == "Kelompok":
+        return render(request, "dashboard/view_kelompok.html", context)
+
+    elif tipe_kompetisi == "DAQ":
+        return render(request, "dashboard/view_kelompok_daq.html", context)
+
+
+
 
 
 @login_required(redirect_field_name="dashboard:home")
