@@ -319,9 +319,7 @@ def edit_kelompok_biasa(request, id_kelompok):
         kelompok_form = KelompokForm(request.POST)
 
         if kelompok_form.is_valid():
-            nama_kelompok = kelompok_form.cleaned_data.get("nama")
-
-            kelompok.nama = nama_kelompok
+            kelompok.nama = kelompok_form.cleaned_data.get("nama")
             kelompok.save()
 
             return redirect(reverse("dashboard:home"))
@@ -345,16 +343,14 @@ def edit_kelompok_daq(request, id_kelompok):
         edit_kelompok_daq_form = EditKelompokDAQForm(request.POST)
 
         if edit_kelompok_daq_form.is_valid():
-            nama_kelompok = edit_kelompok_daq_form.cleaned_data.get("nama")
-            id_ketua_baru = edit_kelompok_daq_form.cleaned_data.get("ketua")
-
-            kelompok.nama = nama_kelompok
+            kelompok.nama = edit_kelompok_daq_form.cleaned_data.get("nama")
             kelompok.save()
 
             for anggota_kelompok in Anggota.objects.filter(kelompok=kelompok):
                 anggota_kelompok.is_ketua = False
                 anggota_kelompok.save()
-            
+
+            id_ketua_baru = edit_kelompok_daq_form.cleaned_data.get("ketua")
             ketua_baru = Anggota.objects.get(id=id_ketua_baru)
             ketua_baru.is_ketua = True
             ketua_baru.save()
