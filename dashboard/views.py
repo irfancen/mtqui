@@ -370,7 +370,11 @@ def edit_kelompok_daq(request, id_kelompok):
     return render(request, "dashboard/edit_kelompok_daq.html", context)
 
 
-
+@login_required(redirect_field_name="dashboard:home")
+def delete_kelompok(request, id_kelompok):
+    Kelompok.objects.get(id=id_kelompok).delete()
+    
+    return redirect(reverse("dashboard:home"))
 
 
 
