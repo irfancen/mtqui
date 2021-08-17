@@ -303,10 +303,10 @@ def edit_kelompok(request, id_kelompok):
     tipe_kompetisi = str(kelompok.kompetisi.tipe)
 
     if tipe_kompetisi == "Kelompok":
-        edit_kelompok_biasa(request, id_kelompok)
+        return edit_kelompok_biasa(request, id_kelompok)
 
     elif tipe_kompetisi == "DAQ":
-        edit_kelompok_daq(request, id_kelompok)
+        return edit_kelompok_daq(request, id_kelompok)
 
 
 def edit_kelompok_biasa(request, id_kelompok):
@@ -573,7 +573,7 @@ def view_kelompok(request, id_kelompok):
 
 
 def get_ketua_choices(kelompok):
-    return ( (anggota.id, anggota.nama) for anggota in kelompok.anggota )
+    return ( (anggota.id, anggota.nama) for anggota in kelompok.anggota.all() )
 
 
 

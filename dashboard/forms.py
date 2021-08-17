@@ -255,19 +255,20 @@ class AnggotaDAQForm(forms.Form):
 
 
 class EditKelompokDAQForm(forms.Form):
-    def __init__(self, ketua_choices, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        ketua_choices = kwargs.pop("ketua_choices", None)
         super(EditKelompokDAQForm, self).__init__(*args, **kwargs)
         self.fields['ketua'].choices = ketua_choices
 
     nama = forms.CharField(
                 max_length=100, 
                 widget=forms.TextInput(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
     ketua = forms.ChoiceField(
                 widget=forms.Select(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
 

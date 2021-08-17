@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Edit - {{ kelompok.nama }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/forms.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="kenta-content">
+    <div class="form-container">
+        <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Nama Kelompok</label>
+                    {{ edit_kelompok_daq_form.nama }}
+
+                    {% if edit_kelompok_daq_form.nama.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in edit_kelompok_daq_form.nama.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Ketua</label>
+                    {{ edit_kelompok_daq_form.ketua }}
+
+                    {% if edit_kelompok_daq_form.ketua.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in edit_kelompok_daq_form.ketua.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if edit_kelompok_daq_form.non_form_errors %}
+            <small class="form-text text-danger">
+                {% for error in edit_kelompok_daq_form.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </small>
+            {% endif %}
+
+            <button type="submit" class="btn btn-success">Simpan</button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'dashboard/js/invalid_field.js' %}"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="{% static 'dashboard/js/jquery.formset.js' %}"></script>
+<script>
+    $('.anggota-form').formset({
+        addText: 'Tambah Anggota',
+        deleteText: 'Hapus Anggota'
+    });
+</script>
+{% endblock content %}
