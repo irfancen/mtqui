@@ -4,9 +4,10 @@ import magic
 
 class PesertaForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        edit_form = kwargs.pop("edit_form", False)
         super(PesertaForm, self).__init__(*args, **kwargs)
 
-        if kwargs.pop("edit_form", False):
+        if edit_form:
             self.fields['foto_ktm'].required = False
             self.fields['screenshot_siak'].required = False
 
@@ -85,9 +86,10 @@ class KelompokForm(forms.Form):
 
 class AnggotaForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        edit_form = kwargs.pop("edit_form", False)
         super(AnggotaForm, self).__init__(*args, **kwargs)
 
-        if kwargs.pop("edit_form", False):
+        if edit_form:
             self.fields['foto_ktm'].required = False
             self.fields['screenshot_siak'].required = False
 
@@ -158,9 +160,10 @@ class AnggotaForm(forms.Form):
 
 class AnggotaDAQForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        edit_form = kwargs.pop("edit_form", False)
         super(AnggotaDAQForm, self).__init__(*args, **kwargs)
 
-        if kwargs.pop("edit_form", False):
+        if edit_form:
             self.fields['foto_ktm'].required = False
             self.fields['screenshot_siak'].required = False
             self.fields['file_cv'].required = False

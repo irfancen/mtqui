@@ -430,10 +430,10 @@ def edit_anggota(request, id_anggota):
     tipe_kompetisi = str(anggota.kelompok.kompetisi.tipe)
 
     if tipe_kompetisi == "Kelompok":
-        edit_anggota_biasa(request, id_anggota)
+        return edit_anggota_biasa(request, id_anggota)
 
     elif tipe_kompetisi == "DAQ":
-        edit_anggota_daq(request, id_anggota)
+        return edit_anggota_daq(request, id_anggota)
 
 
 def edit_anggota_biasa(request, id_anggota):
