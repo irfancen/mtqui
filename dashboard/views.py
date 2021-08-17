@@ -201,10 +201,10 @@ def add_anggota(request, id_kelompok):
     tipe_kompetisi = str(kelompok.kompetisi.tipe)
 
     if tipe_kompetisi == "Kelompok":
-        add_anggota_kelompok(request, id_kelompok)
+        return add_anggota_kelompok(request, id_kelompok)
 
     elif tipe_kompetisi == "DAQ":
-        add_anggota_kelompok_daq(request, id_kelompok)
+        return add_anggota_kelompok_daq(request, id_kelompok)
 
 
 def add_anggota_kelompok(request, id_kelompok):

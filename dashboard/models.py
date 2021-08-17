@@ -72,6 +72,11 @@ class Kelompok(models.Model):
             if anggota.is_ketua:
                 return anggota
         return None
+
+    def can_add_member(self):
+        is_before_deadline = not self.kompetisi.is_deadline()
+        capacity_available = self.anggota.all().count() < self.kompetisi.kapasitas_kelompok
+        return (is_before_deadline and capacity_available)
     
     def __str__(self):
         return self.nama

@@ -87,5 +87,13 @@ View - {{ kelompok.nama }}
         </div>
     </div>
     {% endfor %}
+
+    {% if kelompok.can_add_member %}
+    <div class="enrollment-card">
+        <div>
+            <a class="enrollment-button" href="{% url 'dashboard:add_anggota' id_kelompok=kelompok.id %}">Add Member</a>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock content %}
