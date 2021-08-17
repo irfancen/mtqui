@@ -68,7 +68,7 @@ class Kelompok(models.Model):
         return self.kompetisi.kapasitas_kelompok
     
     def get_ketua(self):
-        for anggota in self.anggota:
+        for anggota in self.anggota.all():
             if anggota.is_ketua:
                 return anggota
         return None

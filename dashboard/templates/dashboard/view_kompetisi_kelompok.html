@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+View - {{ competition.judul }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/enrollment.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="kenta-content">
+    <h1>Enrollments</h1>
+    <h2>{{ competition.judul }}</h2>
+
+    {% for kelompok in competition.kelompok.all %}
+    <div class="enrollment-card">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Nama</label>
+                <input class="form-control" type="text" placeholder="{{ kelompok.nama }}" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Fakultas</label>
+                <input class="form-control" type="text" placeholder="{{ user.metadata.nama_fakultas }}" readonly>
+            </div>
+        </div>
+
+        <div>
+            <a class="enrollment-button" href="{% url 'dashboard:view_kelompok' id_kelompok=kelompok.id %}">View Members</a>
+        </div>
+        
+        <div>
+            <a class="enrollment-button" href="{% url 'dashboard:edit_kelompok' id_kelompok=kelompok.id %}">Edit Team Details</a>
+        </div>
+        
+        <div>
+            <a class="enrollment-button" href="#">Delete Team</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
