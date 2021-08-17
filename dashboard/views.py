@@ -27,13 +27,13 @@ def enroll(request, id_kompetisi):
     tipe_kompetisi = str(kompetisi.tipe)
 
     if tipe_kompetisi == "Individu":
-        enroll_individu(request, id_kompetisi)
+        return enroll_individu(request, id_kompetisi)
 
     elif tipe_kompetisi == "Kelompok":
-        enroll_kelompok(request, id_kompetisi)
+        return enroll_kelompok(request, id_kompetisi)
 
     elif tipe_kompetisi == "DAQ":
-        enroll_daq(request, id_kompetisi)
+        return enroll_daq(request, id_kompetisi)
 
 
 def enroll_individu(request, id_kompetisi):

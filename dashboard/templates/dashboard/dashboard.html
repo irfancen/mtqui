@@ -55,10 +55,6 @@ Dashboard
                     <a class="competition-buttons" href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">Enroll Now</a>
                     {% endif %}
 
-                    {% if competition.can_edit_enrollments %}
-                    <a class="competition-buttons" href="{% url 'dashboard:edit' id_kompetisi=competition.id %}">See or Edit Enrollments</a>
-                    {% endif %}
-
                     {% if competition.can_see_enrollments %}
                     <a class="competition-buttons" href="{% url 'dashboard:view' id_kompetisi=competition.id %}">See Enrollments</a>
                     {% endif %}
