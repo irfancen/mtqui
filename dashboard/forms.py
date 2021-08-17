@@ -79,50 +79,57 @@ class KelompokForm(forms.Form):
     nama = forms.CharField(
                 max_length=100, 
                 widget=forms.TextInput(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
 
 class AnggotaForm(forms.Form):
-    def __init__(self, edit_form=False, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(AnggotaForm, self).__init__(*args, **kwargs)
-        if edit_form:
+
+        if kwargs.pop("edit_form", False):
             self.fields['foto_ktm'].required = False
             self.fields['screenshot_siak'].required = False
 
     nama = forms.CharField(
                 max_length=100, 
                 widget=forms.TextInput(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
     jurusan = forms.CharField(
                 max_length=50, 
                 widget=forms.TextInput(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
     angkatan = forms.CharField(
                 max_length=4, 
                 widget=forms.TextInput(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
     no_hp = forms.CharField(
                 max_length=15, 
                 widget=forms.TextInput(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
     line_id = forms.CharField(
                 max_length=30, 
                 widget=forms.TextInput(attrs={
-                    'class' : '',
+                    'class' : 'form-control',
                 }))
 
-    foto_ktm = forms.ImageField()
+    foto_ktm = forms.ImageField(
+                widget=forms.FileInput(attrs={
+                    'class' : 'form-control-file',
+                }))
 
-    screenshot_siak = forms.ImageField()
+    screenshot_siak = forms.ImageField(
+                widget=forms.FileInput(attrs={
+                    'class' : 'form-control-file',
+                }))
 
     def clean_angkatan(self):
         angkatan = self.cleaned_data['angkatan']
@@ -138,13 +145,13 @@ class AnggotaForm(forms.Form):
 
     def clean_foto_ktm(self):
         foto_ktm = self.cleaned_data.get("foto_ktm")
-        if foto_ktm and foto_ktm._size > 5242880: # 5 MB
+        if foto_ktm and foto_ktm.size > 5242880: # 5 MB
             raise forms.ValidationError("Ukuran file Foto KTM terlalu besar (maksimal 5 MB)", code="large_foto_ktm")
         return foto_ktm
 
     def clean_screenshot_siak(self):
         screenshot_siak = self.cleaned_data.get("screenshot_siak")
-        if screenshot_siak and screenshot_siak._size > 5242880: # 5 MB
+        if screenshot_siak and screenshot_siak.size > 5242880: # 5 MB
             raise forms.ValidationError("Ukuran file Screenshot SIAK terlalu besar (maksimal 5 MB)", code="large_screenshot_siak")
         return screenshot_siak
 
