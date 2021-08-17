@@ -43,6 +43,7 @@ Enroll - {{ competition.judul }}
             {% for anggota_form in anggota_formset %}
             <div class="anggota-form">
                 <hr>
+                
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Nama</label>
@@ -145,11 +146,11 @@ Enroll - {{ competition.judul }}
             {% endfor %}
 
             {% if anggota_formset.non_form_errors %}
-            <small class="form-text text-danger">
+            <p class="form-text text-danger">
                 {% for error in anggota_formset.non_form_errors %}
                     {{ error|escape }}
                 {% endfor %}
-            </small>
+            </p>
             {% endif %}
 
             <button type="submit" class="btn btn-success">Daftar</button>

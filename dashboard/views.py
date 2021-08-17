@@ -83,7 +83,7 @@ def enroll_kelompok(request, id_kompetisi):
     context = {}
 
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
-    AnggotaFormSet = formset_factory(AnggotaForm, max_num=kompetisi.kapasitas_kelompok)
+    AnggotaFormSet = formset_factory(AnggotaForm, max_num=kompetisi.kapasitas_kelompok, min_num=1, extra=0)
 
     if request.method == "POST":
         kelompok_form = KelompokForm(request.POST)
@@ -139,7 +139,7 @@ def enroll_daq(request, id_kompetisi):
     context = {}
 
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
-    AnggotaDAQFormSet = formset_factory(AnggotaDAQForm, max_num=kompetisi.kapasitas_kelompok)
+    AnggotaDAQFormSet = formset_factory(AnggotaDAQForm, formset=BaseAnggotaDAQFormSet, max_num=kompetisi.kapasitas_kelompok, min_num=1, extra=0)
 
     if request.method == "POST":
         kelompok_form = KelompokForm(request.POST)

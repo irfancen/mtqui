@@ -115,11 +115,11 @@ Enroll - {{ competition.judul }}
             </div>
 
             {% if peserta_form.non_form_errors %}
-            <small class="form-text text-danger">
+            <p class="form-text text-danger">
                 {% for error in peserta_form.non_form_errors %}
                     {{ error|escape }}
                 {% endfor %}
-            </small>
+            </p>
             {% endif %}
 
             <button type="submit" class="btn btn-success">Daftar</button>
