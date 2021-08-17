@@ -147,6 +147,7 @@
         border: none !important;
         background-color: blue;
         color: white;
+        margin-bottom: 1em;
     }
 
     .competition-buttons:hover {

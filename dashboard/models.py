@@ -53,9 +53,8 @@ class Kompetisi(models.Model):
         return (is_before_deadline and has_enrollment)
     
     def can_view_enrollments(self):
-        is_after_deadline = self.is_deadline()
         has_enrollment = self.get_enrollment_count() > 0
-        return (is_after_deadline and has_enrollment)
+        return has_enrollment
 
     def __str__(self):
         return f"{self.judul} ({self.fakultas.metadata.nama_fakultas})"

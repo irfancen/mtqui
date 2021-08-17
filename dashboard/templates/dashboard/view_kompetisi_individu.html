@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+View - {{ competition.judul }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/enrollment.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="kenta-content">
+    <h1>Enrollments</h1>
+    <h2>{{ competition.judul }}</h2>
+
+    {% for peserta in competition.peserta.all %}
+    <div class="enrollment-card">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Nama</label>
+                <input class="form-control" type="text" placeholder="{{ peserta.nama }}" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Fakultas</label>
+                <input class="form-control" type="text" placeholder="{{ peserta.fakultas }}" readonly>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Jurusan</label>
+                <input class="form-control" type="text" placeholder="{{ peserta.jurusan }}" readonly>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Angkatan</label>
+                <input class="form-control" type="text" placeholder="{{ peserta.angkatan }}" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>No. HP</label>
+                <input class="form-control" type="text" placeholder="{{ peserta.no_hp }}" readonly>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Line ID</label>
+                <input class="form-control" type="text" placeholder="{{ peserta.line_id }}" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Foto KTM</label>
+                <div class="enrollment-file">
+                    <img src="{% static 'dashboard/svg/image.svg' %}">
+                    <a href="{{ peserta.foto_ktm.url }}" target="_blank">{{ peserta.foto_ktm }}</a>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Screenshot SIAK</label>
+                <div class="enrollment-file">
+                    <img src="{% static 'dashboard/svg/document.svg' %}">
+                    <a href="{{ peserta.screenshot_siak.url }}" target="_blank">{{ peserta.screenshot_siak }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <a class="enrollment-button" href="{% url 'dashboard:edit_peserta' id_peserta=peserta.id %}">Edit Enrollment</a>
+        </div>
+        
+        <div>
+            <a class="enrollment-button" href="#">Delete Enrollment</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -55,8 +55,8 @@ Dashboard
                     <a class="competition-buttons" href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">Enroll Now</a>
                     {% endif %}
 
-                    {% if competition.can_see_enrollments %}
-                    <a class="competition-buttons" href="{% url 'dashboard:view' id_kompetisi=competition.id %}">See Enrollments</a>
+                    {% if competition.can_view_enrollments %}
+                    <a class="competition-buttons" href="{% url 'dashboard:view_enrollments' id_kompetisi=competition.id %}">View Enrollments</a>
                     {% endif %}
                 </div>
             {% endfor %}

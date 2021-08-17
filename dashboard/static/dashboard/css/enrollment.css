@@ -1,0 +1,35 @@
+.enrollment-card {
+    box-shadow: 0 0 .5em .1em #ddd;
+    padding: 1.5em !important;
+    margin-bottom: 2em;
+}
+
+.enrollment-file {
+    display: flex;
+    align-items: center;
+}
+
+.enrollment-file > img {
+    width: 1.25em;
+}
+
+.enrollment-file > a {
+    margin-bottom: 0%;
+    margin-left: .5em;
+}
+
+.enrollment-button {
+    text-transform: uppercase;
+    border-top: 1px solid blue !important;
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: blue;
+    text-align: center;
+}
+
+.enrollment-button:hover {
+    text-decoration: none;
+    color: blue;
+}
