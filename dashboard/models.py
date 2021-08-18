@@ -34,13 +34,16 @@ class Kompetisi(models.Model):
         if str(self.tipe) == "Individu":
             return self.peserta.all().count()
         else:
-            return self.kelompok.all().count()        
+            return self.kelompok.all().count()
 
     def get_deadline(self):
         return self.deadline_pendaftaran.strftime("%d - %b - %Y")
     
     def is_deadline(self):
         return datetime.now(timezone(settings.TIME_ZONE)).date() > self.deadline_pendaftaran
+    
+    def get_tipe(self):
+        return str(self.tipe)
 
     def can_enroll(self):
         is_before_deadline = not self.is_deadline()
@@ -72,6 +75,9 @@ class Kelompok(models.Model):
             if anggota.is_ketua:
                 return anggota
         return None
+    
+    def get_tipe(self):
+        return self.kompetisi.get_tipe()
 
     def can_add_member(self):
         is_before_deadline = not self.kompetisi.is_deadline()
@@ -96,6 +102,9 @@ class Anggota(models.Model):
     file_cv = models.FileField(null=True, blank=True) # Only for DAQ
 
     kelompok = models.ForeignKey(Kelompok, on_delete=models.CASCADE, related_name="anggota")
+
+    def get_tipe(self):
+        return self.kelompok.get_tipe()
 
     def __str__(self):
         return self.nama

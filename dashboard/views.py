@@ -24,7 +24,7 @@ def home(request):
 @login_required(redirect_field_name="dashboard:home")
 def enroll(request, id_kompetisi):
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
-    tipe_kompetisi = str(kompetisi.tipe)
+    tipe_kompetisi = kompetisi.get_tipe()
 
     if tipe_kompetisi == "Individu":
         return enroll_individu(request, id_kompetisi)
@@ -198,7 +198,7 @@ def enroll_daq(request, id_kompetisi):
 @login_required(redirect_field_name="dashboard:home")
 def add_anggota(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
-    tipe_kompetisi = str(kelompok.kompetisi.tipe)
+    tipe_kompetisi = kelompok.get_tipe()
 
     if tipe_kompetisi == "Kelompok":
         return add_anggota_kelompok(request, id_kelompok)
@@ -300,7 +300,7 @@ def add_anggota_kelompok_daq(request, id_kelompok):
 @login_required(redirect_field_name="dashboard:home")
 def edit_kelompok(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
-    tipe_kompetisi = str(kelompok.kompetisi.tipe)
+    tipe_kompetisi = kelompok.get_tipe()
 
     if tipe_kompetisi == "Kelompok":
         return edit_kelompok_biasa(request, id_kelompok)
@@ -427,7 +427,7 @@ def edit_peserta(request, id_peserta):
 @login_required(redirect_field_name="dashboard:home")
 def edit_anggota(request, id_anggota):
     anggota = Anggota.objects.get(id=id_anggota)
-    tipe_kompetisi = str(anggota.kelompok.kompetisi.tipe)
+    tipe_kompetisi = anggota.get_tipe()
 
     if tipe_kompetisi == "Kelompok":
         return edit_anggota_biasa(request, id_anggota)
@@ -539,7 +539,7 @@ def view_enrollments(request, id_kompetisi):
     context = {}
 
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
-    tipe_kompetisi = str(kompetisi.tipe)
+    tipe_kompetisi = kompetisi.get_tipe()
 
     context["competition"] = kompetisi
 
@@ -558,7 +558,7 @@ def view_kelompok(request, id_kelompok):
     context = {}
 
     kelompok = Kelompok.objects.get(id=id_kelompok)
-    tipe_kompetisi = str(kelompok.kompetisi.tipe)
+    tipe_kompetisi = kelompok.get_tipe()
 
     context["kelompok"] = kelompok
 
@@ -574,40 +574,3 @@ def view_kelompok(request, id_kelompok):
 
 def get_ketua_choices(kelompok):
     return ( (anggota.id, anggota.nama) for anggota in kelompok.anggota.all() )
-
-
-
-
-
-def debug(request):
-    print("====================== START ======================")
-
-    # print("=== USER ===")
-    # for user in User.objects.all():
-    #     if user.username == "admin":
-    #         continue
-
-    #     print(user.username)
-    #     print(user.metadata.nama_fakultas)
-    #     print(user.metadata.singkatan_fakultas)
-    #     print(user.metadata.makara_image_code)
-    #     print(user.kompetisi.all())
-    #     print("-----")
-
-    # print("=== KOMPETISI ===")
-    # for kompetisi in Kompetisi.objects.all():
-    #     print(kompetisi)
-    #     print(kompetisi.get_enrollment_count())
-    #     print("-----")
-
-    # print("=== PESERTA ===")
-    # for peserta in Peserta.objects.all():
-    #     print(peserta)
-    #     print(peserta.foto_ktm.url)
-    #     print(peserta.screenshot_siak.url)
-    #     print(peserta.file_cv.url)
-    #     print("-----")
-
-    print("======================  END  ======================")
-
-    return HttpResponse("DEBUG")

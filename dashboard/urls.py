@@ -15,5 +15,4 @@ urlpatterns = [
     path('delete/member/<int:id_anggota>', delete_anggota, name='delete_anggota'),
     path('view/<int:id_kompetisi>', view_enrollments, name='view_enrollments'),
     path('view/team/<int:id_kelompok>', view_kelompok, name='view_kelompok'),
-    path("debug/", debug, name="debug"),
 ]
