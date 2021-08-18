@@ -343,7 +343,7 @@ def edit_kelompok_daq(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
 
     if request.method == "POST":
-        edit_kelompok_daq_form = EditKelompokDAQForm(request.POST, ketua_choices=get_ketua_choices(kelompok))
+        edit_kelompok_daq_form = EditKelompokDAQForm(request.POST, ketua_choices=kelompok.get_ketua_choices())
 
         if edit_kelompok_daq_form.is_valid():
             kelompok.nama = edit_kelompok_daq_form.cleaned_data.get("nama")
@@ -371,7 +371,7 @@ def edit_kelompok_daq(request, id_kelompok):
     }
 
     context["kelompok"] = kelompok
-    context["edit_kelompok_daq_form"] = EditKelompokDAQForm(initial=initial_data, ketua_choices=get_ketua_choices(kelompok))
+    context["edit_kelompok_daq_form"] = EditKelompokDAQForm(initial=initial_data, ketua_choices=kelompok.get_ketua_choices())
     return render(request, "dashboard/edit_kelompok_daq.html", context)
 
 
@@ -567,10 +567,3 @@ def view_kelompok(request, id_kelompok):
 
     elif tipe_kompetisi == "DAQ":
         return render(request, "dashboard/view_kelompok_daq.html", context)
-
-
-
-
-
-def get_ketua_choices(kelompok):
-    return ( (anggota.id, anggota.nama) for anggota in kelompok.anggota.all() )

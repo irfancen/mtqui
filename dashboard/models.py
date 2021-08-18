@@ -71,6 +71,9 @@ class Kelompok(models.Model):
                 return anggota
         return None
     
+    def get_ketua_choices(self):
+        return ( (anggota.id, anggota.nama) for anggota in self.anggota.all() )
+    
     def get_tipe(self):
         return self.kompetisi.get_tipe()
 
