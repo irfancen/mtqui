@@ -70,13 +70,17 @@ View - {{ competition.judul }}
             </div>
         </div>
 
+        {% if peserta.can_be_edited %}
         <div>
             <a class="enrollment-button" href="{% url 'dashboard:edit_peserta' id_peserta=peserta.id %}">Edit Enrollment</a>
         </div>
+        {% endif %}
         
+        {% if peserta.can_be_deleted %}
         <div>
             <a class="enrollment-button" href="#">Delete Enrollment</a>
         </div>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

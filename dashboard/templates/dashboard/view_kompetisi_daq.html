@@ -41,13 +41,17 @@ View - {{ competition.judul }}
             <a class="enrollment-button" href="{% url 'dashboard:view_kelompok' id_kelompok=kelompok.id %}">View Members</a>
         </div>
         
+        {% if kelompok.can_be_edited %}
         <div>
             <a class="enrollment-button" href="{% url 'dashboard:edit_kelompok' id_kelompok=kelompok.id %}">Edit Team Details</a>
         </div>
-        
+        {% endif %}
+
+        {% if kelompok.can_be_deleted %}
         <div>
             <a class="enrollment-button" href="#">Delete Team</a>
         </div>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

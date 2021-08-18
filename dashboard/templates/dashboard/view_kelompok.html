@@ -70,13 +70,17 @@ View - {{ kelompok.nama }}
             </div>
         </div>
 
+        {% if anggota.can_be_edited %}
         <div>
             <a class="enrollment-button" href="{% url 'dashboard:edit_anggota' id_anggota=anggota.id %}">Edit Member Details</a>
         </div>
-        
+        {% endif %}
+
+        {% if anggota.can_be_deleted %}
         <div>
             <a class="enrollment-button" href="#">Remove Member</a>
         </div>
+        {% endif %}
     </div>
     {% endfor %}
 

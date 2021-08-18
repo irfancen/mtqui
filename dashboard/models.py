@@ -50,11 +50,6 @@ class Kompetisi(models.Model):
         quota_available = self.get_enrollment_count() < self.kuota
         return (is_before_deadline and quota_available)
     
-    def can_edit_enrollments(self):
-        is_before_deadline = not self.is_deadline()
-        has_enrollment = self.get_enrollment_count() > 0
-        return (is_before_deadline and has_enrollment)
-    
     def can_view_enrollments(self):
         has_enrollment = self.get_enrollment_count() > 0
         return has_enrollment
@@ -84,6 +79,14 @@ class Kelompok(models.Model):
         capacity_available = self.anggota.all().count() < self.kompetisi.kapasitas_kelompok
         return (is_before_deadline and capacity_available)
     
+    def can_be_edited(self):
+        is_before_deadline = not self.kompetisi.is_deadline()
+        return is_before_deadline
+
+    def can_be_deleted(self):
+        is_before_deadline = not self.kompetisi.is_deadline()
+        return is_before_deadline
+    
     def __str__(self):
         return self.nama
 
@@ -106,6 +109,15 @@ class Anggota(models.Model):
     def get_tipe(self):
         return self.kelompok.get_tipe()
 
+    def can_be_edited(self):
+        is_before_deadline = not self.kelompok.kompetisi.is_deadline()
+        return is_before_deadline
+
+    def can_be_deleted(self):
+        is_before_deadline = not self.kelompok.kompetisi.is_deadline()
+        will_still_have_members = (self.kelompok.anggota.all().count() - 1) > 0
+        return (is_before_deadline and will_still_have_members)
+
     def __str__(self):
         return self.nama
 
@@ -122,6 +134,14 @@ class Peserta(models.Model):
     screenshot_siak = models.ImageField()
 
     kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="peserta")
+
+    def can_be_edited(self):
+        is_before_deadline = not self.kompetisi.is_deadline()
+        return is_before_deadline
+
+    def can_be_deleted(self):
+        is_before_deadline = not self.kompetisi.is_deadline()
+        return is_before_deadline
 
     def __str__(self):
         return self.nama
