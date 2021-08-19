@@ -14,8 +14,9 @@ class Lomba(models.Model):
     about = models.TextField()
     start_date = models.DateField()
     finish_date = models.DateField()
-    guidebook_link = models.CharField(max_length=200)
-    nama_mentor = models.ManyToManyField(Mentor)
+    guidebook_link = models.CharField(max_length=200, default='#')
+    nama_mentor = models.ManyToManyField(Mentor, null=True, blank=True)
+    custom_timeline = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nama_lomba
@@ -27,6 +28,13 @@ class LombaRule(models.Model):
     def __str__(self):
         return "%s -> LombaRule: %s" % (str(self.nama_lomba), self.rule)
 
+class ParticipantRequirement(models.Model):
+    nama_lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
+    requirement = models.TextField()
+
+    def __str__(self):
+        return "%s -> ParticipantRequirement: %s" % (str(self.nama_lomba), self.requirement)
+
 class TrainingLearnt(models.Model):
     nama_lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
     learnt = models.TextField()
@@ -36,9 +44,10 @@ class TrainingLearnt(models.Model):
 
 class TrainingTimeline(models.Model):
     nama_lomba = models.ForeignKey(Lomba, on_delete=models.CASCADE)
-    timeline = models.DateField()
+    start_date = models.DateField()
+    finish_date = models.DateField()
     active = models.BooleanField(null=True, blank=True, default=False)
     deskripsi = models.CharField(max_length=100)
 
     def __str__(self):
-        return "%s -> TrainingTimeline: %s -> %s" % (str(self.nama_lomba), str(self.timeline), self.deskripsi)
+        return "%s -> TrainingTimeline: %s - %s -> %s" % (str(self.nama_lomba), str(self.start_date), str(self.finish_date), self.deskripsi)
