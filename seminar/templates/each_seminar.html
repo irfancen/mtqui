@@ -17,7 +17,7 @@
         <div class="kenta-head-content">
             <div>
                 {% if not seminar.is_past %}
-                 <span class="kenta-blurlable">🔴 AIRING IN: {{ air_time }} </span>
+                 <span class="kenta-blurlable">🔴 AIRING IN: {{ seminar.air_time }} </span>
                 {% else %}
                 <span class="kenta-blurlable">🔴 AIRED IN: {{ seminar.d_day }} </span>
                 {% endif %}
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="kenta-head-img"
-             style="background-image: url('{% static 'img/workshop.svg' %}')">
+             style="background-image: url('{{ seminar.seminar_image.url }}')">
         </div>
     </div>
 
@@ -54,29 +54,6 @@
             {% endfor %}
         </ul>
     </li>
-
-{#    <li class="list-group-item">#}
-{#        <h2>You will need...</h2>#}
-{#        <ul class="reqs">#}
-{#            {% for req in all_reqs %}#}
-{#                <li>{{ req }}</li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    </li>#}
-
-{#    <li class="list-group-item">#}
-{#        <h2>Timeline</h2>#}
-{#        <ul class="timeline">#}
-{#            {% for timeline in all_timeline %}#}
-{#                <li>#}
-{#                    <p>{{ timeline.date }}</p>#}
-{#                    <p>{{ timeline.nama_kegiatan }}</p>#}
-{##}
-{#                </li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{##}
-{#    </li>#}
 
     <li class="list-group-item" style="display:flex; justify-content: center;align-items: center; flex-direction: column">
         <p style="margin: 5px">Interested?</p>
