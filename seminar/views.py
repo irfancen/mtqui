@@ -13,7 +13,6 @@ def getairtime(dt_data):
 
 def seminarlanding(request):
     semua_seminar = Seminar.objects.all()
-    print(semua_seminar)
 
     id_list = []
     random_seminar = []
@@ -55,6 +54,7 @@ def getseminar(request, id_seminar):
     seminar = Seminar.objects.get(id=id_seminar)
     guest_stars = seminar.guest_stars.all()
     all_subjects = [x for x in seminar.subjects.split(';') if x]
+    all_biografi = [x for x in guest_stars.first().biografi.split(';') if x]
 
     if seminar.d_day < timezone.localtime():
         seminar.is_past = True
@@ -65,6 +65,7 @@ def getseminar(request, id_seminar):
         'seminar': seminar,
         'guest_stars': guest_stars,
         'all_subjects': all_subjects,
+        'all_biografi': all_biografi
     }
     return render(request, 'each_seminar.html', argument)
 
