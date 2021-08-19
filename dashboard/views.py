@@ -377,9 +377,12 @@ def edit_kelompok_daq(request, id_kelompok):
 
 @login_required(redirect_field_name="dashboard:home")
 def delete_kelompok(request, id_kelompok):
-    Kelompok.objects.get(id=id_kelompok).delete()
+    kelompok = Kelompok.objects.get(id=id_kelompok)
+
+    if request.method == "POST":
+        kelompok.delete()
     
-    return redirect(reverse("dashboard:home"))
+        return redirect(reverse("dashboard:home"))
 
 
 @login_required(redirect_field_name="dashboard:home")
@@ -522,16 +525,50 @@ def edit_anggota_daq(request, id_anggota):
 
 @login_required(redirect_field_name="dashboard:home")
 def delete_peserta(request, id_peserta):
-    Peserta.objects.get(id=id_peserta).delete()
+    peserta = Peserta.objects.get(id=id_peserta)
 
-    return redirect(reverse("dashboard:home"))
+    if request.method == "POST":
+        peserta.delete()
+
+        return redirect(reverse("dashboard:home"))
 
 
 @login_required(redirect_field_name="dashboard:home")
 def delete_anggota(request, id_anggota):
-    Anggota.objects.get(id=id_anggota).delete()
+    anggota = Anggota.objects.get(id=id_anggota)
+    tipe_kompetisi = anggota.get_tipe()
 
-    return redirect(reverse("dashboard:home"))
+    if tipe_kompetisi == "Kelompok":
+        return delete_anggota_biasa(request, id_anggota)
+
+    elif tipe_kompetisi == "DAQ":
+        return delete_anggota_daq(request, id_anggota)
+
+
+def delete_anggota_biasa(request, id_anggota):
+    anggota = Anggota.objects.get(id=id_anggota)
+
+    if request.method == "POST":
+        anggota.delete()
+
+        return redirect(reverse("dashboard:home"))
+
+
+def delete_anggota_daq(request, id_anggota):
+    anggota = Anggota.objects.get(id=id_anggota)
+
+    if request.method == "POST":
+        is_ketua = anggota.is_ketua
+        kelompok = anggota.kelompok
+
+        anggota.delete()
+
+        if is_ketua:
+            new_ketua = Anggota.objects.filter(kelompok=kelompok).first()
+            new_ketua.is_ketua = True
+            new_ketua.save()
+        
+        return redirect(reverse("dashboard:home"))
 
 
 @login_required(redirect_field_name="dashboard:home")

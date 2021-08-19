@@ -41,8 +41,32 @@ View - {{ competition.judul }}
         {% endif %}
         
         {% if kelompok.can_be_deleted %}
-        <div>
-            <a class="enrollment-button" href="#">Delete Team</a>
+        <a class="enrollment-button" data-toggle="modal" data-target="#deletionConfirm-{{ kelompok.id }}">Delete Team</a>
+        
+        <div class="modal fade" id="deletionConfirm-{{ kelompok.id }}" tabindex="-1" role="dialog" aria-labelledby="deletionConfirmLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deletionConfirmLabel">Are you sure?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        You are about to remove the team <b>{{ kelompok.nama }}</b> from this competition.
+                        <br>
+                        All members of this team will also be deleted.
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <form action="{% url 'dashboard:delete_kelompok' id_kelompok=kelompok.id %}" method="POST"> {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Yes, Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endif %}
     </div>
