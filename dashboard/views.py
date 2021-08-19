@@ -1,9 +1,7 @@
 from dashboard.forms import *
-from django.contrib.auth.models import User
 from dashboard.models import Anggota, Kelompok, Kompetisi, Peserta
 from django.contrib.auth.decorators import login_required
-from django.forms.formsets import formset_factory
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -67,8 +65,8 @@ def enroll_individu(request, id_kompetisi):
                     )
             peserta.save()
 
-            return redirect(reverse("dashboard:home"))
-        
+            return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kompetisi.id}))
+
         else:
             context["competition"] = kompetisi
             context["peserta_form"] = peserta_form
@@ -116,7 +114,7 @@ def enroll_kelompok(request, id_kompetisi):
                     )
             anggota.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kompetisi.id}))
     
         else:
             context["competition"] = kompetisi
@@ -171,7 +169,7 @@ def enroll_daq(request, id_kompetisi):
                     )
             anggota.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kompetisi.id}))
 
         else:
             context["competition"] = kompetisi
@@ -228,7 +226,7 @@ def add_anggota_kelompok(request, id_kelompok):
                     )
             anggota.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_kelompok", kwargs={'id_kelompok': kelompok.id}))
         
         else:
             context["kelompok"] = kelompok
@@ -275,7 +273,7 @@ def add_anggota_kelompok_daq(request, id_kelompok):
                     )
             anggota.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_kelompok", kwargs={'id_kelompok': kelompok.id}))
         
         else:
             context["kelompok"] = kelompok
@@ -311,7 +309,7 @@ def edit_kelompok_biasa(request, id_kelompok):
             kelompok.nama = kelompok_form.cleaned_data.get("nama_kelompok")
             kelompok.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kelompok.kompetisi.id}))
         
         else:
             context["kelompok"] = kelompok
@@ -348,7 +346,7 @@ def edit_kelompok_daq(request, id_kelompok):
             ketua_baru.is_ketua = True
             ketua_baru.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kelompok.kompetisi.id}))
 
         else:
             context["kelompok"] = kelompok
@@ -370,9 +368,14 @@ def delete_kelompok(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
 
     if request.method == "POST":
+        kompetisi = kelompok.kompetisi
+
         kelompok.delete()
-    
-        return redirect(reverse("dashboard:home"))
+
+        if kompetisi.get_enrollment_count() == 0:
+            return redirect(reverse("dashboard:home"))
+
+        return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kompetisi.id}))
 
 
 @login_required(redirect_field_name="dashboard:home")
@@ -395,7 +398,7 @@ def edit_peserta(request, id_peserta):
             peserta.screenshot_siak = peserta_form.cleaned_data.get("screenshot_siak") or peserta.screenshot_siak
             peserta.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': peserta.kompetisi.id}))
         
         else:
             context["peserta"] = peserta
@@ -448,7 +451,7 @@ def edit_anggota_biasa(request, id_anggota):
             anggota.screenshot_siak = anggota_form.cleaned_data.get("screenshot_siak") or anggota.screenshot_siak
             anggota.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_kelompok", kwargs={'id_kelompok': anggota.kelompok.id}))
         
         else:
             context["anggota"] = anggota
@@ -490,7 +493,7 @@ def edit_anggota_daq(request, id_anggota):
             anggota.file_cv = anggota_daq_form.cleaned_data.get("file_cv") or anggota.file_cv
             anggota.save()
 
-            return redirect(reverse("dashboard:home"))
+            return redirect(reverse("dashboard:view_kelompok", kwargs={'id_kelompok': anggota.kelompok.id}))
         
         else:
             context["anggota"] = anggota
@@ -518,9 +521,14 @@ def delete_peserta(request, id_peserta):
     peserta = Peserta.objects.get(id=id_peserta)
 
     if request.method == "POST":
+        kompetisi = peserta.kompetisi
+
         peserta.delete()
 
-        return redirect(reverse("dashboard:home"))
+        if kompetisi.get_enrollment_count() == 0:
+            return redirect(reverse("dashboard:home"))
+
+        return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kompetisi.id}))
 
 
 @login_required(redirect_field_name="dashboard:home")
@@ -539,9 +547,11 @@ def delete_anggota_biasa(request, id_anggota):
     anggota = Anggota.objects.get(id=id_anggota)
 
     if request.method == "POST":
+        kelompok = anggota.kelompok
+
         anggota.delete()
 
-        return redirect(reverse("dashboard:home"))
+        return redirect(reverse("dashboard:view_kelompok", kwargs={'id_kelompok': kelompok.id}))
 
 
 def delete_anggota_daq(request, id_anggota):
@@ -558,7 +568,7 @@ def delete_anggota_daq(request, id_anggota):
             new_ketua.is_ketua = True
             new_ketua.save()
         
-        return redirect(reverse("dashboard:home"))
+        return redirect(reverse("dashboard:view_kelompok", kwargs={'id_kelompok': kelompok.id}))
 
 
 @login_required(redirect_field_name="dashboard:home")
