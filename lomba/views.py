@@ -33,26 +33,27 @@ def lomba_detail(request, alias):
     if request.user.is_authenticated:
         isLoggedIn = True
 
-    temp = None
-    today = datetime.date.today()
-    for item in trainingTL:
-        if temp is None:
-            if item.timeline > today:
-                trainingTL.filter(timeline=item.timeline).update(active=None)
-            elif item.timeline == today:
-                trainingTL.filter(timeline=item.timeline).update(active=True)
+    if not lomba.custom_timeline:
+        temp = None
+        today = datetime.date.today()
+        for item in trainingTL:
+            if temp is None:
+                if item.timeline > today:
+                    trainingTL.filter(timeline=item.timeline).update(active=None)
+                elif item.timeline == today:
+                    trainingTL.filter(timeline=item.timeline).update(active=True)
+                else:
+                    trainingTL.filter(timeline=item.timeline).update(active=False)
+                temp = item
             else:
-                trainingTL.filter(timeline=item.timeline).update(active=False)
-            temp = item
-        else:
-            if item.timeline > today:
-                trainingTL.filter(timeline=item.timeline).update(active=None)
-                if temp.timeline <= today:
-                    trainingTL.filter(timeline=temp.timeline).update(active=True)
-            elif item.timeline < today:
-                trainingTL.filter(timeline=item.timeline).update(active=False)
-                trainingTL.filter(timeline=temp.timeline).update(active=False)
-            temp = item
+                if item.timeline > today:
+                    trainingTL.filter(timeline=item.timeline).update(active=None)
+                    if temp.timeline <= today:
+                        trainingTL.filter(timeline=temp.timeline).update(active=True)
+                elif item.timeline < today:
+                    trainingTL.filter(timeline=item.timeline).update(active=False)
+                    trainingTL.filter(timeline=temp.timeline).update(active=False)
+                temp = item
 
     isActive = False
     for item in trainingTL:

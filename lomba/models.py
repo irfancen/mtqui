@@ -16,6 +16,7 @@ class Lomba(models.Model):
     finish_date = models.DateField()
     guidebook_link = models.CharField(max_length=200)
     nama_mentor = models.ManyToManyField(Mentor)
+    custom_timeline = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nama_lomba
