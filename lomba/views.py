@@ -24,9 +24,10 @@ def lomba_list(request):
 def lomba_detail(request, alias):
     lomba = Lomba.objects.get(alias=alias)
     rules = LombaRule.objects.filter(nama_lomba=lomba)
+    requirement = ParticipantRequirement.objects.filter(nama_lomba=lomba)
     learnt = TrainingLearnt.objects.filter(nama_lomba=lomba)
     trainingTL = TrainingTimeline.objects.filter(nama_lomba=lomba)
-    trainingTL = trainingTL.all().order_by('timeline')
+    trainingTL = trainingTL.all().order_by('start_date')
     mentors = lomba.nama_mentor.all()
     isLoggedIn = False
 
@@ -34,26 +35,15 @@ def lomba_detail(request, alias):
         isLoggedIn = True
 
     if not lomba.custom_timeline:
-        temp = None
         today = datetime.date.today()
         for item in trainingTL:
-            if temp is None:
-                if item.timeline > today:
-                    trainingTL.filter(timeline=item.timeline).update(active=None)
-                elif item.timeline == today:
-                    trainingTL.filter(timeline=item.timeline).update(active=True)
-                else:
-                    trainingTL.filter(timeline=item.timeline).update(active=False)
-                temp = item
-            else:
-                if item.timeline > today:
-                    trainingTL.filter(timeline=item.timeline).update(active=None)
-                    if temp.timeline <= today:
-                        trainingTL.filter(timeline=temp.timeline).update(active=True)
-                elif item.timeline < today:
-                    trainingTL.filter(timeline=item.timeline).update(active=False)
-                    trainingTL.filter(timeline=temp.timeline).update(active=False)
-                temp = item
+            if item.start_date == today:
+                trainingTL.filter(id=item.id).update(active=True)
+            elif item.start_date > today:
+                trainingTL.filter(id=item.id).update(active=None)
+
+            if item.finish_date < today:
+                trainingTL.filter(id=item.id).update(active=False)
 
     isActive = False
     for item in trainingTL:
@@ -63,6 +53,7 @@ def lomba_detail(request, alias):
     args = {
         'lomba': lomba,
         'rules': rules,
+        'requirement': requirement,
         'mentors': mentors,
         'learnt': learnt,
         'timeline': trainingTL,
