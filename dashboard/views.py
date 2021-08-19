@@ -89,7 +89,7 @@ def enroll_kelompok(request, id_kompetisi):
         anggota_form = AnggotaForm(request.POST, request.FILES)
 
         if kelompok_form.is_valid() and anggota_form.is_valid():
-            nama_kelompok = kelompok_form.cleaned_data.get("nama")
+            nama_kelompok = kelompok_form.cleaned_data.get("nama_kelompok")
 
             kelompok = Kelompok(nama=nama_kelompok, kompetisi=kompetisi)
             kelompok.save()
@@ -140,7 +140,7 @@ def enroll_daq(request, id_kompetisi):
         anggota_daq_form = AnggotaDAQForm(request.POST, request.FILES)
 
         if kelompok_form.is_valid() and anggota_daq_form.is_valid():
-            nama_kelompok = kelompok_form.cleaned_data.get("nama")
+            nama_kelompok = kelompok_form.cleaned_data.get("nama_kelompok")
 
             kelompok = Kelompok(nama=nama_kelompok, kompetisi=kompetisi)
             kelompok.save()
@@ -308,7 +308,7 @@ def edit_kelompok_biasa(request, id_kelompok):
         kelompok_form = KelompokForm(request.POST)
 
         if kelompok_form.is_valid():
-            kelompok.nama = kelompok_form.cleaned_data.get("nama")
+            kelompok.nama = kelompok_form.cleaned_data.get("nama_kelompok")
             kelompok.save()
 
             return redirect(reverse("dashboard:home"))
@@ -319,7 +319,7 @@ def edit_kelompok_biasa(request, id_kelompok):
             return render(request, "dashboard/edit_kelompok_biasa.html", context)
 
     initial_data = {
-        "nama" : kelompok.nama,
+        "nama_kelompok" : kelompok.nama,
     }
 
     context["kelompok"] = kelompok
@@ -336,7 +336,7 @@ def edit_kelompok_daq(request, id_kelompok):
         edit_kelompok_daq_form = EditKelompokDAQForm(request.POST, ketua_choices=kelompok.get_ketua_choices())
 
         if edit_kelompok_daq_form.is_valid():
-            kelompok.nama = edit_kelompok_daq_form.cleaned_data.get("nama")
+            kelompok.nama = edit_kelompok_daq_form.cleaned_data.get("nama_kelompok")
             kelompok.save()
 
             for anggota_kelompok in Anggota.objects.filter(kelompok=kelompok):
@@ -356,7 +356,7 @@ def edit_kelompok_daq(request, id_kelompok):
             return render(request, "dashboard/edit_kelompok_daq.html", context)
     
     initial_data = {
-        "nama" : kelompok.nama,
+        "nama_kelompok" : kelompok.nama,
         "ketua" : kelompok.get_ketua().id
     }
 

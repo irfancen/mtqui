@@ -18,11 +18,11 @@ Enroll - {{ competition.judul }}
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Nama Kelompok</label>
-                    {{ kelompok_form.nama }}
+                    {{ kelompok_form.nama_kelompok }}
 
-                    {% if kelompok_form.nama.errors %}
+                    {% if kelompok_form.nama_kelompok.errors %}
                     <small class="form-text text-danger form-errors">
-                        {% for error in kelompok_form.nama.errors %}
+                        {% for error in kelompok_form.nama_kelompok.errors %}
                             {{ error|escape }}
                         {% endfor %}
                     </small>

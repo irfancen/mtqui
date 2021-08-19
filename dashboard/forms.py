@@ -77,7 +77,7 @@ class PesertaForm(forms.Form):
 
 
 class KelompokForm(forms.Form):
-    nama = forms.CharField(
+    nama_kelompok = forms.CharField(
                 max_length=100, 
                 widget=forms.TextInput(attrs={
                     'class' : 'form-control',
@@ -260,7 +260,7 @@ class EditKelompokDAQForm(forms.Form):
         super(EditKelompokDAQForm, self).__init__(*args, **kwargs)
         self.fields['ketua'].choices = ketua_choices
 
-    nama = forms.CharField(
+    nama_kelompok = forms.CharField(
                 max_length=100, 
                 widget=forms.TextInput(attrs={
                     'class' : 'form-control',

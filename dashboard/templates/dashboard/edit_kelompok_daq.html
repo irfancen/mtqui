@@ -16,11 +16,11 @@ Edit - {{ kelompok.nama }}
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Nama Kelompok</label>
-                    {{ edit_kelompok_daq_form.nama }}
+                    {{ edit_kelompok_daq_form.nama_kelompok }}
 
-                    {% if edit_kelompok_daq_form.nama.errors %}
+                    {% if edit_kelompok_daq_form.nama_kelompok.errors %}
                     <small class="form-text text-danger form-errors">
-                        {% for error in edit_kelompok_daq_form.nama.errors %}
+                        {% for error in edit_kelompok_daq_form.nama_kelompok.errors %}
                             {{ error|escape }}
                         {% endfor %}
                     </small>
