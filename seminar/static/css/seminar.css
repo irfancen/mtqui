@@ -121,6 +121,13 @@ svg {
     font-weight: 650;
 }
 
+li {
+    list-style-type: disc;
+}
+
+li::marker {
+  color: black;
+}
 
 .dot {
     height: 13px;
