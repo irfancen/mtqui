@@ -29,9 +29,6 @@
             <h4>About</h4>
             <p>{{ lomba.about }}</p>
 
-            <h4>Timeline</h4>
-            <p>{{ lomba.start_date }} - {{ lomba.finish_date }}</p>
-
             <hr>
 
             <h4>General Rules</h4>
@@ -93,33 +90,34 @@
         </div>
     </div>
 
-    {% if mentors or learnt %}
-        <div class="kenta-content" style="background-color: #e8f0ff">
-            <h2>Training</h2>
-            <div>
-                {% if mentors %}
-                    <div>
-                        <h4>Mentors</h4>
-                        <ul>
-                            {% for mentor in mentors %}
-                                <li>{{ mentor }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <hr>
-                {% endif %}
+    <div class="kenta-content" style="background-color: #e8f0ff">
+        <h1 class="mb-5">Training</h1>
+        <div>
+            {% if mentors %}
+                <h4>Mentors</h4>
+                <ul>
+                    {% for mentor in mentors %}
+                        <li>{{ mentor }}</li>
+                    {% endfor %}
+                </ul>
+                <hr>
+            {% endif %}
 
-                {% if learnt %}
-                    <h4>You will learn..</h4>
-                    <ul>
-                        {% for item in learnt %}
-                            <li>{{ item.learnt }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
+            <h4>Timeline</h4>
+            <p>{{ lomba.start_date }} - {{ lomba.finish_date }}</p>
+
+            {% if learnt %}
+                <hr>
+                <h4>You will learn..</h4>
+                <ul>
+                    {% for item in learnt %}
+                        <li>{{ item.learnt }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
+
     {% if isLoggedIn == True %}
         <div class="text-center mt-4 mb-5">
             <h5>Interested?</h5>
