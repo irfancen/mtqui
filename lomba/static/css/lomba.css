@@ -106,7 +106,7 @@ hr {
 
 @media only screen and (max-width: 828px) {
     .card-container {
-        grid-template-columns: repeat(1, 70%);
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .carousel-control-next,
