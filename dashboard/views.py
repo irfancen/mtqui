@@ -2,7 +2,7 @@ from dashboard.forms import *
 from dashboard.models import Anggota, Kelompok, Kompetisi, Peserta
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 # Create your views here.
@@ -21,7 +21,8 @@ def home(request):
 
 @login_required(redirect_field_name="dashboard:home")
 def enroll(request, id_kompetisi):
-    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+    kompetisi = get_object_or_404(Kompetisi, id=id_kompetisi)
+    
     tipe_kompetisi = kompetisi.get_tipe()
 
     if (kompetisi.get_owner() != request.user) or (not kompetisi.can_enroll()):
@@ -188,7 +189,7 @@ def enroll_daq(request, id_kompetisi):
 
 @login_required(redirect_field_name="dashboard:home")
 def add_anggota(request, id_kelompok):
-    kelompok = Kelompok.objects.get(id=id_kelompok)
+    kelompok = get_object_or_404(Kelompok, id=id_kelompok)
     tipe_kompetisi = kelompok.get_tipe()
 
     if (kelompok.get_owner() != request.user) or (not kelompok.can_add_member()):
@@ -293,7 +294,7 @@ def add_anggota_kelompok_daq(request, id_kelompok):
 
 @login_required(redirect_field_name="dashboard:home")
 def edit_kelompok(request, id_kelompok):
-    kelompok = Kelompok.objects.get(id=id_kelompok)
+    kelompok = get_object_or_404(Kelompok, id=id_kelompok)
     tipe_kompetisi = kelompok.get_tipe()
 
     if (kelompok.get_owner() != request.user) or (not kelompok.can_be_edited()):
@@ -374,7 +375,7 @@ def edit_kelompok_daq(request, id_kelompok):
 
 @login_required(redirect_field_name="dashboard:home")
 def delete_kelompok(request, id_kelompok):
-    kelompok = Kelompok.objects.get(id=id_kelompok)
+    kelompok = get_object_or_404(Kelompok, id=id_kelompok)
 
     if (kelompok.get_owner() != request.user) or (not kelompok.can_be_deleted()):
         return redirect(reverse("dashboard:home"))
@@ -394,7 +395,7 @@ def delete_kelompok(request, id_kelompok):
 def edit_peserta(request, id_peserta):
     context = {}
 
-    peserta = Peserta.objects.get(id=id_peserta)
+    peserta = get_object_or_404(Peserta, id=id_peserta)
 
     if (peserta.get_owner() != request.user) or (not peserta.can_be_edited()):
         return redirect(reverse("dashboard:home"))
@@ -437,7 +438,7 @@ def edit_peserta(request, id_peserta):
 
 @login_required(redirect_field_name="dashboard:home")
 def edit_anggota(request, id_anggota):
-    anggota = Anggota.objects.get(id=id_anggota)
+    anggota = get_object_or_404(Anggota, id=id_anggota)
     tipe_kompetisi = anggota.get_tipe()
 
     if (anggota.get_owner() != request.user) or (not anggota.can_be_edited()):
@@ -536,7 +537,7 @@ def edit_anggota_daq(request, id_anggota):
 
 @login_required(redirect_field_name="dashboard:home")
 def delete_peserta(request, id_peserta):
-    peserta = Peserta.objects.get(id=id_peserta)
+    peserta = get_object_or_404(Peserta, id=id_peserta)
 
     if (peserta.get_owner() != request.user) or (not peserta.can_be_deleted()):
         return redirect(reverse("dashboard:home"))
@@ -554,7 +555,7 @@ def delete_peserta(request, id_peserta):
 
 @login_required(redirect_field_name="dashboard:home")
 def delete_anggota(request, id_anggota):
-    anggota = Anggota.objects.get(id=id_anggota)
+    anggota = get_object_or_404(Anggota, id=id_anggota)
     tipe_kompetisi = anggota.get_tipe()
 
     if (anggota.get_owner() != request.user) or (not anggota.can_be_deleted()):
@@ -599,7 +600,7 @@ def delete_anggota_daq(request, id_anggota):
 def view_enrollments(request, id_kompetisi):
     context = {}
 
-    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+    kompetisi = get_object_or_404(Kompetisi, id=id_kompetisi)
     tipe_kompetisi = kompetisi.get_tipe()
 
     if (kompetisi.get_owner() != request.user) or (not kompetisi.can_view_enrollments()):
@@ -621,7 +622,7 @@ def view_enrollments(request, id_kompetisi):
 def view_kelompok(request, id_kelompok):
     context = {}
 
-    kelompok = Kelompok.objects.get(id=id_kelompok)
+    kelompok = get_object_or_404(Kelompok, id=id_kelompok)
     tipe_kompetisi = kelompok.get_tipe()
 
     if kelompok.get_owner() != request.user:
