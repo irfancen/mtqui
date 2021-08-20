@@ -45,6 +45,9 @@ class Kompetisi(models.Model):
     def get_tipe(self):
         return str(self.tipe)
 
+    def get_owner(self):
+        return self.fakultas
+
     def can_enroll(self):
         is_before_deadline = not self.is_deadline()
         quota_available = self.get_enrollment_count() < self.kuota
@@ -76,6 +79,9 @@ class Kelompok(models.Model):
     
     def get_tipe(self):
         return self.kompetisi.get_tipe()
+
+    def get_owner(self):
+        return self.kompetisi.get_owner()
 
     def can_add_member(self):
         is_before_deadline = not self.kompetisi.is_deadline()
@@ -112,6 +118,9 @@ class Anggota(models.Model):
     def get_tipe(self):
         return self.kelompok.get_tipe()
 
+    def get_owner(self):
+        return self.kelompok.get_owner()
+
     def can_be_edited(self):
         is_before_deadline = not self.kelompok.kompetisi.is_deadline()
         return is_before_deadline
@@ -137,6 +146,9 @@ class Peserta(models.Model):
     screenshot_siak = models.ImageField()
 
     kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="peserta")
+    
+    def get_owner(self):
+        return self.kompetisi.get_owner()
 
     def can_be_edited(self):
         is_before_deadline = not self.kompetisi.is_deadline()

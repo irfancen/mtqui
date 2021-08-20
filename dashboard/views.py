@@ -24,6 +24,9 @@ def enroll(request, id_kompetisi):
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
     tipe_kompetisi = kompetisi.get_tipe()
 
+    if (kompetisi.get_owner() != request.user) or (not kompetisi.can_enroll()):
+        return redirect(reverse("dashboard:home"))
+
     if tipe_kompetisi == "Individu":
         return enroll_individu(request, id_kompetisi)
 
@@ -188,6 +191,9 @@ def add_anggota(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
     tipe_kompetisi = kelompok.get_tipe()
 
+    if (kelompok.get_owner() != request.user) or (not kelompok.can_add_member()):
+        return redirect(reverse("dashboard:home"))
+
     if tipe_kompetisi == "Kelompok":
         return add_anggota_kelompok(request, id_kelompok)
 
@@ -290,6 +296,9 @@ def edit_kelompok(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
     tipe_kompetisi = kelompok.get_tipe()
 
+    if (kelompok.get_owner() != request.user) or (not kelompok.can_be_edited()):
+        return redirect(reverse("dashboard:home"))
+
     if tipe_kompetisi == "Kelompok":
         return edit_kelompok_biasa(request, id_kelompok)
 
@@ -367,6 +376,9 @@ def edit_kelompok_daq(request, id_kelompok):
 def delete_kelompok(request, id_kelompok):
     kelompok = Kelompok.objects.get(id=id_kelompok)
 
+    if (kelompok.get_owner() != request.user) or (not kelompok.can_be_deleted()):
+        return redirect(reverse("dashboard:home"))
+
     if request.method == "POST":
         kompetisi = kelompok.kompetisi
 
@@ -383,6 +395,9 @@ def edit_peserta(request, id_peserta):
     context = {}
 
     peserta = Peserta.objects.get(id=id_peserta)
+
+    if (peserta.get_owner() != request.user) or (not peserta.can_be_edited()):
+        return redirect(reverse("dashboard:home"))
 
     if request.method == "POST":
         peserta_form = PesertaForm(request.POST, request.FILES, edit_form=True)
@@ -424,6 +439,9 @@ def edit_peserta(request, id_peserta):
 def edit_anggota(request, id_anggota):
     anggota = Anggota.objects.get(id=id_anggota)
     tipe_kompetisi = anggota.get_tipe()
+
+    if (anggota.get_owner() != request.user) or (not anggota.can_be_edited()):
+        return redirect(reverse("dashboard:home"))
 
     if tipe_kompetisi == "Kelompok":
         return edit_anggota_biasa(request, id_anggota)
@@ -520,6 +538,9 @@ def edit_anggota_daq(request, id_anggota):
 def delete_peserta(request, id_peserta):
     peserta = Peserta.objects.get(id=id_peserta)
 
+    if (peserta.get_owner() != request.user) or (not peserta.can_be_deleted()):
+        return redirect(reverse("dashboard:home"))
+
     if request.method == "POST":
         kompetisi = peserta.kompetisi
 
@@ -535,6 +556,9 @@ def delete_peserta(request, id_peserta):
 def delete_anggota(request, id_anggota):
     anggota = Anggota.objects.get(id=id_anggota)
     tipe_kompetisi = anggota.get_tipe()
+
+    if (anggota.get_owner() != request.user) or (not anggota.can_be_deleted()):
+        return redirect(reverse("dashboard:home"))
 
     if tipe_kompetisi == "Kelompok":
         return delete_anggota_biasa(request, id_anggota)
@@ -578,6 +602,9 @@ def view_enrollments(request, id_kompetisi):
     kompetisi = Kompetisi.objects.get(id=id_kompetisi)
     tipe_kompetisi = kompetisi.get_tipe()
 
+    if (kompetisi.get_owner() != request.user) or (not kompetisi.can_view_enrollments()):
+        return redirect(reverse("dashboard:home"))
+
     context["competition"] = kompetisi
 
     if tipe_kompetisi == "Individu":
@@ -596,6 +623,9 @@ def view_kelompok(request, id_kelompok):
 
     kelompok = Kelompok.objects.get(id=id_kelompok)
     tipe_kompetisi = kelompok.get_tipe()
+
+    if kelompok.get_owner() != request.user:
+        return redirect(reverse("dashboard:home"))
 
     context["kelompok"] = kelompok
 
