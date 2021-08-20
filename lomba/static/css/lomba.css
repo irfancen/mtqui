@@ -47,11 +47,13 @@ h2, h4, h5 {
 
 .card-body {
     padding: 1em;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
 }
 
-.card-img-top {
+.img-fluid {
     object-fit: cover;
-    height: 50vh;
+    max-height: 50vh;
 }
 
 .card-content {
@@ -104,7 +106,11 @@ hr {
 
 @media only screen and (max-width: 828px) {
     .card-container {
-        grid-template-columns: repeat(1, 1fr);
-        margin: 0 20%;
+        grid-template-columns: repeat(1, 70%);
+    }
+
+    .carousel-control-next,
+    .carousel-control-prev {
+        display: none;
     }
 }
