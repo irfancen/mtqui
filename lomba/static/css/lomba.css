@@ -98,6 +98,16 @@ hr {
     border-top: 1px solid #3D54A6;
 }
 
+.btn-primary {
+    background-color: #51B1F6;
+    border: #51B1F6;
+    padding: 1% 2%;
+}
+
+.btn-primary:hover {
+    background-color: #2783B6;
+}
+
 @media only screen and (max-width: 991px) {
     .card-container {
         grid-template-columns: repeat(2, 1fr);
