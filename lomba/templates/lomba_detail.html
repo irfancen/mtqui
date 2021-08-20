@@ -41,34 +41,18 @@
                 {% endfor %}
             </ul>
 
+            <h4>Participant Requirements</h4>
+            <ul>
+                {% for item in requirement %}
+                    <li>{{ item.requirement }}</li>
+                {% endfor %}
+            </ul>
+
             <h4>Guidebook</h4>
-            <div class="d-flex flex-row">
+            <div class="mt-2 mb-4 d-flex flex-row">
                 <img src="{% static 'svg/guidebook.svg' %}" width="15em" alt="guidebook">
                 <a class="ml-2" href={{ lomba.guidebook_link }}>Get the guidebook here!</a>
             </div>
-        </div>
-    </div>
-
-    <div class="training" style="padding: 3em; background-color: #e8f0ff">
-        <h2>Training</h2>
-        <div style="padding: 3.5em">
-            <div>
-                <h4>Mentors</h4>
-                <ul>
-                    {% for mentor in mentors %}
-                        <li>{{ mentor }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <hr>
-
-            <h4>You will learn..</h4>
-            <ul>
-                {% for item in learnt %}
-                    <li>{{ item.learnt }}</li>
-                {% endfor %}
-            </ul>
 
             <hr>
 
@@ -96,7 +80,11 @@
                             ></path>
                         </svg>
                     <div style="display: flex; flex-direction: column; font-size: large">
-                        <span class="kenta-timeline-date">{{ item.timeline }}</span>
+                        {% if item.start_date == item.finish_date %}
+                            <span class="kenta-timeline-date">{{ item.start_date|date:'Y-m-d' }}</span>
+                        {% else %}
+                            <span class="kenta-timeline-date">{{ item.start_date|date:'Y-m-d' }} - {{ item.finish_date|date:'Y-m-d' }}</span>
+                        {% endif %}
                         <span style="font-size: medium">{{ item.deskripsi }}</span>
                     </div>
                 </div>
@@ -104,6 +92,34 @@
             </div>
         </div>
     </div>
+
+    {% if mentors or learnt %}
+        <div class="training" style="padding: 3em; background-color: #e8f0ff">
+            <h2>Training</h2>
+            <div style="padding: 3.5em">
+                {% if mentors %}
+                    <div>
+                        <h4>Mentors</h4>
+                        <ul>
+                            {% for mentor in mentors %}
+                                <li>{{ mentor }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <hr>
+                {% endif %}
+
+                {% if learnt %}
+                    <h4>You will learn..</h4>
+                    <ul>
+                        {% for item in learnt %}
+                            <li>{{ item.learnt }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
     {% if isLoggedIn == True %}
         <div class="text-center mt-4 mb-5">
             <h5>Interested?</h5>
