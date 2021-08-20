@@ -5,9 +5,9 @@
 {% load static %}
 {% block content %}
     <div class="kenta-content">
-        <h1>Oh noes!</h1>
+        <h1>{{ title }}</h1>
         <div class="kenta-abouttext">
-            <p>Something went wrong. We apologize for the inconvenience.</p>
+            <p>{{ message }}</p>
             <div class="mt-2 mb-4 d-flex flex-row">
                 <img src="{% static 'svg/home.svg' %}" width="15em" alt="home">
                 <a class="ml-2" href="/">Return to homepage?</a>
