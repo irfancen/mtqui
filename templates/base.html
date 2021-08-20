@@ -16,7 +16,12 @@
         {% block title %}
         {% endblock %}
     </title>
-    {#TODO: Icon#}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <link rel="icon" href="{% static 'img/Rectangle 9.png' %}">
     {% block head %}
     {% endblock %}
 </head>
