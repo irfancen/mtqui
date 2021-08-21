@@ -71,9 +71,9 @@
             {% for lomba in lombaList %}
                 <div class="card m-3">
                     {% if lomba.image %}
-                        <img class="card-img-top" src="{{ lomba.image.url }}" alt="Card image">
+                        <img class="img-fluid" src="{{ lomba.image.url }}" alt="Card image">
                     {% else %}
-                        <img class="card-img-top" src="{{ lomba.image_url }}" alt="Card image">
+                        <img class="img-fluid" src="{{ lomba.image_url }}" alt="Card image">
                     {% endif %}
                     <div class="card-body">
                         <h5>{{ lomba.nama_lomba }}</h5>
