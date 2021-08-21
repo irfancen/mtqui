@@ -3,6 +3,7 @@
     Beranda
 {% endblock %}
 {% block content %}
+    {% load static %}
     <div class="kenta-head">
         <div class="kenta-head-content">
             <div>
@@ -15,95 +16,216 @@
              style="background-image: url('https://images.unsplash.com/photo-1519818187420-8e49de7adeef')">
         </div>
     </div>
-    <div class="kenta-content">
+    <div class="kenta-content kenta-content-about">
         <h1>About</h1>
-    </div>
-    <div class="kenta-content">
-        <h1>Values</h1>
-        <h2>What we want to deliver</h2>
-    </div>
-    <div class="kenta-content">
-        <h1>Testimonials</h1>
-    </div>
-    <div class="kenta-content">
-        <h1>Blank</h1>
-    </div>
-    {# Timeline Test #}
-    <div class="kenta-content">
-        <h1>Training</h1>
-        <div>
-            <h1>Timeline (Test)</h1>
-            <div class="kenta-timeline">
-                <div class="kenta-timeline-bullet">
-                    <svg class="kenta-timeline-past"
-                         width="40" height="59" viewBox="0 0 40 59" fill="red" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
-                        ></path>
-                        <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
-                              d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
-                        ></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
-                        ></path>
-                    </svg>
-                    <div style="display: flex; flex-direction: column; font-size: large">
-                        <span class="kenta-timeline-date">Tanggal</span>
-                        <span style="font-size: medium">Kejadian</span>
-                    </div>
-                </div>
-                <div class="kenta-timeline-bullet">
-                    <svg class="kenta-timeline-now"
-                         width="40" height="59" viewBox="0 0 40 59" fill="yellow" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
-                        ></path>
-                        <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
-                              d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
-                        ></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
-                        ></path>
-                    </svg>
-                    <div style="display: flex; flex-direction: column; font-size: large">
-                        <span class="kenta-timeline-date">Tanggal</span>
-                        <span style="font-size: medium">Kejadian</span>
-                    </div>
-                </div>
-            </div>
-            {# Timeline #}
-            <div class="kenta-timeline">
-                {#{% for t in timeline %}#}
-                <div class="kenta-timeline-bullet">
-                    {# Put date logic here ... #}
-                    {# if t.tanggal < dari hari ini #}
-                    {# <svg class="kenta-timeline-past"#}
-                    {# elif t.tanggal == dari hari ini #}
-                    {# <svg class="kenta-timeline-now"#}
-                    {# else #}
-                    <svg
-                            {# endif #}
-                            width="40" height="59" viewBox="0 0 40 59" fill="yellow"
-                            xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
-                        ></path>
-                        <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
-                              d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
-                        ></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
-                        ></path>
-                    </svg>
-                    <div style="display: flex; flex-direction: column; font-size: large">
-                        <span class="kenta-timeline-date">{# t.tanggal #}</span>
-                        <span style="font-size: medium">{# t.kejadian #}</span>
-                    </div>
-                </div>
-                {#{% endfor %}#}
-            </div>
-            {# Kopas sampe sini #}
+        <div class="kenta-mandala-holder">
+            <div class="kenta-rotating-mandala" style="float: right; right: -20vw; width: 40vw; height: 40vw"></div>
+        </div>
+        <div class="kenta-abouttext">
+            <p>MTQ UI adalah akronim dari Musabaqah Tilawatil Qur’an Universitas Indonesia.</p>
+            <p>MTQ merupakan ajang perlombaan seni baca Al-Qur’an yang diselenggarakan pertama kali di Indonesia pada
+                tahun
+                1968.</p>
+            <p>Di UI sendiri MTQ merupakan ajang tahunan yang diadakan di bawah Salam UI dan tahun ini memasuki tahun
+                ke-7.
+                Sebelumnya, ajang ini dikenal dengan nama UIQO (UI Quranic Olympiad) dan berganti menjadi MTQ UI pada
+                tahun
+                2019.</p>
+            <p>Melalui MTQ UI, diharapkan nantinya dapat tercipta kontingen-kontingen terbaik untuk MTQMN (MTQ Mahasiswa
+                Nasional) dan dapat mensyiarkan Al-Qur’an dengan baik.</p>
         </div>
     </div>
+    <div class="kenta-content" style="min-height: max-content">
+        <h1>Values</h1>
+        <h2>What we want to deliver</h2>
+        <div class="kenta-values">
+            <div class="kenta-value"
+                 data-toggle="tooltip"
+                 data-html="true"
+                 data-placement="bottom"
+                 title="MTQ UI berjalan atas dasar hukum-hukum islam dan selalu mengedepankannya dalam segala aspek kegiatan MTQ UI 2021">
+                <div style="background-image: url({% static 'img/nilai/1.png' %})"></div>
+                Islam
+            </div>
+            <div class="kenta-value"
+                 data-toggle="tooltip"
+                 data-html="true"
+                 data-placement="bottom"
+                 title="MTQ UI sebagai perekat ukhuwah antarpanitia, mahasiswa muslim UI, bahkan masyarakat umum yang turut hadir dalam rangkaian acara MTQ UI 2021">
+                <div style="background-image: url({% static 'img/nilai/2.png' %})"></div>
+                Ukhuwah
+            </div>
+            <div class="kenta-value"
+                 data-toggle="tooltip"
+                 data-html="true"
+                 data-placement="bottom"
+                 title="Seluruh panitia dan peserta MTQ UI 2021 senantiasa menggunakan kecerdasan berpikir dalam membuat dan menyelesaikan segala kegiatan yang ada">
+                <div style="background-image: url({% static 'img/nilai/3.png' %})"></div>
+                Intelek
+            </div>
+            <div class="kenta-value"
+                 data-toggle="tooltip"
+                 data-html="true"
+                 data-placement="bottom"
+                 title="Wujud profesionalitas dari setiap komponen MTQ UI 2021">
+                <div style="background-image: url({% static 'img/nilai/4.png' %})"></div>
+                Integritas
+            </div>
+            <div class="kenta-value"
+                 data-toggle="tooltip"
+                 data-html="true"
+                 data-placement="bottom"
+                 title="MTQ UI senantiasa berinovasi dalam mengikuti perkembangan zaman dan mengatasi segala masalah yang mungkin muncul">
+                <div style="background-image: url({% static 'img/nilai/5.png' %})"></div>
+                Inovatif
+            </div>
+        </div>
+    </div>
+    <div class="kenta-content" style="min-height: max-content">
+        <div class="kenta-rotating-mandala" style="float: left; left: -5vw; width: 20vw; height: 20vw"></div>
+        <h1>Testimonials</h1>
+        <h2>What they said about MTQ UI</h2>
+        <div class="kenta-testimonials-show">
+            <div style="display: flex; flex-direction: row; height: max-content; align-items: center">
+                <div class="kenta-testi-img" style="background-image: url('{% static "img/testi/1.png" %}')"></div>
+                <div style="display: flex; flex-direction: column; margin-left: 10px">
+                    <div class="kenta-testi-name">Anisah</div>
+                    <div class="kenta-testi-from">FEB 2019</div>
+                    <div class="kenta-testi-title">
+                        Juara 1 MHQ Akhwat Cabang 20 Juz MTQ UI 2020
+                    </div>
+                </div>
+            </div>
+            <div class="kenta-testi-text" style="min-height: 15vh; max-height: 15vh">Alhamdulillah. Seneng banget rasanya bisa ikut berpartisipasi di MTQ UI,
+                khususnya cabang lomba Hifzil akhwat 20 juz. Lewat MTQ UI, semangat murojaah jadi makin ke-push lagi
+                dan bisa jadi ajang mengukur kualitas hafalan. MTQ UI ngelatih kita buat nge-manage waktu murojaah
+                di tengah kesibukan kuliah yang menurutku itu hal yang sulit kalau gak ada target yang jelas. Buat
+                temen-temen yang pengen nyari sarana menguatkan hafalan, wajib banget buat nyoba ikut ajang Hifzil
+                MTQ UI. Disclaimer, jangan fokus bahwa ini adalah perlombaan yang harus dimenangkan, tapi fokus
+                bahwa ini adalah ajang quality time kita sama Qur'an. Manfaatkan momen MTQ UI untuk refleksi dan
+                evaluasi kualitas hafalan Qur'an kita. Plus, selepas MTQ UI, pertahankan semangat murojaah itu dan
+                kebiasaan yang terbentuk dari persiapan menghadapi lomba. Semoga MTQ UI kedepan makin inovatif dan
+                inspiratif!
+            </div>
+        </div>
+        <div class="kenta-testimonials">
+            <div class="kenta-testimonial">
+                <div class="kenta-testi-img" style="background-image: url('{% static "img/testi/1.png" %}')"></div>
+                <div class="kenta-testi-name">Anisah</div>
+                <div class="kenta-testi-from">FEB 2019</div>
+                <div class="kenta-testi-title">Juara 1 MHQ Akhwat Cabang 20 Juz MTQ UI 2020</div>
+                <div class="kenta-testi-text">Alhamdulillah. Seneng banget rasanya bisa ikut berpartisipasi di MTQ UI,
+                    khususnya cabang lomba Hifzil akhwat 20 juz. Lewat MTQ UI, semangat murojaah jadi makin ke-push lagi
+                    dan bisa jadi ajang mengukur kualitas hafalan. MTQ UI ngelatih kita buat nge-manage waktu murojaah
+                    di tengah kesibukan kuliah yang menurutku itu hal yang sulit kalau gak ada target yang jelas. Buat
+                    temen-temen yang pengen nyari sarana menguatkan hafalan, wajib banget buat nyoba ikut ajang Hifzil
+                    MTQ UI. Disclaimer, jangan fokus bahwa ini adalah perlombaan yang harus dimenangkan, tapi fokus
+                    bahwa ini adalah ajang quality time kita sama Qur'an. Manfaatkan momen MTQ UI untuk refleksi dan
+                    evaluasi kualitas hafalan Qur'an kita. Plus, selepas MTQ UI, pertahankan semangat murojaah itu dan
+                    kebiasaan yang terbentuk dari persiapan menghadapi lomba. Semoga MTQ UI kedepan makin inovatif dan
+                    inspiratif!
+                </div>
+            </div>
+            <div class="kenta-testimonial">
+                <div class="kenta-testi-img" style="background-image: url('{% static "img/testi/2.png" %}')"></div>
+                <div class="kenta-testi-name">Arini Dina Hanifa</div>
+                <div class="kenta-testi-from">FMIPA 2019</div>
+                <div class="kenta-testi-title">Juara 1 MHQ Akhwat Cabang 10 Juz MTQ UI 2020</div>
+                <div class="kenta-testi-text">Alhamdulillah, menjadi kontingen MTQ UI di cabang Hifzil berkesan buatku,
+                    terutama karena bisa menjadi ajang untuk mengencangkan murojaah. Buat temen-temen yang kurang
+                    termotivasi untuk mengulang hafalan, bisa coba daftar MTQ UI cabang MHQ biar ada target jelas dan
+                    bisa berlomba-lomba dalam kebaikan. Jangan lupa luruskan niat, manfaatkan momen murojaah untuk
+                    mengembalikan semangat ber-Qur'an untuk seterusnya, bukan hanya untuk lomba saja. Semoga antusias
+                    kalian para pemuda cinta Qur'an dalam mengikuti MTQ UI bisa membawa keberkahan bagi acara dan
+                    semuanya, dunia-akhirat.
+                </div>
+            </div>
+            <div class="kenta-testimonial">
+                <div class="kenta-testi-img" style="background-image: url('{% static "img/testi/3.png" %}')"></div>
+                <div class="kenta-testi-name">Muthia Syifa Rahmadina</div>
+                <div class="kenta-testi-from">FKM 2018</div>
+                <div class="kenta-testi-title">Juara 1 MDAQ MTQ UI 2020</div>
+                <div class="kenta-testi-text">Tahun lalu itu pertama kalinya gue ikut MTQ UI dan milih bidang DAQ karena
+                    menarik. Seneng banget selama jadi kontingen gue bisa mengembangkan diri sendiri. Padahal gue dari
+                    FKM dan gak paham-paham betul sama UI/UX, tapi ya coba aja hehe. Gue dan tim belajar buat
+                    identifikasi masalah dan kebutuhan masyarakat terkait Al-Qur’an. Dari situ, kita juga belajar buat
+                    ngembangin ide-ide. Alhamdulillahnya, selama ikut DAQ ini, ada mentor yang bantu kita. Kedepannya
+                    semoga makin banyak lagi yang ikut lomba DAQ dan buat rumusan ide yang keren-keren. Siapa tau
+                    setelah lomba mau lanjut direalisasikan jadi aplikasi beneran dan bermanfaat buat banyak orang.
+                    Lumayan jadi ladang pahala. Intinya, perjelas tujuannya dan nikmati setiap prosesnya selama lomba
+                    DAQ ini. Semangat!
+                </div>
+            </div>
+            <div class="kenta-testimonial">
+                <div class="kenta-testi-img" style="background-image: url('{% static "img/testi/4.png" %}')"></div>
+                <div class="kenta-testi-name">Asaa Anyahdiyani Robbi</div>
+                <div class="kenta-testi-from">FIB 2018</div>
+                <div class="kenta-testi-title">Ketua Kontingen FIB untuk MTQ UI 2020</div>
+                <div class="kenta-testi-text">MTQ UI menurut aku bukan hanya sekadar ajang berkompetisi, tetapi juga
+                    sebuah sarana untuk memetik banyak manfaat lainnya. Di sini aku belajar banyak aspek mengenai etika
+                    bekerja bersama orang lain, mulai dari komunikasi hingga tanggung jawab. Lebih dari itu, MTQ UI bagi
+                    aku juga sarana untuk mengenal Islam lebih jauh. Setelah mengikuti semua prosesnya, aku sadar bahwa
+                    ilmu aku tentang Islam masih dangkal dan terbatas. So, jangan ragu untuk daftar, karena manfaat yang
+                    kalian dapat akan jauh lebih berharga dari sekedar menang dan kalah!
+                </div>
+            </div>
+            <div class="kenta-testimonial">
+                <div class="kenta-testi-img" style="background-image: url('{% static "img/testi/5.png" %}')"></div>
+                <div class="kenta-testi-name">Windu Zahra Al Ghani</div>
+                <div class="kenta-testi-from">FISIP 2019</div>
+                <div class="kenta-testi-title">Ketua Kontingen FISIP untuk MTQ UI 2020</div>
+                <div class="kenta-testi-text">Selama menjadi ketua kontingen di MTQ FISIP banyak hal yang terjadi, dan
+                    dari semua itu MTQ FISIP memberikan banyak pengalaman – pengalaman bagi gue. Di sana (MTQ FISIP)
+                    juga jadi banyak ketemu orang-orang yang hebat dan sedikit banyak membuat motivasi untuk jadi
+                    orang-orang hebat itu tumbuh. MTQ UI merupakan sebuah wadah yang diberikan kepada kita anak-anak UI
+                    karena dengan adanya acara ini dapat menjadi tempat untuk mengembangkan diri dan juga sebuah syiar.
+                    Jadi, ibarat sekali mendayung dua tiga pulau terlampaui. Semoga MTQ UI bisa lebih banyak
+                    mengembangkan bakat para mahasiswa UI dalam bidang Al-Qur’an dengan pelatihan dan sebagainya. Semoga
+                    juga MTQ UI bisa lebih besar lagi untuk menjangkau semua masyarakat UI atau bahkan di luar UI.
+                </div>
+            </div>
+            <div class="kenta-testimonial">
+                <div class="kenta-testi-img" style="background-image: url('{% static "img/testi/6.png" %}')"></div>
+                <div class="kenta-testi-name">Mohamad Sani</div>
+                <div class="kenta-testi-from">Founder dan CEO Qur’an Learn App</div>
+                <div class="kenta-testi-title">Pembicara Talkshow “Membumikan Al-Qur’an melalui Teknologi” MTQ UI 2020
+                </div>
+                <div class="kenta-testi-text">Salut dengan panitia MTQ UI yang secara sukarela menebar manfaat untuk
+                    publik agar lebih dekat dengan Al-Qur'an. Umat Islam di Indonesia perlu lebih dekat dengan Al-Qur'an
+                    dan MTQ UI ini merupakan salah satu sarananya. MTQ UI besar manfaatnya, khususnya agar pesertanya
+                    lebih ber-Qur'an.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kenta-content kenta-content-theme">
+        <div class="kenta-rotating-mandala" style="width: 30vw; height: 30vw"></div>
+        <div class="kenta-theme">
+            <h1>"Enlighten Our Qur’an Soul"</h1>
+            <h2>This year's theme</h2>
+        </div>
+
+    </div>
+    <div class="kenta-content" style="min-height: max-content">
+        <h1 class="kenta-small-title">Our Sponsors</h1>
+        <div class="kenta-values">
+            <div class="kenta-value">
+                <div></div>
+            </div>
+            <div class="kenta-value">
+                <div></div>
+            </div>
+            <div class="kenta-value">
+                <div></div>
+            </div>
+            <div class="kenta-value">
+                <div></div>
+            </div>
+            <div class="kenta-value">
+                <div></div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

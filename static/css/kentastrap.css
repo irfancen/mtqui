@@ -6,6 +6,7 @@ html {
 
 body {
     font-family: 'Montserrat', sans-serif;
+    overflow: overlay;
 }
 
 svg {
@@ -91,9 +92,9 @@ svg {
 
 .kenta-content {
     min-height: 100vh;
-    background: white;
     color: #2F2F2F;
     padding: 4% 5%;
+    overflow: hidden;
 }
 
 .kenta-content > h1 {
@@ -123,7 +124,6 @@ svg {
     backdrop-filter: blur(100px);
 }
 
-
 .kenta-timeline {
     padding: 2%;
     display: flex;
@@ -151,21 +151,236 @@ svg {
     bottom: 0;
     width: 100%;
     color: white;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
     font-size: small;
+    justify-content: space-around;
 }
 
 .kenta-footer-contact {
     display: flex;
     gap: 10px;
     align-items: center;
+    margin-top: 5px;
+}
+
+.kenta-footer-contact > span {
+    font-size: 1rem;
 }
 
 .kenta-divisor {
     background: #2F2F2F;
     height: 2px;
     width: 100%;
+}
+
+.kenta-abouttext {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin: auto 0;
+}
+
+.kenta-abouttext > p {
+    overflow: hidden;
+}
+
+.kenta-testi-img {
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;
+    box-shadow: 0px 4px 4px 0px #0000001F;
+}
+
+.kenta-testimonial > div {
+    display: none;
+}
+
+.kenta-testi-img {
+    display: block !important;
+    transition: 0.2s;
+}
+
+.kenta-value > div {
+    height: 10vw;
+    width: 10vw;
+    border-radius: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;
+    box-shadow: 0px 4px 4px 0px #0000001F;
+    transition: 0.2s;
+}
+
+.kenta-value:hover > div, .kenta-testimonial:hover > div {
+    transform: scale(1.1) translateY(-10px);
+}
+
+.kenta-testimonial:hover {
+    cursor: pointer;
+}
+
+.kenta-testimonial:active > div {
+    filter: brightness(0.8);
+}
+
+.kenta-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: available;
+}
+
+.kenta-values, .kenta-testimonials {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    gap: 30px;
+    width: 100%;
+}
+
+.kenta-testimonials {
+    justify-content: center;
+    gap: 25px;
+}
+
+.kenta-theme {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+.kenta-rotating-mandala {
+    position: absolute;
+    background-image: url("../img/asset/Mandala_1.png");
+    width: 200px;
+    height: 200px;
+    background-size: contain;
+    animation-name: mandala;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background-repeat: no-repeat;
+    z-index: -1000;
+    opacity: 50%;
+}
+
+.kenta-testimonials-show {
+    padding: 10px;
+    background: white;
+    border-radius: 30px;
+}
+
+.kenta-testimonials-show > div > .kenta-testi-img {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+.kenta-mandala-holder {
+    height: 50vw;
+    width: 25vw;
+    position: absolute;
+    overflow: hidden;
+    float: right;
+    right: 0;
+}
+
+.kenta-content-theme {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.kenta-testi-text {
+    overflow-y: scroll;
+    margin-top: 20px;
+    line-height: 1.5rem;
+}
+
+.kenta-testi-name {
+    font-weight: bold;
+}
+
+.kenta-testi-from, .kenta-testi-title {
+    font-size: 0.8rem;
+}
+
+
+.kenta-footer-brand {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.kenta-footer-logo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #FED1B0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #F8B5B2;
+}
+
+.tooltip {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tooltip-inner {
+    text-align: left;
+    font-size: 0.8rem;
+}
+
+.kenta-copyright {
+    width: 100%;
+    background-color: #A44A3C;
+    text-align: center;
+    color: white;
+    padding: 1%;
+    font-size: small
+}
+
+@keyframes mandala {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -186,11 +401,83 @@ svg {
         font-size: 24px;
     }
 
-    .kenta-content > h2 {
+    .kenta-content > h2, .kenta-theme > h2 {
         font-size: 12px;
     }
 
     .kenta-content > div > h1 {
         font-size: 20px;
+    }
+
+    .kenta-value > div {
+        height: 12vh;
+        width: 12vh;
+    }
+
+    .kenta-abouttext {
+        line-height: 1.2rem;
+        font-size: 0.8rem;
+    }
+
+    .kenta-value {
+        font-size: small;
+    }
+
+    .kenta-testi-img {
+        width: 6vh;
+        height: 6vh;
+    }
+
+    .kenta-content-theme {
+        min-height: max-content;
+        margin: 50px 0;
+    }
+
+    .kenta-testi-text {
+        line-height: 1.2rem;
+        font-size: 0.8rem;
+    }
+
+    .kenta-testimonials-show > div > .kenta-testi-img {
+        width: 12vh;
+        height: 12vh;
+    }
+
+    .kenta-testi-from, .kenta-testi-title {
+        font-size: 0.6rem;
+    }
+
+    .kenta-testi-name {
+        font-size: 0.8rem;
+    }
+
+    .kenta-content-about {
+        min-height: max-content;
+    }
+
+    .kenta-footer > div > h3 {
+        font-size: 1rem;
+    }
+
+    .kenta-footer-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .kenta-footer-brand {
+        gap: 10px;
+    }
+
+    .kenta-footer-brand > h1 {
+        display: none;
+    }
+
+    .kenta-footer-contact > span {
+        font-size: 0.6rem;
+    }
+
+    .kenta-copyright {
+        font-size: xx-small;
+        font-weight: 200;
     }
 }
