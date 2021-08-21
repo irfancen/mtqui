@@ -93,13 +93,15 @@
     <div class="kenta-content" style="background-color: #e8f0ff">
         <h1 class="mb-5">Training</h1>
         <div>
+            <h4>Mentors</h4>
             {% if mentors %}
-                <h4>Mentors</h4>
                 <ul>
                     {% for mentor in mentors %}
                         <li>{{ mentor }}</li>
                     {% endfor %}
                 </ul>
+            {% else %}
+                <p>To Be Announced</p>
                 <hr>
             {% endif %}
 
