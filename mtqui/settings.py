@@ -94,6 +94,16 @@ DATABASES = {
         }
     }
 
+PRODUCTION = os.environ.get('DATABASE_URL') is not None
+if PRODUCTION:
+    # KALAU SUDAH BERJALAN, kamu bisa uncomment bagian DEBUG, ALLOWED_HOSTS, dan DATABASES.
+    # For increased security.
+    # - Kak Okto
+    # DEBUG = False
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mtqui.herokuapp.com']
+    DATABASES['default'] = dj_database_url.config()
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

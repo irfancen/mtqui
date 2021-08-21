@@ -7,6 +7,10 @@ def homepage(request):
     return render(request, 'homepage.html')
 
 
+def guidebook(request):
+    return render(request, 'guidebook.html')
+
+
 def bad_request_view(request, exception):
     context = {
         'title': '400 | Bad Request',
