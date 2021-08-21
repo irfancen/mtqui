@@ -47,11 +47,13 @@ h2, h4, h5 {
 
 .card-body {
     padding: 1em;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
 }
 
-.card-img-top {
+.img-fluid {
     object-fit: cover;
-    height: 50vh;
+    max-height: 50vh;
 }
 
 .card-content {
@@ -96,6 +98,16 @@ hr {
     border-top: 1px solid #3D54A6;
 }
 
+.btn-primary {
+    background-color: #51B1F6;
+    border: #51B1F6;
+    padding: 1% 2%;
+}
+
+.btn-primary:hover {
+    background-color: #2783B6;
+}
+
 @media only screen and (max-width: 991px) {
     .card-container {
         grid-template-columns: repeat(2, 1fr);
@@ -105,6 +117,10 @@ hr {
 @media only screen and (max-width: 828px) {
     .card-container {
         grid-template-columns: repeat(1, 1fr);
-        margin: 0 20%;
+    }
+
+    .carousel-control-next,
+    .carousel-control-prev {
+        display: none;
     }
 }

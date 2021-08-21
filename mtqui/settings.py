@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0(9qab8gumh_k=4btp4_d(^n86_31dptpm1un@-c0-5g%-ft(t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -89,6 +89,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+PRODUCTION = os.environ.get('DATABASE_URL') is not None
+if PRODUCTION:
+    # KALAU SUDAH BERJALAN, kamu bisa uncomment bagian DEBUG, ALLOWED_HOSTS, dan DATABASES.
+    # For increased security.
+    # - Kak Okto
+    # DEBUG = False
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mtqui.herokuapp.com']
+    DATABASES['default'] = dj_database_url.config()
+
 
 
 # Password validation
