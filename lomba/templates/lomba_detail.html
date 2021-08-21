@@ -78,9 +78,9 @@
                         </svg>
                     <div style="display: flex; flex-direction: column; font-size: large">
                         {% if item.start_date == item.finish_date %}
-                            <span class="kenta-timeline-date">{{ item.start_date|date:'Y-m-d' }}</span>
+                            <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }}</span>
                         {% else %}
-                            <span class="kenta-timeline-date">{{ item.start_date|date:'Y-m-d' }} - {{ item.finish_date|date:'Y-m-d' }}</span>
+                            <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }} - {{ item.finish_date|date:"d M Y" }}</span>
                         {% endif %}
                         <span style="font-size: medium">{{ item.deskripsi }}</span>
                     </div>
@@ -104,7 +104,7 @@
             {% endif %}
 
             <h4>Timeline</h4>
-            <p>{{ lomba.start_date }} - {{ lomba.finish_date }}</p>
+            <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
 
             {% if learnt %}
                 <hr>
