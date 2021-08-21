@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import *
 import datetime
 
@@ -22,11 +22,12 @@ def lomba_list(request):
     return render(request, "lomba.html", args)
 
 def lomba_detail(request, alias):
-    lomba = Lomba.objects.get(alias=alias)
+    lomba = get_object_or_404(Lomba, alias=alias)
     rules = LombaRule.objects.filter(nama_lomba=lomba)
     requirement = ParticipantRequirement.objects.filter(nama_lomba=lomba)
     learnt = TrainingLearnt.objects.filter(nama_lomba=lomba)
     trainingTL = TrainingTimeline.objects.filter(nama_lomba=lomba)
+
     trainingTL = trainingTL.all().order_by('start_date')
     mentors = lomba.nama_mentor.all()
     isLoggedIn = False
