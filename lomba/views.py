@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import *
 import datetime
 
@@ -21,37 +21,30 @@ def lomba_list(request):
 
     return render(request, "lomba.html", args)
 
-def lomba_detail(request, nama_lomba):
-    lomba = Lomba.objects.get(nama_lomba=nama_lomba)
+def lomba_detail(request, alias):
+    lomba = get_object_or_404(Lomba, alias=alias)
     rules = LombaRule.objects.filter(nama_lomba=lomba)
+    requirement = ParticipantRequirement.objects.filter(nama_lomba=lomba)
     learnt = TrainingLearnt.objects.filter(nama_lomba=lomba)
     trainingTL = TrainingTimeline.objects.filter(nama_lomba=lomba)
-    trainingTL = trainingTL.all().order_by('timeline')
+
+    trainingTL = trainingTL.all().order_by('start_date')
     mentors = lomba.nama_mentor.all()
     isLoggedIn = False
 
     if request.user.is_authenticated:
         isLoggedIn = True
 
-    temp = None
-    today = datetime.date.today()
-    for item in trainingTL:
-        if temp is None:
-            if item.timeline > today:
-                trainingTL.filter(timeline=item.timeline).update(active=None)
-            elif item.timeline == today:
-                trainingTL.filter(timeline=item.timeline).update(active=True)
-            else:
-                trainingTL.filter(timeline=item.timeline).update(active=False)
-            temp = item
-        else:
-            if item.timeline > today:
-                trainingTL.filter(timeline=item.timeline).update(active=None)
-                if temp.timeline <= today:
-                    trainingTL.filter(timeline=temp.timeline).update(active=True)
-            elif item.timeline < today:
-                trainingTL.filter(timeline=temp.timeline).update(active=False)
-            temp = item
+    if not lomba.custom_timeline:
+        today = datetime.date.today()
+        for item in trainingTL:
+            if item.start_date == today:
+                trainingTL.filter(id=item.id).update(active=True)
+            elif item.start_date > today:
+                trainingTL.filter(id=item.id).update(active=None)
+
+            if item.finish_date < today:
+                trainingTL.filter(id=item.id).update(active=False)
 
     isActive = False
     for item in trainingTL:
@@ -61,6 +54,7 @@ def lomba_detail(request, nama_lomba):
     args = {
         'lomba': lomba,
         'rules': rules,
+        'requirement': requirement,
         'mentors': mentors,
         'learnt': learnt,
         'timeline': trainingTL,

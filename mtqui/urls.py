@@ -29,3 +29,8 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+handler400 = "homepage.views.bad_request_view"
+handler403 = "homepage.views.permission_denied_view"
+handler404 = "homepage.views.page_not_found_view"
+handler500 = "homepage.views.server_error_view"

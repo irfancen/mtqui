@@ -24,13 +24,10 @@
         </div>
     </div>
 
-    <div class="lomba-detail" style="padding: 3em">
-        <div style="padding: 3.5em">
+    <div class="kenta-content">
+        <div>
             <h4>About</h4>
             <p>{{ lomba.about }}</p>
-
-            <h4>Timeline</h4>
-            <p>{{ lomba.start_date }} - {{ lomba.finish_date }}</p>
 
             <hr>
 
@@ -41,34 +38,18 @@
                 {% endfor %}
             </ul>
 
+            <h4>Participant Requirements</h4>
+            <ul>
+                {% for item in requirement %}
+                    <li>{{ item.requirement }}</li>
+                {% endfor %}
+            </ul>
+
             <h4>Guidebook</h4>
-            <div class="d-flex flex-row">
+            <div class="mt-2 mb-4 d-flex flex-row">
                 <img src="{% static 'svg/guidebook.svg' %}" width="15em" alt="guidebook">
                 <a class="ml-2" href={{ lomba.guidebook_link }}>Get the guidebook here!</a>
             </div>
-        </div>
-    </div>
-
-    <div class="training" style="padding: 3em; background-color: #e8f0ff">
-        <h2>Training</h2>
-        <div style="padding: 3.5em">
-            <div>
-                <h4>Mentors</h4>
-                <ul>
-                    {% for mentor in mentors %}
-                        <li>{{ mentor }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <hr>
-
-            <h4>You will learn..</h4>
-            <ul>
-                {% for item in learnt %}
-                    <li>{{ item.learnt }}</li>
-                {% endfor %}
-            </ul>
 
             <hr>
 
@@ -96,7 +77,11 @@
                             ></path>
                         </svg>
                     <div style="display: flex; flex-direction: column; font-size: large">
-                        <span class="kenta-timeline-date">{{ item.timeline }}</span>
+                        {% if item.start_date == item.finish_date %}
+                            <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }}</span>
+                        {% else %}
+                            <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }} - {{ item.finish_date|date:"d M Y" }}</span>
+                        {% endif %}
                         <span style="font-size: medium">{{ item.deskripsi }}</span>
                     </div>
                 </div>
@@ -104,10 +89,41 @@
             </div>
         </div>
     </div>
+
+    <div class="kenta-content" style="background-color: #e8f0ff">
+        <h1 class="mb-5">Training</h1>
+        <div>
+            <h4>Mentors</h4>
+            {% if mentors %}
+                <ul>
+                    {% for mentor in mentors %}
+                        <li>{{ mentor }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>To Be Announced</p>
+                <hr>
+            {% endif %}
+
+            <h4>Timeline</h4>
+            <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
+
+            {% if learnt %}
+                <hr>
+                <h4>You will learn..</h4>
+                <ul>
+                    {% for item in learnt %}
+                        <li>{{ item.learnt }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
     {% if isLoggedIn == True %}
         <div class="text-center mt-4 mb-5">
             <h5>Interested?</h5>
-            <a href="{% url 'dashboard:home' %}" class="btn btn-primary" style="width: 10em">
+            <a href="{% url 'dashboard:home' %}" class="btn btn-primary mt-2">
                 ENROLL VIA
                 <br>
                 DASHBOARD
