@@ -11,6 +11,7 @@ Enroll - {{ competition.judul }}
 
 {% block content %}
 <div class="kenta-content">
+    <h1>Enrollment</h1>
     <h2>{{ competition.judul }}</h2>
 
     <div class="form-container">
@@ -149,10 +150,23 @@ Enroll - {{ competition.judul }}
             </p>
             {% endif %}
 
-            <button type="submit" class="btn btn-success">Daftar</button>
+            <br>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success font-weight-bold pt-2 pb-2 pl-4 pr-4">Enroll Now</button>
+            </div>
         </form>
     </div>
 </div>
 
 <script src="{% static 'dashboard/js/invalid_field.js' %}"></script>
+<script>
+    $(document).ready( () => {
+        $("input:text").css("background-color", "#E8F0FF");
+        $("input:text").css("border-color", "#51B1F6");
+
+        $("button:submit").css("background-color", "#51B1F6");
+        $("button:submit").css("border", "none");
+    });
+</script>
 {% endblock content %}

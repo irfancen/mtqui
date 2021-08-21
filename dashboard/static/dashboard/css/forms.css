@@ -1,15 +1,9 @@
 .form-container {
     padding: 0% !important;
     margin-bottom: 1em !important;
+    margin-top: 3em !important;
 }
 
-.form-delete {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.form-add {
-    margin-bottom: 1em;
+label {
+    font-weight: 700;
 }
