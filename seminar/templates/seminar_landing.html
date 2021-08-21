@@ -16,10 +16,10 @@
 {% block content %}
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
+    <ol class="carousel-indicators">
 
       {% for each_seminar in carousel_seminar %}
-          <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" id="circle"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" id="circle" style="list-style: none"></li>
       {% endfor %}
   </ol>
   <div class="carousel-inner">
@@ -29,12 +29,12 @@
         <div class="kenta-head-content">
             <div>
                 {% if not each_seminar.is_past %}
-                 <span class="kenta-blurlable"> <span class="dot mr-1"></span>AIRING IN: {{ each_seminar.d_day }} </span>
+                 <span class="kenta-blurlable"><span class="dot mr-1"></span>AIRING IN: {{ each_seminar.d_day }} </span>
                 {% else %}
-                <span class="kenta-blurlable">🔴 AIRED IN: {{ each_seminar.d_day }} </span>
+                <span class="kenta-blurlable"><span class="dot mr-1"></span> AIRED IN: {{ each_seminar.d_day }} </span>
                 {% endif %}
                 <h2 style="font-weight: 700">{{ each_seminar.judul_seminar }}</h2>
-                <h5>{{ each_seminar.about }}</h5>
+                <h5 id="tema">{{ each_seminar.about }}</h5>
             <a href="{% url 'seminar:get_seminar' each_seminar.id %}"><button class="btn btn-light" style="width: 150px" id="know_more_car">Know More!</button></a>
             </div>
         </div>
@@ -57,10 +57,9 @@
       </a>
     </div>
 
-
-    <div class="upcoming_container" style="padding: 40px;">
+    {% if not future_empty %}
+    <div class="upcoming_container">
     <h2 style="font-weight: bold"> Upcoming Seminar </h2>
-
     <div class="card_container">
         {% for seminar in seminar_list %}
         {% if not seminar.is_past %}
@@ -80,11 +79,11 @@
         {% endif%}
         {% endfor %}
     </div>
-
-
     </div>
+    {% endif %}
 
-    <div class="past_seminar" style="padding: 40px; background-color: #e8f0ff">
+    {% if not past_empty %}
+    <div class="past_seminar" >
     <h2 style="font-weight: bold"> Past Seminar </h2>
       <div class="card_container">
          {% for seminar in seminar_list %}
@@ -108,6 +107,7 @@
         {% endfor %}
     </div>
     </div>
+    {% endif %}
 
     <script>
         $(document).ready(function(){

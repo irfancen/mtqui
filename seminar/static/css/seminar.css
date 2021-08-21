@@ -19,10 +19,6 @@ svg {
     margin: 0px 5px 0px 5px;
 }
 
-/*.know_more {*/
-/*    width: 90px;*/
-/*    display: flex;*/
-/*}*/
 
 .know_more {
     display: flex;
@@ -86,8 +82,8 @@ svg {
     max-height: 100%;
 }
 
-#ff-title-root {
-        font-weight: 700;
+.ff-section h3 {
+    font-weight: 700;
 }
 
 #know_more_car {
@@ -138,6 +134,16 @@ li::marker {
     border: 1px solid rgba(0,0,0,1);
 }
 
+.upcoming_container {
+    padding: 50px;
+}
+
+.past_seminar {
+    padding: 50px;
+    background-color: #e8f0ff;
+}
+
+
 @media screen and (max-width: 1024px) {
 
     .about {
@@ -148,5 +154,37 @@ li::marker {
         padding: 20px !important;
     }
 
+    .upcoming_container {
+        padding: 20px;
+    }
+
+    .past_seminar {
+        padding: 20px;
+    }
+
+    .card_container {
+        justify-content: center;
+        align-items: center;
+    }
+
+    #tema {
+        font-size: 1rem;
+    }
 
 }
+
+@media screen and (max-width: 360px) {
+
+    .kenta-blurlable {
+        width: auto;
+    }
+
+    #tema {
+        font-size: 15px;
+    }
+
+    .max_content_behavior {
+        width: max-content;
+    }
+}
+
