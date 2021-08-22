@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Edit - {{ kelompok.nama }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/forms.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="kenta-content">
+    <h1>Edit Team</h1>
+    <h2>{{ kelompok.kompetisi.judul }}</h2>
+
+    <div class="form-container">
+        <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Nama Kelompok</label>
+                    {{ kelompok_form.nama_kelompok }}
+
+                    {% if kelompok_form.nama_kelompok.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in kelompok_form.nama_kelompok.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if kelompok_form.non_form_errors %}
+            <small class="form-text text-danger">
+                {% for error in kelompok_form.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </small>
+            {% endif %}
+
+            <br>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success font-weight-bold pt-2 pb-2 pl-4 pr-4">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'dashboard/js/invalid_field.js' %}"></script>
+<script>
+    $(document).ready( () => {
+        $("input:text").css("background-color", "#E8F0FF");
+        $("input:text").css("border-color", "#51B1F6");
+
+        $("button:submit").css("background-color", "#51B1F6");
+        $("button:submit").css("border", "none");
+    });
+</script>
+{% endblock content %}
