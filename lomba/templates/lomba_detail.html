@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+    {{ lomba.alias }}
+{% endblock %}
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/lomba.css' %}">
 {% endblock %}
@@ -26,99 +30,111 @@
 
     <div class="kenta-content">
         <div>
-            <h4>About</h4>
-            <p>{{ lomba.about }}</p>
+            {% if lomba.about %}
+                <h4>About</h4>
+                <p>{{ lomba.about }}</p>
 
-            <hr>
+                <hr>
+            {% endif %}
 
-            <h4>General Rules</h4>
-            <ul>
-                {% for item in rules %}
-                    <li>{{ item.rule }}</li>
-                {% endfor %}
-            </ul>
+            {% if rules %}
+                <h4>General Rules</h4>
+                <ul>
+                    {% for item in rules %}
+                        <li>{{ item.rule }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-            <h4>Participant Requirements</h4>
-            <ul>
-                {% for item in requirement %}
-                    <li>{{ item.requirement }}</li>
-                {% endfor %}
-            </ul>
+            {% if requirement %}
+                <h4>Participant Requirements</h4>
+                <ul>
+                    {% for item in requirement %}
+                        <li>{{ item.requirement }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-            <h4>Guidebook</h4>
-            <div class="mt-2 mb-4 d-flex flex-row">
-                <img src="{% static 'svg/guidebook.svg' %}" width="15em" alt="guidebook">
-                <a class="ml-2" href={{ lomba.guidebook_link }}>Get the guidebook here!</a>
-            </div>
-
-            <hr>
-
-            <h4>Timeline</h4>
-            <div class="kenta-timeline">
-                {% for item in timeline %}
-                <div class="kenta-timeline-bullet">
-                    {% if item.active == False %}
-                        <svg class="kenta-timeline-past"
-                    {% elif item.active == True %}
-                        <svg class="kenta-timeline-now"
-                    {% elif item.active == None %}
-                        <svg
-                                {% endif %}
-                                width="40" height="59" viewBox="0 0 40 59" fill="yellow"
-                                xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
-                            ></path>
-                            <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
-                            ></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
-                            ></path>
-                        </svg>
-                    <div style="display: flex; flex-direction: column; font-size: large">
-                        {% if item.start_date == item.finish_date %}
-                            <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }}</span>
-                        {% else %}
-                            <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }} - {{ item.finish_date|date:"d M Y" }}</span>
-                        {% endif %}
-                        <span style="font-size: medium">{{ item.deskripsi }}</span>
-                    </div>
+            {% if lomba.guidebook_link %}
+                <h4>Guidebook</h4>
+                <div class="mt-2 mb-4 d-flex flex-row">
+                    <img src="{% static 'svg/guidebook.svg' %}" width="15em" alt="guidebook">
+                    <a class="ml-2" href={{ lomba.guidebook_link }}>Get the guidebook here!</a>
                 </div>
-                {% endfor %}
+
+                <hr>
+            {% endif %}
+
+            {% if timeline %}
+                <h4>Timeline</h4>
+                <div class="kenta-timeline">
+                    {% for item in timeline %}
+                    <div class="kenta-timeline-bullet">
+                        {% if item.active == False %}
+                            <svg class="kenta-timeline-past"
+                        {% elif item.active == True %}
+                            <svg class="kenta-timeline-now"
+                        {% elif item.active == None %}
+                            <svg
+                                    {% endif %}
+                                    width="40" height="59" viewBox="0 0 40 59" fill="yellow"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
+                                ></path>
+                                <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
+                                ></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
+                                ></path>
+                            </svg>
+                        <div style="display: flex; flex-direction: column; font-size: large">
+                            {% if item.start_date == item.finish_date %}
+                                <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }}</span>
+                            {% else %}
+                                <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }} - {{ item.finish_date|date:"d M Y" }}</span>
+                            {% endif %}
+                            <span style="font-size: medium">{{ item.deskripsi }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if mentors or lomba.start_date or lomba.finish_date or learnt %}
+        <div class="kenta-content" style="background-color: #e8f0ff">
+            <h1 class="mb-5">Training</h1>
+            <div>
+                <h4>Mentors</h4>
+                {% if mentors %}
+                    <ul>
+                        {% for mentor in mentors %}
+                            <li>{{ mentor }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>To Be Announced</p>
+                    <hr>
+                {% endif %}
+
+                <h4>Timeline</h4>
+                <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
+
+                {% if learnt %}
+                    <hr>
+                    <h4>You will learn..</h4>
+                    <ul>
+                        {% for item in learnt %}
+                            <li>{{ item.learnt }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </div>
-    </div>
-
-    <div class="kenta-content" style="background-color: #e8f0ff">
-        <h1 class="mb-5">Training</h1>
-        <div>
-            <h4>Mentors</h4>
-            {% if mentors %}
-                <ul>
-                    {% for mentor in mentors %}
-                        <li>{{ mentor }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>To Be Announced</p>
-                <hr>
-            {% endif %}
-
-            <h4>Timeline</h4>
-            <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
-
-            {% if learnt %}
-                <hr>
-                <h4>You will learn..</h4>
-                <ul>
-                    {% for item in learnt %}
-                        <li>{{ item.learnt }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-    </div>
+    {% endif %}
 
     {% if isLoggedIn == True %}
         <div class="text-center mt-4 mb-5">

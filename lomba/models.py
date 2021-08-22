@@ -12,9 +12,9 @@ class Lomba(models.Model):
     image = models.ImageField(null=True, blank=True)
     image_url = models.TextField(null=True, blank=True, default='https://images.unsplash.com/photo-1519818187420-8e49de7adeef')
     about = models.TextField()
-    start_date = models.DateField()
-    finish_date = models.DateField()
-    guidebook_link = models.CharField(max_length=200, default='#')
+    start_date = models.DateField(null=True, blank=True)
+    finish_date = models.DateField(null=True, blank=True)
+    guidebook_link = models.CharField(max_length=200, default='/guidebook')
     nama_mentor = models.ManyToManyField(Mentor, null=True, blank=True)
     custom_timeline = models.BooleanField(default=False)
 
