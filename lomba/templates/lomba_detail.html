@@ -121,8 +121,11 @@
                 {% endif %}
 
                 <h4>Timeline</h4>
-                <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
-
+                {% if lomba.alias == 'DAQ' %}
+                    <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
+                {% else %}
+                    <p>{{ lomba.start_date|date:"d M Y" }} & {{ lomba.finish_date|date:"d M Y" }}</p>
+                {% endif %}
                 {% if learnt %}
                     <hr>
                     <h4>You will learn..</h4>
