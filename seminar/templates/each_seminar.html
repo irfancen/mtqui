@@ -17,12 +17,12 @@
         <div class="kenta-head-content">
             <div>
                 {% if not seminar.is_past %}
-                 <span class="kenta-blurlable"><span class="dot mr-1"></span> AIRING IN: {{ seminar.d_day }} </span>
+                <span class="kenta-blurlable"><span class="dot mr-1"></span> AIRING IN: {{ seminar.d_day|date:"d M Y" }}, {{ seminar.d_day|date:'G:i' }} - {{ seminar.end_time|date:'G:i' }} WIB</span>
                 {% else %}
-                <span class="kenta-blurlable"><span class="dot mr-1"></span> AIRED IN: {{ seminar.d_day }} </span>
+                <span class="kenta-blurlable"><span class="dot2 mr-1"></span> AIRED IN: {{ seminar.d_day }} </span>
                 {% endif %}
                 <h2 style="font-weight: 700">{{ seminar.judul_seminar }}</h2>
-                <h4 style="margin-bottom: 0px">Musabaqah Tilawatil Quran</h4> <h4 style="font-weight: bold; font-style: italic">Universitas Indonesia</h4>
+                <h4 style="margin-bottom: 0">Musabaqah Tilawatil Quran</h4> <h4 style="font-weight: bold; font-style: italic">Universitas Indonesia</h4>
             </div>
         </div>
         <div class="kenta-head-img"
@@ -38,7 +38,7 @@
         <p style="width: 60%" class="about">{{ seminar.about }}</p>
     </li>
     <li class="list-group-item">
-        <h4>Guest Stars</h4>
+        <h4>Speakers</h4>
         <ul class="guest_stars">
             {% for guest_star in guest_stars %}
                 <li>{{ guest_star.nama }}</li>
