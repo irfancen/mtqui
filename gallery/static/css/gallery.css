@@ -33,6 +33,12 @@
     background-size: contain;
 }
 
+.alt-text-div{
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+
 #imgmodal .modal-dialog {
     -webkit-transform: translate(0,-50%);
     -o-transform: translate(0,-50%);
