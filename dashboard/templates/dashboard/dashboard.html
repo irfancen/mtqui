@@ -13,14 +13,16 @@ Dashboard
 <div class="kenta-content">
     <h1>Dashboard</h1>
 
-    <div class="dashboard-container user-details">
-        <img class="makara-image" src="{{ metadata_fakultas.makara.url }}" alt="Makara Fakultas">
-        <p class="username">{{ metadata_fakultas.singkatan_fakultas }}</p>
-    </div>
+    <div class="row p-0">
+        <div class="user-details col-md-6 col-sm-6 col-xs-12">
+            <img class="makara-image" src="{{ metadata_fakultas.makara.url }}" alt="Makara Fakultas">
+            <p class="username">{{ metadata_fakultas.singkatan_fakultas }}</p>
+        </div>
 
-    <!-- <div class="dashboard-container logout">
-        <a href="{% url 'authentication:logout' %}">Logout</a>
-    </div> -->
+        <div class="logout col-md-6 col-sm-6 col-xs-12">
+            <a class="btn btn-danger" href="{% url 'authentication:logout' %}">Logout</a>
+        </div>
+    </div>
 
     <div class="dashboard-container competition-section">
         <h2>Available Competitions</h2>

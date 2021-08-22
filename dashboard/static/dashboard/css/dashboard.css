@@ -7,6 +7,12 @@
     margin-bottom: 1em !important;
 }
 
+.user-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .user-details {
     display: flex;
     align-items: center;
@@ -24,7 +30,14 @@
     margin-bottom: 0%;
 }
 
+.logout {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .competition-section {
+    margin-top: 3em !important;
     margin-left: 1.5em !important;
     margin-right: 1.5em !important;
 }
@@ -119,9 +132,20 @@
     }
 }
 
+@media only screen and (max-width: 575px) {
+    .logout {
+        padding-top: 1em;
+        justify-content: center;
+    }
+}
+
 @media only screen and (max-width: 425px) {
     .kenta-content > h1 {
         font-size: 2.5em;
+    }
+
+    .btn-danger {
+        font-size: .75em;
     }
 
     .username {
