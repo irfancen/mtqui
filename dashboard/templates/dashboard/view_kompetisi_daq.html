@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+View - {{ competition.judul }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/enrollment.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="kenta-content">
+    <h1>Enrollments</h1>
+    <h2>{{ competition.judul }}</h2>
+
+    {% for kelompok in competition.kelompok.all %}
+    <div class="enrollment-card pt-4 pl-4 pr-4 pb-1">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Nama Kelompok</label>
+                <input class="form-control" type="text" placeholder="{{ kelompok.nama }}" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Fakultas</label>
+                <input class="form-control" type="text" placeholder="{{ user.metadata.nama_fakultas }}" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Ketua</label>
+                <input class="form-control" type="text" placeholder="{{ kelompok.get_ketua.nama }}" readonly>
+            </div>
+        </div>
+
+        <div>
+            <a class="enrollment-button" href="{% url 'dashboard:view_kelompok' id_kelompok=kelompok.id %}">View Members</a>
+        </div>
+        
+        {% if kelompok.can_be_edited %}
+        <div>
+            <a class="enrollment-button" href="{% url 'dashboard:edit_kelompok' id_kelompok=kelompok.id %}">Edit Team Details</a>
+        </div>
+        {% endif %}
+
+        {% if kelompok.can_be_deleted %}
+        <a class="enrollment-button" data-toggle="modal" data-target="#deletionConfirm-{{ kelompok.id }}">Remove Team</a>
+        
+        <div class="modal fade" id="deletionConfirm-{{ kelompok.id }}" tabindex="-1" role="dialog" aria-labelledby="deletionConfirmLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deletionConfirmLabel">Are you sure?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        You are about to remove the team <b>{{ kelompok.nama }}</b> from this competition.
+                        <br>
+                        All members of this team will also be deleted.
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <form action="{% url 'dashboard:delete_kelompok' id_kelompok=kelompok.id %}" method="POST"> {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Yes, Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    {% if competition.can_enroll %}
+    <div class="enrollment-card p-2">
+        <div>
+            <a class="add-enrollment" href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">Add Enrollment</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready( () => {
+        $("enrollment-card").css("padding", ".5em");
+        $("enrollment-card").css("padding-bottom", ".2em");
+        $("enrollment-card").css("margin-bottom", "2em");
+        $("enrollment-card").css("border-radius", ".5em");
+        $("enrollment-card").css("box-shadow", "0 0 .5em .1em #ddd");
+        $("enrollment-card").css("font-weight", "500");
+
+        $("enrollment-button").css("font-weight", "700");
+    });
+</script>
+{% endblock content %}

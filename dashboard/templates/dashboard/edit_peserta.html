@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Edit - {{ peserta.nama }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/forms.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="kenta-content">
+    <h1>Edit Participant</h1>
+    <h2>{{ peserta.kompetisi.judul }}</h2>
+
+    <div class="form-container">
+        <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Nama</label>
+                    {{ peserta_form.nama }}
+
+                    {% if peserta_form.nama.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in peserta_form.nama.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Jurusan</label>
+                    {{ peserta_form.jurusan }}
+
+                    {% if peserta_form.jurusan.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in peserta_form.jurusan.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Angkatan</label>
+                    {{ peserta_form.angkatan }}
+                    
+                    {% if peserta_form.angkatan.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in peserta_form.angkatan.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>No. HP</label>
+                    {{ peserta_form.no_hp }}
+
+                    {% if peserta_form.no_hp.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in peserta_form.no_hp.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Line ID</label>
+                    {{ peserta_form.line_id }}
+
+                    {% if peserta_form.line_id.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in peserta_form.line_id.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Foto KTM</label>
+                    {{ peserta_form.foto_ktm }}
+
+                    {% if peserta_form.foto_ktm.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in peserta_form.foto_ktm.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+
+                    <p class="form-text text-muted">
+                        Current file: <a class="file-link" href="{{ peserta.foto_ktm.url }}" target="_blank">{{ peserta.foto_ktm }}</a>
+                    </p>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Screenshot SIAK</label>
+                    {{ peserta_form.screenshot_siak }}
+
+                    {% if peserta_form.screenshot_siak.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in peserta_form.screenshot_siak.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+
+                    <p class="form-text text-muted">
+                        Current file: <a class="file-link" href="{{ peserta.screenshot_siak.url }}" target="_blank">{{ peserta.screenshot_siak }}</a>
+                    </p>
+                </div>
+            </div>
+
+            {% if peserta_form.non_form_errors %}
+            <p class="form-text text-danger">
+                {% for error in peserta_form.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </p>
+            {% endif %}
+
+            <br>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success font-weight-bold pt-2 pb-2 pl-4 pr-4">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'dashboard/js/invalid_field.js' %}"></script>
+<script>
+    $(document).ready( () => {
+        $("input:text").css("background-color", "#E8F0FF");
+        $("input:text").css("border-color", "#51B1F6");
+
+        $("button:submit").css("background-color", "#51B1F6");
+        $("button:submit").css("border", "none");
+    });
+</script>
+{% endblock content %}
