@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Guidebook
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    <div class="kenta-content">
+        <!-- Judul -->
+        <h1>Guidebook</h1>
+
+        <!-- Section Guidebook -->
+        <div style="display: flex; justify-content: center;">
+{#            <iframe src="https://drive.google.com/file/d/1RiziPVx6Yfyr32vWFqLDeJiC0CiBV-pW/preview" allow="autoplay" style="width:100%; height:140vh"></iframe>#}
+        </div>
+
+        <div class="modal fade" id="imgmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <img class="img-responsive" id="show-img">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
