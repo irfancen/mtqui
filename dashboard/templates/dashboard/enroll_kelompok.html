@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Enroll - {{ competition.judul }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/forms.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="kenta-content">
+    <h1>Enrollment</h1>
+    <h2>{{ competition.judul }}</h2>
+
+    <div class="form-container">
+        <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Nama Kelompok</label>
+                    {{ kelompok_form.nama_kelompok }}
+
+                    {% if kelompok_form.nama_kelompok.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in kelompok_form.nama_kelompok.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if kelompok_form.non_form_errors %}
+            <small class="form-text text-danger">
+                {% for error in kelompok_form.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </small>
+            {% endif %}
+            
+            <hr>
+
+            <div class="anggota-form">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Nama</label>
+                        {{ anggota_form.nama }}
+    
+                        {% if anggota_form.nama.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_form.nama.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Jurusan</label>
+                        {{ anggota_form.jurusan }}
+    
+                        {% if anggota_form.jurusan.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_form.jurusan.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Angkatan</label>
+                        {{ anggota_form.angkatan }}
+    
+                        {% if anggota_form.angkatan.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_form.angkatan.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>No. HP</label>
+                        {{ anggota_form.no_hp }}
+    
+                        {% if anggota_form.no_hp.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_form.no_hp.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Line ID</label>
+                        {{ anggota_form.line_id }}
+    
+                        {% if anggota_form.line_id.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_form.line_id.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Foto KTM</label>
+                        {{ anggota_form.foto_ktm }}
+    
+                        {% if anggota_form.foto_ktm.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_form.foto_ktm.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Screenshot SIAK</label>
+                        {{ anggota_form.screenshot_siak }}
+    
+                        {% if anggota_form.screenshot_siak.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_form.screenshot_siak.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if anggota_form.non_form_errors %}
+            <p class="form-text text-danger">
+                {% for error in anggota_form.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </p>
+            {% endif %}
+
+            <br>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success font-weight-bold pt-2 pb-2 pl-4 pr-4">Enroll Now</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'dashboard/js/invalid_field.js' %}"></script>
+<script>
+    $(document).ready( () => {
+        $("input:text").css("background-color", "#E8F0FF");
+        $("input:text").css("border-color", "#51B1F6");
+
+        $("button:submit").css("background-color", "#51B1F6");
+        $("button:submit").css("border", "none");
+    });
+</script>
+{% endblock content %}

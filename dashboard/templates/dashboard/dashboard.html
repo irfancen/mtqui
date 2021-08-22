@@ -5,34 +5,85 @@
 Dashboard
 {% endblock title %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+{% endblock head %}
+
 {% block content %}
+<div class="kenta-content">
     <h1>Dashboard</h1>
-    <p><img src="{% get_static_prefix %}img/makara/{{ metadata_fakultas.makara_image_code }}.png" alt="" style="width: 50px; vertical-align: middle;"> {{ metadata_fakultas.singkatan_fakultas }}</p>
 
-    <p><a href="{% url 'authentication:logout' %}">Logout</a></p>
+    <div class="row p-0">
+        <div class="user-details col-md-6 col-sm-6 col-xs-12">
+            <img class="makara-image" src="{{ metadata_fakultas.makara.url }}" alt="Makara Fakultas">
+            <p class="username">{{ metadata_fakultas.singkatan_fakultas }}</p>
+        </div>
 
-    <h2>Available Competitions</h2>
+        <div class="logout col-md-6 col-sm-6 col-xs-12">
+            <a class="btn btn-danger" href="{% url 'authentication:logout' %}">Logout</a>
+        </div>
+    </div>
 
-    {% if competitions %}
-        {% for competition in competitions %}
-            <div style="background-color: bisque;">
-                <h3>{{ competition.judul }}</h3>
-                <p>QUOTA {{ competition.kuota }}</p>
-                <p>ENROLLED {{ competition.peserta.all.count }}</p>
-                <p>{{ competition.get_deadline }}</p>
+    <div class="dashboard-container competition-section">
+        <h2>Available Competitions</h2>
 
-                {% if competition.can_see_enrollments %}
-                    <p><a href="{% url 'dashboard:view' id_kompetisi=competition.id %}">SEE ENROLLMENTS</a></p>
-                {% endif %}
-
-                {% if competition.can_edit_enrollments %}
-                    <p><a href="{% url 'dashboard:edit' id_kompetisi=competition.id %}">SEE OR EDIT ENROLLMENTS</a></p>
-                {% endif %}
-
-                {% if competition.can_enroll %}
-                    <p><a href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">ENROLL NOW!</a></p>
-                {% endif %}
+        {% if ktia and ktia.is_open %}
+        <div class="competition-card">
+            <h3 class="competition-title">{{ ktia.judul }}</h3>
+                       
+            {% if ktia.is_deadline %}
+            <div class="competition-deadline past-deadline">
+            {% else %}
+            <div class="competition-deadline">
+            {% endif %}
+                <img src="{% static 'dashboard/svg/clock.svg' %}">
+                <p>{{ ktia.get_deadline }}</p>
             </div>
-        {% endfor %}
-    {% endif %}
+
+            {% if ktia.can_enroll %}
+            <a class="competition-buttons" href="https://bit.ly/PendaftaranKTIAMTQUI2021" target="_blank">Enroll Now</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if competitions %}
+            {% for competition in competitions %}
+                {% if competition.is_open %}
+                    <div class="competition-card">
+                        <h3 class="competition-title">{{ competition.judul }}</h3>
+                        
+                        <table class="competition-detail">
+                            <tr>
+                                <td class="detail-key">Quota</td>
+                                <td>{{ competition.kuota }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="detail-key">Enrolled</td>
+                                <td>{{ competition.get_enrollment_count }}</td>
+                            </tr>
+                        </table>
+                        
+                        {% if competition.is_deadline %}
+                        <div class="competition-deadline past-deadline">
+                        {% else %}
+                        <div class="competition-deadline">
+                        {% endif %}
+                            <img src="{% static 'dashboard/svg/clock.svg' %}">
+                            <p>{{ competition.get_deadline }}</p>
+                        </div>
+
+                        {% if competition.can_enroll %}
+                        <a class="competition-buttons" href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">Enroll Now</a>
+                        {% endif %}
+
+                        {% if competition.can_view_enrollments %}
+                        <a class="competition-buttons" href="{% url 'dashboard:view_enrollments' id_kompetisi=competition.id %}">View Enrollments</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}
