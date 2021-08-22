@@ -17,12 +17,12 @@
         <div class="kenta-head-content">
             <div>
                 {% if not seminar.is_past %}
-                 <span class="kenta-blurlable">🔴 AIRING IN: {{ seminar.air_time }} </span>
+                <span class="kenta-blurlable"><span class="dot mr-1"></span> AIRING IN: {{ seminar.d_day|date:"d M Y" }}, {{ seminar.d_day|date:'G:i' }} - {{ seminar.end_time|date:'G:i' }} WIB</span>
                 {% else %}
-                <span class="kenta-blurlable">🔴 AIRED IN: {{ seminar.d_day }} </span>
+                <span class="kenta-blurlable"><span class="dot2 mr-1"></span> AIRED IN: {{ seminar.d_day }} </span>
                 {% endif %}
                 <h2 style="font-weight: 700">{{ seminar.judul_seminar }}</h2>
-                <h3>Musabaqah Tilawatil Quran <br> Universitas Indonesia</h3>
+                <h4 style="margin-bottom: 0">Musabaqah Tilawatil Quran</h4> <h4 style="font-weight: bold; font-style: italic">Universitas Indonesia</h4>
             </div>
         </div>
         <div class="kenta-head-img"
@@ -31,14 +31,14 @@
     </div>
 
 
-    <div class="info_container" style="padding: 50px">
+    <div class="info_container" style="padding: 6.5em">
     <ul class="list-group list-group-flush">
     <li class="list-group-item">
-        <h2>About</h2>
+        <h4>About</h4>
         <p style="width: 60%" class="about">{{ seminar.about }}</p>
     </li>
     <li class="list-group-item">
-        <h2>Guest Stars</h2>
+        <h4>Speakers</h4>
         <ul class="guest_stars">
             {% for guest_star in guest_stars %}
                 <li>{{ guest_star.nama }}</li>
@@ -47,7 +47,16 @@
     </li>
 
     <li class="list-group-item">
-        <h2>We’ll be talking about...</h2>
+        <h4>Achievement</h4>
+        <ul class="guest_stars">
+            {% for biografi in all_biografi %}
+                <li>{{ biografi }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+
+    <li class="list-group-item">
+        <h4>We’ll be talking about...</h4>
         <ul class="subjects">
             {% for subject in all_subjects %}
                 <li>{{ subject }}</li>
@@ -58,9 +67,9 @@
     <li class="list-group-item" style="display:flex; justify-content: center;align-items: center; flex-direction: column">
         <p style="margin: 5px">Interested?</p>
         {% if not seminar.is_past %}
-        <a href="{% url 'seminar:get_seminar_form' %}"><button class="btn btn-info">ENROLL NOW!</button></a>
+        <a href="{% url 'seminar:get_seminar_form' %}"><button class="btn btn-primary">ENROLL NOW!</button></a>
         {% else %}
-        <button class="btn btn-info" disabled>ENROLL NOW!</button>
+        <button class="btn btn-primary" disabled>ENROLL NOW!</button>
         {% endif %}
 
     </li>
