@@ -4,15 +4,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/** {*/
-/*    padding: 0;*/
-/*    margin: 0;*/
-/*    box-sizing: border-box;*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*    color: black;*/
-/*}*/
-
-
 body {
     font-family: 'Montserrat', sans-serif;
 }
@@ -28,10 +19,6 @@ svg {
     margin: 0px 5px 0px 5px;
 }
 
-/*.know_more {*/
-/*    width: 90px;*/
-/*    display: flex;*/
-/*}*/
 
 .know_more {
     display: flex;
@@ -95,6 +82,78 @@ svg {
     max-height: 100%;
 }
 
+.ff-section h3 {
+    font-weight: 700;
+}
+
+#know_more_car {
+    background-color: rgba(61, 84, 166, 0.2);
+    background-blend-mode: multiply;
+    backdrop-filter: blur(50px);
+    color: white;
+    border-style: none;
+
+}
+
+.carousel-indicators li {
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 100%;
+    background-color: transparent;
+    border: 0.1em solid white;
+}
+
+.carousel-indicators li.active {
+    background-color: white;
+}
+
+.list-group-item {
+    border: 1px solid #3D54A6;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.list-group-item h4 {
+    font-weight: 650;
+}
+
+li {
+    list-style-type: disc;
+}
+
+li::marker {
+  color: black;
+}
+
+.dot {
+    height: 13px;
+    width: 13.5px;
+    background-color: #FF4F4F;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.dot2 {
+    height: 13px;
+    width: 13.5px;
+    background-color: lightgray;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.upcoming_container {
+    padding: 50px;
+}
+
+.past_seminar {
+    padding: 50px;
+    background-color: #e8f0ff;
+}
+
+.kenta-head-content h2 {
+    word-break: break-word;
+}
+
 @media screen and (max-width: 1024px) {
 
     .about {
@@ -105,5 +164,37 @@ svg {
         padding: 20px !important;
     }
 
+    .upcoming_container {
+        padding: 20px;
+    }
+
+    .past_seminar {
+        padding: 20px;
+    }
+
+    .card_container {
+        justify-content: center;
+        align-items: center;
+    }
+
+    #tema {
+        font-size: 1rem;
+    }
 
 }
+
+@media screen and (max-width: 500px) {
+
+    .kenta-blurlable {
+        width: auto;
+    }
+
+    #tema {
+        font-size: 15px;
+    }
+
+    .max_content_behavior {
+        width: max-content;
+    }
+}
+
