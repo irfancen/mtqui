@@ -39,7 +39,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#contacts">Contacts</a>
             </li>
-            {% if authenticated %}
+            {% if user.is_authenticated %}
             <li class="nav-item" style="flex-direction: row; justify-content: end; align-items: center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
                      class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -49,7 +49,7 @@
                 </svg>
                 <a class="nav-link" href="#"
                    style="display: flex; flex-direction: row; width: 110px; font-size: 0.8rem; line-height: 0.9rem">
-                    FASILKOM
+                    {{ request.user.username|upper }}
                     Dashboard
                 </a>
             </li>
