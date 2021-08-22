@@ -96,7 +96,7 @@ View - {{ kelompok.nama }}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <form action="{% url 'dashboard:delete_anggota' id_anggota=anggota.id %}" method="POST"> {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Yes, Remove</button>
+                            <button type="submit" class="btn btn-danger">Yes, Remove</button>
                         </form>
                     </div>
                 </div>

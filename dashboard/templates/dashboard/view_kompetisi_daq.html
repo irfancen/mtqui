@@ -48,7 +48,7 @@ View - {{ competition.judul }}
         {% endif %}
 
         {% if kelompok.can_be_deleted %}
-        <a class="enrollment-button" data-toggle="modal" data-target="#deletionConfirm-{{ kelompok.id }}">Delete Team</a>
+        <a class="enrollment-button" data-toggle="modal" data-target="#deletionConfirm-{{ kelompok.id }}">Remove Team</a>
         
         <div class="modal fade" id="deletionConfirm-{{ kelompok.id }}" tabindex="-1" role="dialog" aria-labelledby="deletionConfirmLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -69,7 +69,7 @@ View - {{ competition.judul }}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <form action="{% url 'dashboard:delete_kelompok' id_kelompok=kelompok.id %}" method="POST"> {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Yes, Remove</button>
+                            <button type="submit" class="btn btn-danger">Yes, Remove</button>
                         </form>
                     </div>
                 </div>
