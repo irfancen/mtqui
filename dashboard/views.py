@@ -1,5 +1,5 @@
 from dashboard.forms import *
-from dashboard.models import Anggota, Kelompok, Kompetisi, Peserta
+from dashboard.models import Anggota, Kelompok, Kompetisi, KompetisiKTIA, Peserta
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -14,6 +14,7 @@ def home(request):
     context = {}
 
     context["metadata_fakultas"] = request.user.metadata
+    context["ktia"] = KompetisiKTIA.objects.all().first()
     context["competitions"] = request.user.kompetisi.all()
 
     return render(request, "dashboard/dashboard.html", context)

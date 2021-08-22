@@ -25,6 +25,23 @@ Dashboard
     <div class="dashboard-container competition-section">
         <h2>Available Competitions</h2>
 
+        <div class="competition-card">
+            <h3 class="competition-title">{{ ktia.judul }}</h3>
+                       
+            {% if ktia.is_deadline %}
+            <div class="competition-deadline past-deadline">
+            {% else %}
+            <div class="competition-deadline">
+            {% endif %}
+                <img src="{% static 'dashboard/svg/clock.svg' %}">
+                <p>{{ ktia.get_deadline }}</p>
+            </div>
+
+            {% if ktia.can_enroll %}
+            <a class="competition-buttons" href="https://bit.ly/PendaftaranKTIAMTQUI2021" target="_blank">Enroll Now</a>
+            {% endif %}
+        </div>
+
         {% if competitions %}
             {% for competition in competitions %}
                 <div class="competition-card">
@@ -61,7 +78,7 @@ Dashboard
                 </div>
             {% endfor %}
         {% else %}
-                <div>no competition</div>
+                <div>No Competitions</div>
         {% endif %}
     </div>
 </div>

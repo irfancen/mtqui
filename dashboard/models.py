@@ -61,6 +61,24 @@ class Kompetisi(models.Model):
         return f"{self.judul} ({self.fakultas.metadata.nama_fakultas})"
 
 
+class KompetisiKTIA(models.Model):
+    judul = models.CharField(max_length=100)
+    deadline_pendaftaran = models.DateField()
+
+    def get_deadline(self):
+        return self.deadline_pendaftaran.strftime("%d - %b - %Y")
+        
+    def is_deadline(self):
+        return datetime.now(timezone(settings.TIME_ZONE)).date() > self.deadline_pendaftaran
+    
+    def can_enroll(self):
+        is_before_deadline = not self.is_deadline()
+        return is_before_deadline
+
+    def __str__(self):
+        return self.judul
+
+
 class Kelompok(models.Model):
     nama = models.CharField(max_length=100)
     kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="kelompok")
