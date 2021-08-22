@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+    {{ lomba.alias }}
+{% endblock %}
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/lomba.css' %}">
 {% endblock %}
