@@ -29,9 +29,9 @@
         <div class="kenta-head-content">
             <div>
                 {% if not each_seminar.is_past %}
-                 <span class="kenta-blurlable"><span class="dot mr-1"></span>AIRING IN: {{ each_seminar.d_day }} </span>
+                 <span class="kenta-blurlable"><span class="dot mr-1"></span> AIRING IN: {{ each_seminar.d_day|date:"d M Y" }}, {{ each_seminar.d_day|date:'G:i' }} - {{ each_seminar.end_time|date:'G:i' }} WIB </span>
                 {% else %}
-                <span class="kenta-blurlable"><span class="dot mr-1"></span> AIRED IN: {{ each_seminar.d_day }} </span>
+                <span class="kenta-blurlable"><span class="dot2 mr-1"></span> AIRED IN: {{ each_seminar.d_day|date:"d M Y" }}, {{ each_seminar.d_day|date:'G:i' }} - {{ each_seminar.end_time|date:'G:i' }} WIB </span>
                 {% endif %}
                 <h2 style="font-weight: 700">{{ each_seminar.judul_seminar }}</h2>
                 <h5 id="tema">{{ each_seminar.about }}</h5>

@@ -10,6 +10,12 @@ def homepage(request):
 def guidebook(request):
     return render(request, 'guidebook.html')
 
+def grandopening(request):
+    return render(request, 'launching.html')
+
+def grandclosing(request):
+    return render(request, 'closing.html')
+
 
 def bad_request_view(request, exception):
     context = {

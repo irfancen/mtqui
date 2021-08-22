@@ -131,7 +131,14 @@ li::marker {
     background-color: #FF4F4F;
     border-radius: 100%;
     display: inline-block;
-    border: 1px solid rgba(0,0,0,1);
+}
+
+.dot2 {
+    height: 13px;
+    width: 13.5px;
+    background-color: lightgray;
+    border-radius: 100%;
+    display: inline-block;
 }
 
 .upcoming_container {
@@ -143,6 +150,9 @@ li::marker {
     background-color: #e8f0ff;
 }
 
+.kenta-head-content h2 {
+    word-break: break-word;
+}
 
 @media screen and (max-width: 1024px) {
 
@@ -173,7 +183,7 @@ li::marker {
 
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 500px) {
 
     .kenta-blurlable {
         width: auto;

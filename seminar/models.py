@@ -14,12 +14,10 @@ class Seminar(models.Model):
     guest_stars = models.ManyToManyField(GuestStars)
     subjects = models.TextField()
     d_day = models.DateTimeField()
+    end_time = models.DateTimeField()
     seminar_image = models.ImageField(default='1955361.jpg')
     is_past = models.BooleanField(default=False)
     air_time = models.CharField(null=True, blank=True, max_length=300)
 
     def __str__(self):
         return self.judul_seminar
-
-
-
