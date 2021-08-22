@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Seminar
 from django.utils import timezone
 import random
@@ -55,7 +55,8 @@ def seminarlanding(request):
 
 
 def getseminar(request, id_seminar):
-    seminar = Seminar.objects.get(id=id_seminar)
+    seminar = get_object_or_404(Seminar, id=id_seminar)
+
     guest_stars = seminar.guest_stars.all()
     all_subjects = [x for x in seminar.subjects.split(';') if x]
     all_biografi = [x for x in guest_stars.first().biografi.split(';') if x]
