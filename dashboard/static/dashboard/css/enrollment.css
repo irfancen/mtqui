@@ -1,7 +1,14 @@
+.kenta-content > h2 {
+    margin-bottom: 3em !important
+}
+
 .enrollment-card {
-    box-shadow: 0 0 .5em .1em #ddd;
-    padding: 1.5em !important;
+    padding: .5em;
+    padding-bottom: .2em;
     margin-bottom: 2em;
+    border-radius: .5em;
+    box-shadow: 0 0 .5em .1em #ddd;
+    font-weight: 500;
 }
 
 .enrollment-file {
@@ -16,20 +23,81 @@
 .enrollment-file > a {
     margin-bottom: 0%;
     margin-left: .5em;
+    color: #51B1F6;
+}
+
+.enrollment-file > a:hover {
+    text-decoration: none;
+    color: #51B1F6;
 }
 
 .enrollment-button {
     text-transform: uppercase;
-    border-top: 1px solid blue !important;
+    border-top: 1px solid #3D54A6 !important;
     padding: .5em;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: blue;
+    color: #3D54A6;
     text-align: center;
+    font-weight: 700;
 }
 
 .enrollment-button:hover {
     text-decoration: none;
-    color: blue;
+    color: #3D54A6;
+}
+
+.add-member {
+    text-transform: uppercase;
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3D54A6;
+    text-align: center;
+    font-weight: 700;
+}
+
+.add-member:hover {
+    text-decoration: none;
+    color: #3D54A6;
+}
+
+.add-enrollment {
+    text-transform: uppercase;
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3D54A6;
+    text-align: center;
+    font-weight: 700;
+}
+
+.add-enrollment:hover {
+    text-decoration: none;
+    color: #3D54A6;
+}
+
+.btn:focus,
+.btn:active{
+    box-shadow:none !important;
+    outline:0px !important;
+}
+
+@media only screen and (max-width: 425px) {
+    .enrollment-button {
+        border: none !important;
+        background-color: #3D54A6;
+        color: white;
+        margin-bottom: 1em;
+    }
+
+    .enrollment-button:hover {
+        border: none !important;
+        background-color: white;
+        color: #3D54A6;
+        border: 1px solid #3D54A6 !important;
+    }
 }

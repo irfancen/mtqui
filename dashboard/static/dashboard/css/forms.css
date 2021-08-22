@@ -7,3 +7,20 @@
 label {
     font-weight: 700;
 }
+
+.file-link {
+    color: #51B1F6;
+    font-weight: 500;
+}
+
+.file-link:hover {
+    text-decoration: none;
+    color: #51B1F6;
+    font-weight: 500;
+}
+
+.btn:focus,
+.btn:active{
+    box-shadow:none !important;
+    outline:0px !important;
+}

@@ -11,11 +11,11 @@ View - {{ kelompok.nama }}
 
 {% block content %}
 <div class="kenta-content">
-    <h1>Enrollments</h1>
+    <h1>Members</h1>
     <h2>{{ kelompok.nama }}</h2>
 
     {% for anggota in kelompok.anggota.all %}
-    <div class="enrollment-card">
+    <div class="enrollment-card pt-4 pl-4 pr-4 pb-1">
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label>Nama</label>
@@ -107,11 +107,26 @@ View - {{ kelompok.nama }}
     {% endfor %}
 
     {% if kelompok.can_add_member %}
-    <div class="enrollment-card">
+    <div class="enrollment-card p-2">
         <div>
-            <a class="enrollment-button" href="{% url 'dashboard:add_anggota' id_kelompok=kelompok.id %}">Add Member</a>
+            <a class="add-member" href="{% url 'dashboard:add_anggota' id_kelompok=kelompok.id %}">Add Member</a>
         </div>
     </div>
     {% endif %}
 </div>
+
+<script>
+    $(document).ready( () => {
+        $("enrollment-card").css("padding", ".5em");
+        $("enrollment-card").css("padding-bottom", ".2em");
+        $("enrollment-card").css("margin-bottom", "2em");
+        $("enrollment-card").css("border-radius", ".5em");
+        $("enrollment-card").css("box-shadow", "0 0 .5em .1em #ddd");
+        $("enrollment-card").css("font-weight", "500");
+
+        $("enrollment-button").css("font-weight", "700");
+
+        $("add-member").css("border", "none");
+    });
+</script>
 {% endblock content %}
