@@ -11,7 +11,7 @@
 
 .rafi-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr ));
+    grid-template-columns: repeat(auto-fill, minmax(325px, 1fr ));
     place-items: center;
 }
 
@@ -33,20 +33,69 @@
     background-size: contain;
 }
 
+.alt-text-div{
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+
 #imgmodal .modal-dialog {
     -webkit-transform: translate(0,-50%);
     -o-transform: translate(0,-50%);
     transform: translate(0,-50%);
     top: 50%;
+    max-width: 800px;
     margin: 0 auto;
 }
 
-.img_c_1_1{background-image:url('https://www.akibanation.com/wp-content/uploads/2019/11/golok-nata-shima-rin-1024x573.jpg');}
-.img_c_1_2{background-image:url('https://i.pinimg.com/736x/9f/a0/65/9fa06586a37730da2308a13ecee4dba2.jpg');}
-.img_c_1_3{background-image:url('https://i.pinimg.com/originals/2d/89/1f/2d891fabdbb77c381559abfdac679878.jpg');}
-.img_c_1_4{background-image:url('https://i.pinimg.com/originals/5e/d0/16/5ed016f97f9eee5bbcebd6c95cd8c419.jpg');}
+.kenta-content{
+    padding: 100px 5% 4%;
+}
 
-.img_c_2_1{background-image:url('https://static1.thegamerimages.com/wordpress/wp-content/uploads/2021/01/Beidou-Strong-Genshin-Impact-Cropped.jpg');}
-.img_c_2_2{background-image:url('https://img.esportsku.com/wp-content/uploads//2020/12/Beidou-e1610852458607-1200x1200.png');}
-.img_c_2_3{background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfBrj5xN_AizxqDKiZuAK1wJuVsTSSdbXqkA&usqp=CAU');}
-.img_c_2_4{background-image:url('https://oyster.ignimgs.com/mediawiki/apis.ign.com/genshin-impact/c/cd/Beidou.jpg');}
+@media screen and (max-width: 1200px) {
+    .rafi-grid{
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr ));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .rafi-grid{
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr ));
+    }
+
+    .modal-dialog{
+        max-width: 80%;
+    }
+
+    .kenta-content h3 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .rafi-grid{
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr ));
+    }
+    .modal-dialog{
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .rafi-grid{
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr ));
+    }
+    .modal-dialog{
+        max-width: 95%;
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .rafi-grid{
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr ));
+    }
+
+    .modal-dialog{
+        max-width: 100%;
+    }
+}
