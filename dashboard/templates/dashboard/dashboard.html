@@ -27,6 +27,7 @@ Dashboard
     <div class="dashboard-container competition-section">
         <h2>Available Competitions</h2>
 
+        {% if ktia and ktia.is_open %}
         <div class="competition-card">
             <h3 class="competition-title">{{ ktia.judul }}</h3>
                        
@@ -43,44 +44,45 @@ Dashboard
             <a class="competition-buttons" href="https://bit.ly/PendaftaranKTIAMTQUI2021" target="_blank">Enroll Now</a>
             {% endif %}
         </div>
+        {% endif %}
 
         {% if competitions %}
             {% for competition in competitions %}
-                <div class="competition-card">
-                    <h3 class="competition-title">{{ competition.judul }}</h3>
-                    
-                    <table class="competition-detail">
-                        <tr>
-                            <td class="detail-key">Quota</td>
-                            <td>{{ competition.kuota }}</td>
-                        </tr>
+                {% if competition.is_open %}
+                    <div class="competition-card">
+                        <h3 class="competition-title">{{ competition.judul }}</h3>
                         
-                        <tr>
-                            <td class="detail-key">Enrolled</td>
-                            <td>{{ competition.get_enrollment_count }}</td>
-                        </tr>
-                    </table>
-                    
-                    {% if competition.is_deadline %}
-                    <div class="competition-deadline past-deadline">
-                    {% else %}
-                    <div class="competition-deadline">
-                    {% endif %}
-                        <img src="{% static 'dashboard/svg/clock.svg' %}">
-                        <p>{{ competition.get_deadline }}</p>
+                        <table class="competition-detail">
+                            <tr>
+                                <td class="detail-key">Quota</td>
+                                <td>{{ competition.kuota }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="detail-key">Enrolled</td>
+                                <td>{{ competition.get_enrollment_count }}</td>
+                            </tr>
+                        </table>
+                        
+                        {% if competition.is_deadline %}
+                        <div class="competition-deadline past-deadline">
+                        {% else %}
+                        <div class="competition-deadline">
+                        {% endif %}
+                            <img src="{% static 'dashboard/svg/clock.svg' %}">
+                            <p>{{ competition.get_deadline }}</p>
+                        </div>
+
+                        {% if competition.can_enroll %}
+                        <a class="competition-buttons" href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">Enroll Now</a>
+                        {% endif %}
+
+                        {% if competition.can_view_enrollments %}
+                        <a class="competition-buttons" href="{% url 'dashboard:view_enrollments' id_kompetisi=competition.id %}">View Enrollments</a>
+                        {% endif %}
                     </div>
-
-                    {% if competition.can_enroll %}
-                    <a class="competition-buttons" href="{% url 'dashboard:enroll' id_kompetisi=competition.id %}">Enroll Now</a>
-                    {% endif %}
-
-                    {% if competition.can_view_enrollments %}
-                    <a class="competition-buttons" href="{% url 'dashboard:view_enrollments' id_kompetisi=competition.id %}">View Enrollments</a>
-                    {% endif %}
-                </div>
+                {% endif %}
             {% endfor %}
-        {% else %}
-                <div>No Competitions</div>
         {% endif %}
     </div>
 </div>

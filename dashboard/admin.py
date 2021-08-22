@@ -17,13 +17,13 @@ class TipeKompetisiPanelConfig(admin.ModelAdmin):
 @admin.register(Kompetisi)
 class KompetisiPanelConfig(admin.ModelAdmin):
     search_fields = ("judul", "fakultas__username")
-    ordering = ("judul", "fakultas__username", "tipe__tipe", "deadline_pendaftaran")
-    list_display = ("judul", "fakultas", "tipe", "deadline_pendaftaran")
+    ordering = ("judul", "fakultas__username", "tipe__tipe", "tanggal_pendaftaran", "deadline_pendaftaran")
+    list_display = ("judul", "fakultas", "tipe", "tanggal_pendaftaran", "deadline_pendaftaran")
     list_filter = ("judul", "fakultas__username", "tipe__tipe")
 
 @admin.register(KompetisiKTIA)
 class KompetisiKTIAPanelConfig(admin.ModelAdmin):
-    list_display = ("judul", "deadline_pendaftaran")
+    list_display = ("judul", "tanggal_pendaftaran", "deadline_pendaftaran")
 
 @admin.register(Kelompok)
 class KelompokPanelConfig(admin.ModelAdmin):

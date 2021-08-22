@@ -19,6 +19,7 @@ def create_kompetisi(request):
         if kompetisi_form.is_valid():
             judul = kompetisi_form.cleaned_data.get("judul")
             kuota = kompetisi_form.cleaned_data.get("kuota")
+            tanggal_pendaftaran = kompetisi_form.cleaned_data.get("tanggal_pendaftaran")
             deadline_pendaftaran = kompetisi_form.cleaned_data.get("deadline_pendaftaran")
             tipe = TipeKompetisi.objects.get(id=kompetisi_form.cleaned_data.get("tipe"))
             kapasitas_kelompok = kompetisi_form.cleaned_data.get("kapasitas_kelompok")
@@ -27,7 +28,7 @@ def create_kompetisi(request):
                 if user.is_superuser:
                     continue
 
-                kompetisi = Kompetisi(judul=judul, kuota=kuota, deadline_pendaftaran=deadline_pendaftaran, tipe=tipe, kapasitas_kelompok=kapasitas_kelompok, fakultas=user)
+                kompetisi = Kompetisi(judul=judul, kuota=kuota, tanggal_pendaftaran=tanggal_pendaftaran, deadline_pendaftaran=deadline_pendaftaran, tipe=tipe, kapasitas_kelompok=kapasitas_kelompok, fakultas=user)
                 kompetisi.save()
 
             return HttpResponse("DONE")

@@ -11,6 +11,12 @@ class KompetisiForm(forms.Form):
 
     kuota = forms.IntegerField()
 
+    tanggal_pendaftaran = forms.DateField(widget=forms.DateInput(
+        attrs = {
+            'type' : 'date',
+            'required': True,
+    }))
+
     deadline_pendaftaran = forms.DateField(widget=forms.DateInput(
         attrs = {
             'type' : 'date',

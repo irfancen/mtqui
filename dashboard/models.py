@@ -25,6 +25,7 @@ class TipeKompetisi(models.Model):
 class Kompetisi(models.Model):
     judul = models.CharField(max_length=100)
     kuota = models.IntegerField()
+    tanggal_pendaftaran = models.DateField()
     deadline_pendaftaran = models.DateField()
     tipe = models.ForeignKey(TipeKompetisi, on_delete=models.SET_NULL, related_name="kompetisi", null=True)
     kapasitas_kelompok = models.IntegerField(null=True, blank=True)
@@ -42,6 +43,9 @@ class Kompetisi(models.Model):
     def is_deadline(self):
         return datetime.now(timezone(settings.TIME_ZONE)).date() > self.deadline_pendaftaran
     
+    def is_open(self):
+        return datetime.now(timezone(settings.TIME_ZONE)).date() >= self.tanggal_pendaftaran
+    
     def get_tipe(self):
         return str(self.tipe)
 
@@ -49,9 +53,10 @@ class Kompetisi(models.Model):
         return self.fakultas
 
     def can_enroll(self):
+        is_open = self.is_open()
         is_before_deadline = not self.is_deadline()
         quota_available = self.get_enrollment_count() < self.kuota
-        return (is_before_deadline and quota_available)
+        return (is_open and is_before_deadline and quota_available)
     
     def can_view_enrollments(self):
         has_enrollment = self.get_enrollment_count() > 0
@@ -63,6 +68,7 @@ class Kompetisi(models.Model):
 
 class KompetisiKTIA(models.Model):
     judul = models.CharField(max_length=100)
+    tanggal_pendaftaran = models.DateField()
     deadline_pendaftaran = models.DateField()
 
     def get_deadline(self):
@@ -70,10 +76,14 @@ class KompetisiKTIA(models.Model):
         
     def is_deadline(self):
         return datetime.now(timezone(settings.TIME_ZONE)).date() > self.deadline_pendaftaran
+
+    def is_open(self):
+        return datetime.now(timezone(settings.TIME_ZONE)).date() >= self.tanggal_pendaftaran
     
     def can_enroll(self):
+        is_open = self.is_open()
         is_before_deadline = not self.is_deadline()
-        return is_before_deadline
+        return (is_open and is_before_deadline)
 
     def __str__(self):
         return self.judul
