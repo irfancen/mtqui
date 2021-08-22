@@ -46,6 +46,7 @@
 .enrollment-button:hover {
     text-decoration: none;
     color: #3D54A6;
+    cursor: pointer;
 }
 
 .add-member {
