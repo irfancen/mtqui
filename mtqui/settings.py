@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'seminar',
     'lomba',
     'storages',
+    'admin_mtqui',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

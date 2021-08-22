@@ -1,0 +1,36 @@
+.form-container {
+    padding: 0% !important;
+    margin-bottom: 1em !important;
+    margin-top: 3em !important;
+}
+
+label {
+    font-weight: 700;
+}
+
+.file-link {
+    color: #51B1F6;
+    font-weight: 500;
+}
+
+.file-link:hover {
+    text-decoration: none;
+    color: #51B1F6;
+    font-weight: 500;
+}
+
+.btn:focus,
+.btn:active{
+    box-shadow:none !important;
+    outline:0px !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .kenta-content > h1 {
+        font-size: 2em !important;
+    }
+
+    .kenta-content > h2 {
+        font-size: 1.25em !important;
+    }
+}
