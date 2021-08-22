@@ -7,5 +7,5 @@ urlpatterns = [
     path('', homepage, name='homepage'),
     path('guidebook/', guidebook, name='guidebook'),
     path('GO/', grandopening, name='grandopening'),
-    path('GC/', grandclosing, name='grandclosing')
+    path('CC/', grandclosing, name='grandclosing')
 ]
