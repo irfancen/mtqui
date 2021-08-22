@@ -19,7 +19,7 @@
         <div>
             <h3>Grand Opening</h3>
             <div class="img-gallery">
-                <ul class="rafi-grid">
+                <ul class="rafi-grid" style="padding-left: 0;">
                     {% for img in go_img %}
                     <li class="rafi-li-grid">
                         <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
@@ -33,7 +33,7 @@
         <div>
             <h3>Competition</h3>
             <div class="img-gallery">
-                <ul class="rafi-grid">
+                <ul class="rafi-grid" style="padding-left: 0;">
                     {% for img in comp_img %}
                     <li class="rafi-li-grid">
                         <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
@@ -47,7 +47,7 @@
         <div>
             <h3>Closing Ceremony</h3>
             <div class="img-gallery">
-                <ul class="rafi-grid">
+                <ul class="rafi-grid" style="padding-left: 0;">
                     {% for img in cc_img %}
                     <li class="rafi-li-grid">
                         <img class="rafi-img-modal" src="{{ img.image.url }}" alt="{{ img.name }}">
