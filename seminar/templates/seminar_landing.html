@@ -63,7 +63,7 @@
     <div class="card_container">
         {% for seminar in seminar_list %}
         {% if not seminar.is_past %}
-            <div class="seminar_card">
+            <div class="card seminar_card">
                 <div class="seminar_img_cont">
                     <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
 
@@ -89,7 +89,7 @@
          {% for seminar in seminar_list %}
 
         {% if seminar.is_past %}
-            <div class="seminar_card">
+            <div class="card seminar_card">
                 <div class="seminar_img_cont">
                     <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
 
