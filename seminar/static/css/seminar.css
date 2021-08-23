@@ -186,6 +186,14 @@ li::marker {
         font-size: 1rem;
     }
 
+    .carousel-control-prev {
+        display: none;
+    }
+
+    .carousel-control-next {
+        display: none;
+    }
+
 }
 
 @media screen and (max-width: 500px) {
