@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Workshop
+    Seminar
 {% endblock %}
 
 {% block head %}
@@ -72,7 +72,7 @@
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
                     <div class="know_more">
-                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 12px; font-weight: 500">Know More!</p></a></div>
+                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 12px; font-weight: 500; padding: 3px;">Know More!</p></a></div>
                 </div>
 
             </div>
@@ -98,7 +98,7 @@
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
                     <div class="know_more">
-                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 12px; font-weight: 500">Know More!</p></a>
+                        <a href="{% url 'seminar:get_seminar' seminar.id %}"><p style="font-size: 12px; font-weight: 500; padding: 3px;">Know More!</p></a>
                     </div>
                 </div>
 
