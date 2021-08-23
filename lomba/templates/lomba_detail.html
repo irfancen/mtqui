@@ -23,9 +23,15 @@
                 <h3>{{ lomba.nama_lomba }}</h3>
             </div>
         </div>
-        <div class="kenta-head-img"
-             style="background-image: url('{{ lomba.image_url }}')">
-        </div>
+        {% if lomba.image %}
+            <div class="kenta-head-img"
+                 style="background-image: url('{{ lomba.image.url }}')">
+            </div>
+        {% else %}
+            <div class="kenta-head-img"
+                 style="background-image: url('{{ lomba.image_url }}')">
+            </div>
+        {% endif %}
     </div>
 
     <div class="kenta-content">
