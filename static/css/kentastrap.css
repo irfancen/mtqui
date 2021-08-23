@@ -383,6 +383,13 @@ svg {
     }
 }
 
+@media only screen and (max-width: 991px) {
+    .irfan-nav-link {
+        padding-left: .5rem!important;
+        padding-right: .5rem!important;
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .kenta-head-content > div > h1 {
         font-size: 5rem;
@@ -453,11 +460,6 @@ svg {
 
     .kenta-content-about {
         min-height: max-content;
-    }
-
-    .irfan-nav-link {
-        padding-left: .5rem!important;
-        padding-right: .5rem!important;
     }
 
     .kenta-footer > div > h3 {
