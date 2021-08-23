@@ -65,7 +65,7 @@
         {% if not seminar.is_past %}
             <div class="seminar_card">
                 <div class="seminar_img_cont">
-                    <img src="{{ seminar.seminar_image.url }}" alt="">
+                    <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
 
                 </div>
 
@@ -91,7 +91,7 @@
         {% if seminar.is_past %}
             <div class="seminar_card">
                 <div class="seminar_img_cont">
-                    <img src="{{ seminar.seminar_image.url }}" alt="">
+                    <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
 
                 </div>
 
