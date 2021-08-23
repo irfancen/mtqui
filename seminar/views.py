@@ -19,11 +19,11 @@ def seminarlanding(request):
     for seminar in semua_seminar:
         id_list.append(seminar.id)
 
-    # Get 3 or less random seminar
-    if (Seminar.objects.count() < 3):
+    # Get 4 or less random seminar
+    if (Seminar.objects.count() < 4):
         randomized_seminar = random.sample(id_list, Seminar.objects.count())
     else:
-        randomized_seminar = random.sample(id_list, 3)
+        randomized_seminar = random.sample(id_list, 4)
 
     # For each carousel seminar, get its air time and check if past or not
     for i in randomized_seminar:
@@ -57,9 +57,13 @@ def seminarlanding(request):
 def getseminar(request, id_seminar):
     seminar = get_object_or_404(Seminar, id=id_seminar)
 
+    all_biografi = []
+
     guest_stars = seminar.guest_stars.all()
     all_subjects = [x for x in seminar.subjects.split(';') if x]
-    all_biografi = [x for x in guest_stars.first().biografi.split(';') if x]
+
+    if(guest_stars.first().biografi != 'test'):
+        all_biografi = [x for x in guest_stars.first().biografi.split(';') if x]
 
     if seminar.d_day < timezone.localtime():
         seminar.is_past = True
