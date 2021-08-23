@@ -64,10 +64,7 @@
         {% for seminar in seminar_list %}
         {% if not seminar.is_past %}
             <div class="card seminar_card">
-                <div class="seminar_img_cont">
-                    <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
-
-                </div>
+                <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
 
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
@@ -90,10 +87,7 @@
 
         {% if seminar.is_past %}
             <div class="card seminar_card">
-                <div class="seminar_img_cont">
-                    <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
-
-                </div>
+                <img class="img-fluid" style="object-fit: cover; height: 250px" src="{{ seminar.seminar_image.url }}" alt="">
 
                 <div class="judul_seminar_cont">
                     <p>{{ seminar.judul_seminar }}</p>
