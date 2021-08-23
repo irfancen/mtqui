@@ -2,9 +2,25 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import *
 import datetime
 
+def cek_timeline(lomba, trainingTL):
+    if not lomba.custom_timeline:
+        today = datetime.date.today()
+        for item in trainingTL:
+            if item.start_date == today:
+                trainingTL.filter(id=item.id).update(active=True)
+            elif item.start_date > today:
+                trainingTL.filter(id=item.id).update(active=None)
+
+            if item.finish_date < today:
+                trainingTL.filter(id=item.id).update(active=False)
+
 def lomba_list(request):
     lombaList = Lomba.objects.all()
     timeline = TrainingTimeline.objects.all()
+
+    for lomba in lombaList:
+        trainingTL = TrainingTimeline.objects.filter(nama_lomba=lomba)
+        cek_timeline(lomba, trainingTL)
 
     res = dict.fromkeys(lombaList)
     for k in res.keys():
@@ -35,16 +51,7 @@ def lomba_detail(request, alias):
     if request.user.is_authenticated:
         isLoggedIn = True
 
-    if not lomba.custom_timeline:
-        today = datetime.date.today()
-        for item in trainingTL:
-            if item.start_date == today:
-                trainingTL.filter(id=item.id).update(active=True)
-            elif item.start_date > today:
-                trainingTL.filter(id=item.id).update(active=None)
-
-            if item.finish_date < today:
-                trainingTL.filter(id=item.id).update(active=False)
+    cek_timeline(lomba, trainingTL)
 
     isActive = False
     for item in trainingTL:
