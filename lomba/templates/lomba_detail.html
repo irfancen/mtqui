@@ -120,12 +120,17 @@
                     <hr>
                 {% endif %}
 
-                <h4>Timeline</h4>
-                {% if lomba.alias == 'DAQ' %}
-                    <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
-                {% else %}
-                    <p>{{ lomba.start_date|date:"d M Y" }} & {{ lomba.finish_date|date:"d M Y" }}</p>
+                {% if lomba.start_date and lomba.finish_date %}
+                    <h4>Timeline</h4>
+                    {% if lomba.alias == 'DAQ' %}
+                        <p>{{ lomba.start_date|date:"d M Y" }} - {{ lomba.finish_date|date:"d M Y" }}</p>
+                    {% elif lomba.alias == 'MHQ' %}
+                        <p>{{ lomba.start_date|date:"d M Y" }} (Saintek) & {{ lomba.finish_date|date:"d M Y" }} (Soshum)</p>
+                    {% else %}
+                        <p>{{ lomba.start_date|date:"d M Y" }} & {{ lomba.finish_date|date:"d M Y" }}</p>
+                    {% endif %}
                 {% endif %}
+
                 {% if learnt %}
                     <hr>
                     <h4>You will learn..</h4>
