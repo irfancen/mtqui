@@ -22,11 +22,12 @@ svg {
 
 .know_more {
     display: flex;
+    justify-content: flex-end;
 }
 
 .know_more p {
     color: white;
-    background-color: darkblue;
+    background-color: #3D54A6;
     text-align: center;
     width: 90px;
     margin-bottom: 0px;
@@ -34,17 +35,21 @@ svg {
 
 .know_more a {
     align-self: flex-end;
-    width: 100%;
+    width: fit-content;
     text-decoration: none;
+}
+
+.know_more p:hover {
+    background-color: #2b3c75;
 }
 
 
 .judul_seminar_cont {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100px;
     justify-content: space-between;
-    padding: 5px;
+    padding: 10px;
     background-color: white;
 }
 

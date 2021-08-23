@@ -13,7 +13,7 @@
 {% block content %}
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            {% for lomba in lombaList %}
+            {% for lomba in carousel_lomba %}
                 {% if forloop.first %}
                     <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                 {% else %}
@@ -22,7 +22,7 @@
             {% endfor %}
         </ol>
         <div class="carousel-inner">
-            {% for lomba in lombaList %}
+            {% for lomba in carousel_lomba %}
                 {% if forloop.first %}
                     <div class="carousel-item active">
                 {% else %}

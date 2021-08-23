@@ -53,7 +53,7 @@ h2, h4, h5 {
 
 .img-fluid {
     object-fit: cover;
-    max-height: 50vh;
+    height: 50vh;
 }
 
 .card-content {
