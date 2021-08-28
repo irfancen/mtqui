@@ -197,6 +197,10 @@ li::marker {
         width: auto;
     }
 
+    .judul_seminar_cont {
+        height: auto;
+    }
+
     #tema {
         font-size: 15px;
     }
