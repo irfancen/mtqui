@@ -8,7 +8,7 @@ import random
 
 
 def seminarlanding(request):
-    semua_seminar = Seminar.objects.all()
+    semua_seminar = Seminar.objects.all().order_by('d_day')
 
     id_list = []
     random_seminar = []
