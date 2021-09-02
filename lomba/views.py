@@ -6,7 +6,7 @@ def cek_timeline(lomba, trainingTL):
     if not lomba.custom_timeline:
         today = datetime.date.today()
         for item in trainingTL:
-            if item.start_date == today:
+            if item.start_date <= today <= item.finish_date:
                 trainingTL.filter(id=item.id).update(active=True)
             elif item.start_date > today:
                 trainingTL.filter(id=item.id).update(active=None)
@@ -37,18 +37,27 @@ def lomba_list(request):
             if lomba.alias == item:
                 carousel_lomba.append(lomba)
 
-    res = dict.fromkeys(lombaList)
-    for k in res.keys():
+    tlList = dict.fromkeys(lombaList)
+    for k in tlList.keys():
         temp = timeline.filter(nama_lomba=k)
         for item in temp:
             if item.active:
-                res[k] = item
+                tlList[k] = item
+
+    today = datetime.date.today()
+    active = dict.fromkeys(lombaList)
+    for k in active.keys():
+        temp = timeline.filter(nama_lomba=k)
+        if temp.exists():
+            if temp.first().start_date <= today <= temp.latest('finish_date').finish_date:
+                active[k] = temp.latest('finish_date')
 
     args = {
         'carousel_lomba': carousel_lomba,
         'lombaList': lombaList,
         'timeline': timeline,
-        'active': res
+        'active': active,
+        'tlList': tlList
     }
 
     return render(request, "lomba.html", args)
@@ -60,7 +69,7 @@ def lomba_detail(request, alias):
     learnt = TrainingLearnt.objects.filter(nama_lomba=lomba)
     trainingTL = TrainingTimeline.objects.filter(nama_lomba=lomba)
 
-    trainingTL = trainingTL.all().order_by('start_date')
+    trainingTL = trainingTL.all().order_by('start_date', 'finish_date')
     mentors = lomba.nama_mentor.all()
     isLoggedIn = False
 
@@ -69,10 +78,16 @@ def lomba_detail(request, alias):
 
     cek_timeline(lomba, trainingTL)
 
-    isActive = False
+    pastTL = []
     for item in trainingTL:
-        if item.active:
-            isActive = True
+        if (not item.active) and (item.active is not None):
+            pastTL.append(item)
+
+    isActive = False
+
+    today = datetime.date.today()
+    if trainingTL.first().start_date <= today <= trainingTL.latest('finish_date').finish_date:
+        isActive = True
 
     args = {
         'lomba': lomba,
@@ -81,6 +96,7 @@ def lomba_detail(request, alias):
         'mentors': mentors,
         'learnt': learnt,
         'timeline': trainingTL,
+        'pastTL': pastTL,
         'isActive': isActive,
         'isLoggedIn': isLoggedIn
     }
