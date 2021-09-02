@@ -74,17 +74,11 @@
             {% if timeline %}
                 <h4>Timeline</h4>
                 <div class="kenta-timeline">
-                    {% for item in timeline %}
-                    <div class="kenta-timeline-bullet">
-                        {% if item.active == False %}
+                    {% for item in pastTL %}
+                        <div class="kenta-timeline-bullet">
                             <svg class="kenta-timeline-past"
-                        {% elif item.active == True %}
-                            <svg class="kenta-timeline-now"
-                        {% elif item.active == None %}
-                            <svg
-                                    {% endif %}
-                                    width="40" height="59" viewBox="0 0 40 59" fill="yellow"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                 width="40" height="59" viewBox="0 0 40 59" fill="yellow"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                       d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
                                 ></path>
@@ -95,15 +89,60 @@
                                       d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
                                 ></path>
                             </svg>
-                        <div style="display: flex; flex-direction: column; font-size: large">
-                            {% if item.start_date == item.finish_date %}
-                                <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }}</span>
-                            {% else %}
-                                <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }} - {{ item.finish_date|date:"d M Y" }}</span>
-                            {% endif %}
-                            <span style="font-size: medium">{{ item.deskripsi }}</span>
+                            <div style="display: flex; flex-direction: column; font-size: large">
+                                {% if item.start_date == item.finish_date %}
+                                    <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }}</span>
+                                {% else %}
+                                    <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }} - {{ item.finish_date|date:"d M Y" }}</span>
+                                {% endif %}
+                                <span style="font-size: medium">{{ item.deskripsi }}</span>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
+
+                    {% for item in timeline %}
+                        {% if item.active == False %}
+                        {% else %}
+                            <div class="kenta-timeline-bullet">
+                                {% if item.active == True %}
+                                    <svg class="kenta-timeline-now"
+                                         width="40" height="59" viewBox="0 0 40 59" fill="yellow"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
+                                        ></path>
+                                        <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
+                                        ></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
+                                        ></path>
+                                    </svg>
+                                {% elif item.active == None %}
+                                    <svg
+                                            width="40" height="59" viewBox="0 0 40 59" fill="yellow"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M13.7143 21.1965C17.5014 21.1965 20.5715 18.1264 20.5715 14.3393C20.5715 10.5522 17.5014 7.48216 13.7143 7.48216C9.92722 7.48216 6.85716 10.5522 6.85716 14.3393C6.85716 18.1264 9.92722 21.1965 13.7143 21.1965ZM13.7143 28.0536C21.2885 28.0536 27.4286 21.9135 27.4286 14.3393C27.4286 6.76511 21.2885 0.625 13.7143 0.625C6.14011 0.625 0 6.76511 0 14.3393C0 21.9135 6.14011 28.0536 13.7143 28.0536Z"
+                                        ></path>
+                                        <path class="kenta-timeline-end" fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M13.7142 21.1963C15.6078 21.1963 17.1428 22.7313 17.1428 24.6249V55.4821C17.1428 57.3756 15.6078 58.9107 13.7142 58.9107C11.8207 58.9107 10.2856 57.3756 10.2856 55.4821V24.6249C10.2856 22.7313 11.8207 21.1963 13.7142 21.1963Z"
+                                        ></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M20.5713 14.3397C20.5713 12.4462 22.1063 10.9111 23.9999 10.9111H36.5713C38.4649 10.9111 39.9999 12.4462 39.9999 14.3397C39.9999 16.2333 38.4649 17.7683 36.5713 17.7683H23.9999C22.1063 17.7683 20.5713 16.2333 20.5713 14.3397Z"
+                                        ></path>
+                                    </svg>
+                                {% endif %}
+                                <div style="display: flex; flex-direction: column; font-size: large">
+                                    {% if item.start_date == item.finish_date %}
+                                    <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }}</span>
+                                    {% else %}
+                                        <span class="kenta-timeline-date">{{ item.start_date|date:"d M Y" }} - {{ item.finish_date|date:"d M Y" }}</span>
+                                    {% endif %}
+                                    <span style="font-size: medium">{{ item.deskripsi }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}
