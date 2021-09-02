@@ -14,6 +14,15 @@ def cek_timeline(lomba, trainingTL):
             if item.finish_date < today:
                 trainingTL.filter(id=item.id).update(active=False)
 
+def cek_timeline_past(trainingTL):
+    pastTL = []
+    for item in trainingTL:
+        if (item.active is not None) and (not item.active):
+            pastTL.append(item)
+
+    return pastTL
+
+
 def lomba_list(request):
     lombaList = Lomba.objects.all()
     timeline = TrainingTimeline.objects.all()
@@ -21,6 +30,7 @@ def lomba_list(request):
     for lomba in lombaList:
         trainingTL = TrainingTimeline.objects.filter(nama_lomba=lomba)
         cek_timeline(lomba, trainingTL)
+        cek_timeline_past(trainingTL)
 
     alias_list = []
     for lomba in lombaList:
@@ -77,14 +87,9 @@ def lomba_detail(request, alias):
         isLoggedIn = True
 
     cek_timeline(lomba, trainingTL)
-
-    pastTL = []
-    for item in trainingTL:
-        if (not item.active) and (item.active is not None):
-            pastTL.append(item)
+    pastTL = cek_timeline_past(trainingTL)
 
     isActive = False
-
     today = datetime.date.today()
     if trainingTL.first().start_date <= today <= trainingTL.latest('finish_date').finish_date:
         isActive = True
