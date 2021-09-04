@@ -14,43 +14,91 @@ View - {{ competition.judul }}
     <h1>Enrollments</h1>
     <h2>{{ competition.judul }}</h2>
 
-    {% for kelompok in competition.kelompok.all %}
+    {% for anggota in competition.kelompok.all.first.anggota.all %}
     <div class="enrollment-card pt-4 pl-4 pr-4 pb-1">
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label>Nama Kelompok</label>
-                <input class="form-control" type="text" placeholder="{{ kelompok.nama }}" readonly>
+                <label>Nama</label>
+                <input class="form-control" type="text" placeholder="{{ anggota.nama }}" readonly>
             </div>
         </div>
 
         <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label>Fakultas</label>
-                <input class="form-control" type="text" placeholder="{{ user.metadata.nama_fakultas }}" readonly>
+                <input class="form-control" type="text" placeholder="{{ anggota.fakultas }}" readonly>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Jurusan</label>
+                <input class="form-control" type="text" placeholder="{{ anggota.jurusan }}" readonly>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Angkatan</label>
+                <input class="form-control" type="text" placeholder="{{ anggota.angkatan }}" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>No. HP</label>
+                <input class="form-control" type="text" placeholder="{{ anggota.no_hp }}" readonly>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Line ID</label>
+                <input class="form-control" type="text" placeholder="{{ anggota.line_id }}" readonly>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label>Ketua</label>
-                <input class="form-control" type="text" placeholder="{{ kelompok.get_ketua.nama }}" readonly>
+                <label>Daftar Sebagai</label>
+                {% if anggota.is_ketua %}
+                <input class="form-control" type="text" placeholder="Ketua" readonly>
+                {% else %}
+                <input class="form-control" type="text" placeholder="Anggota" readonly>
+                {% endif %}
             </div>
         </div>
 
-        <div>
-            <a class="enrollment-button" href="{% url 'dashboard:view_kelompok' id_kelompok=kelompok.id %}">View Members</a>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Foto KTM</label>
+                <div class="enrollment-file">
+                    <img src="{% static 'dashboard/svg/ktm.svg' %}">
+                    <a href="{{ anggota.foto_ktm.url }}" target="_blank">{{ anggota.foto_ktm }}</a>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Screenshot SIAK</label>
+                <div class="enrollment-file">
+                    <img src="{% static 'dashboard/svg/screenshot.svg' %}">
+                    <a href="{{ anggota.screenshot_siak.url }}" target="_blank">{{ anggota.screenshot_siak }}</a>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Berkas CV</label>
+                <div class="enrollment-file">
+                    <img src="{% static 'dashboard/svg/cv.svg' %}">
+                    <a href="{{ anggota.file_cv.url }}" target="_blank">{{ anggota.file_cv }}</a>
+                </div>
+            </div>
         </div>
-        
-        {% if kelompok.can_be_edited %}
+
+        {% if anggota.can_be_edited %}
         <div>
-            <a class="enrollment-button" href="{% url 'dashboard:edit_kelompok' id_kelompok=kelompok.id %}">Edit Team Details</a>
+            <a class="enrollment-button" href="{% url 'dashboard:edit_anggota' id_anggota=anggota.id %}">Edit Enrollment</a>
         </div>
         {% endif %}
-
-        {% if kelompok.can_be_deleted %}
-        <a class="enrollment-button" data-toggle="modal" data-target="#deletionConfirm-{{ kelompok.id }}">Remove Team</a>
         
-        <div class="modal fade" id="deletionConfirm-{{ kelompok.id }}" tabindex="-1" role="dialog" aria-labelledby="deletionConfirmLabel" aria-hidden="true">
+        {% if anggota.can_be_deleted %}
+        <a class="enrollment-button" data-toggle="modal" data-target="#deletionConfirm-{{ anggota.id }}">Remove Participant</a>
+        
+        <div class="modal fade" id="deletionConfirm-{{ anggota.id }}" tabindex="-1" role="dialog" aria-labelledby="deletionConfirmLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -61,14 +109,12 @@ View - {{ competition.judul }}
                     </div>
 
                     <div class="modal-body">
-                        You are about to remove the team <b>{{ kelompok.nama }}</b> from this competition.
-                        <br>
-                        All members of this team will also be deleted.
+                        You are about to remove <b>{{ anggota.nama }}</b> from this competition.
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <form action="{% url 'dashboard:delete_kelompok' id_kelompok=kelompok.id %}" method="POST"> {% csrf_token %}
+                        <form action="{% url 'dashboard:delete_anggota' id_anggota=anggota.id %}" method="POST"> {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Yes, Remove</button>
                         </form>
                     </div>
