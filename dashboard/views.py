@@ -1,5 +1,5 @@
 from dashboard.forms import *
-from dashboard.models import Anggota, Kelompok, Kompetisi, KompetisiKTIA, Peserta
+from dashboard.models import Anggota, Kelompok, Kompetisi, KompetisiKTIA, Peserta, PesertaDAQ
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -186,6 +186,54 @@ def enroll_daq(request, id_kompetisi):
     context["kelompok_form"] = KelompokForm()
     context["anggota_daq_form"] = AnggotaDAQForm()
     return render(request, "dashboard/enroll_daq.html", context)
+
+
+def enroll_daq_rev(request, id_kompetisi):
+    context = {}
+
+    kompetisi = Kompetisi.objects.get(id=id_kompetisi)
+
+    if request.method == "POST":
+        peserta_form = PesertaDAQForm(request.POST, request.FILES)
+
+        if peserta_form.is_valid():
+            nama = peserta_form.cleaned_data.get("nama")
+            fakultas = request.user.metadata.nama_fakultas
+            jurusan = peserta_form.cleaned_data.get("jurusan")
+            angkatan = peserta_form.cleaned_data.get("angkatan")
+            no_hp = peserta_form.cleaned_data.get("no_hp")
+            line_id = peserta_form.cleaned_data.get("line_id")
+            is_ketua = peserta_form.cleaned_data.get("is_ketua")
+            foto_ktm = peserta_form.cleaned_data.get("foto_ktm")
+            screenshot_siak = peserta_form.cleaned_data.get("screenshot_siak")
+            file_cv = peserta_form.cleaned_data.get("file_cv")
+
+
+            peserta = PesertaDAQ(
+                nama=nama,
+                fakultas=fakultas,
+                jurusan=jurusan,
+                angkatan=angkatan,
+                no_hp=no_hp,
+                line_id=line_id,
+                is_ketua=is_ketua,
+                foto_ktm=foto_ktm,
+                screenshot_siak=screenshot_siak,
+                file_cv=file_cv,
+                kompetisi=kompetisi
+            )
+            peserta.save()
+
+            return redirect(reverse("dashboard:view_enrollments", kwargs={'id_kompetisi': kompetisi.id}))
+
+        else:
+            context["competition"] = kompetisi
+            context["peserta_form"] = peserta_form
+            return render(request, "dashboard/enroll_individu.html", context)
+
+    context["competition"] = kompetisi
+    context["peserta_form"] = PesertaForm()
+    return render(request, "dashboard/enroll_daq_rev.html", context)
 
 
 @login_required(redirect_field_name="dashboard:home")

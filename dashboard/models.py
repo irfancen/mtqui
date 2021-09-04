@@ -188,3 +188,33 @@ class Peserta(models.Model):
 
     def __str__(self):
         return self.nama
+
+
+class PesertaDAQ(models.Model):
+    nama = models.CharField(max_length=100)
+    fakultas = models.CharField(max_length=50)
+    jurusan = models.CharField(max_length=50)
+    angkatan = models.CharField(max_length=4)
+    no_hp = models.CharField(max_length=15)
+    line_id = models.CharField(max_length=30)
+    is_ketua = models.BooleanField()
+
+    foto_ktm = models.ImageField()
+    screenshot_siak = models.ImageField()
+    file_cv = models.FileField()  # Only for DAQ
+
+    kompetisi = models.ForeignKey(Kompetisi, on_delete=models.CASCADE, related_name="peserta")
+
+    def get_owner(self):
+        return self.kompetisi.get_owner()
+
+    def can_be_edited(self):
+        is_before_deadline = not self.kompetisi.is_deadline()
+        return is_before_deadline
+
+    def can_be_deleted(self):
+        is_before_deadline = not self.kompetisi.is_deadline()
+        return is_before_deadline
+
+    def __str__(self):
+        return self.nama
