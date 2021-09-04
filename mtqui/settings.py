@@ -167,6 +167,7 @@ LOGIN_URL = "authentication:login"
 # AWS S3 Bucket Config
 AWS_QUERYSTRING_AUTH = False
 AWS_DEFAULT_ACL = None
+AWS_S3_FILE_OVERWRITE = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = 'AKIAWLMEKB3IFVREY53K'
