@@ -163,6 +163,8 @@ class AnggotaDAQForm(forms.Form):
         edit_form = kwargs.pop("edit_form", False)
         super(AnggotaDAQForm, self).__init__(*args, **kwargs)
 
+        self.fields['is_ketua'].choices = ( (True, "Ketua"), (False, "Anggota") )
+
         if edit_form:
             self.fields['foto_ktm'].required = False
             self.fields['screenshot_siak'].required = False
@@ -198,10 +200,9 @@ class AnggotaDAQForm(forms.Form):
                     'class' : 'form-control',
                 }))
 
-    is_ketua = forms.BooleanField(
-                required=False,
-                widget=forms.CheckboxInput(attrs={
-                    'class' : 'form-check-input checkbox',
+    is_ketua = forms.ChoiceField(
+                widget=forms.Select(attrs={
+                    'class' : 'form-control',
                 }))
 
     foto_ktm = forms.ImageField(

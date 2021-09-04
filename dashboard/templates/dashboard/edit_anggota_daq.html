@@ -11,8 +11,8 @@ Edit - {{ anggota.nama }}
 
 {% block content %}
 <div class="kenta-content">
-    <h1>Edit Member</h1>
-    <h2>{{ anggota.kelompok.nama }}</h2>
+    <h1>Edit Participant</h1>
+    <h2>{{ anggota.kelompok.kompetisi.judul }}</h2>
 
     <div class="form-container">
         <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
@@ -80,6 +80,21 @@ Edit - {{ anggota.nama }}
                     {% if anggota_daq_form.line_id.errors %}
                     <small class="form-text text-danger form-errors">
                         {% for error in anggota_daq_form.line_id.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Daftar Sebagai</label>
+                    {{ anggota_daq_form.is_ketua }}
+
+                    {% if anggota_daq_form.is_ketua.errors %}
+                    <small class="form-text text-danger form-errors">
+                        {% for error in anggota_daq_form.is_ketua.errors %}
                             {{ error|escape }}
                         {% endfor %}
                     </small>
@@ -162,6 +177,9 @@ Edit - {{ anggota.nama }}
     $(document).ready( () => {
         $("input:text").css("background-color", "#E8F0FF");
         $("input:text").css("border-color", "#51B1F6");
+
+        $("select").css("background-color", "#E8F0FF");
+        $("select").css("border-color", "#51B1F6");
 
         $("button:submit").css("background-color", "#51B1F6");
         $("button:submit").css("border", "none");
