@@ -16,31 +16,6 @@ Enroll - {{ competition.judul }}
 
     <div class="form-container">
         <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label>Nama Kelompok</label>
-                    {{ kelompok_form.nama_kelompok }}
-
-                    {% if kelompok_form.nama_kelompok.errors %}
-                    <small class="form-text text-danger form-errors">
-                        {% for error in kelompok_form.nama_kelompok.errors %}
-                            {{ error|escape }}
-                        {% endfor %}
-                    </small>
-                    {% endif %}
-                </div>
-            </div>
-
-            {% if kelompok_form.non_form_errors %}
-            <small class="form-text text-danger">
-                {% for error in kelompok_form.non_form_errors %}
-                    {{ error|escape }}
-                {% endfor %}
-            </small>
-            {% endif %}
-
-            <hr>
-
             <div class="anggota-daq-form">
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -106,6 +81,21 @@ Enroll - {{ competition.judul }}
                         {% if anggota_daq_form.line_id.errors %}
                         <small class="form-text text-danger form-errors">
                             {% for error in anggota_daq_form.line_id.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Daftar Sebagai</label>
+                        {{ anggota_daq_form.is_ketua }}
+    
+                        {% if anggota_daq_form.is_ketua.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_daq_form.is_ketua.errors %}
                                 {{ error|escape }}
                             {% endfor %}
                         </small>
@@ -180,6 +170,9 @@ Enroll - {{ competition.judul }}
     $(document).ready( () => {
         $("input:text").css("background-color", "#E8F0FF");
         $("input:text").css("border-color", "#51B1F6");
+
+        $("select").css("background-color", "#E8F0FF");
+        $("select").css("border-color", "#51B1F6");
 
         $("button:submit").css("background-color", "#51B1F6");
         $("button:submit").css("border", "none");
