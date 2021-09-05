@@ -16,31 +16,6 @@ Enroll - {{ competition.judul }}
 
     <div class="form-container">
         <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label>Nama Kelompok</label>
-                    {{ kelompok_form.nama_kelompok }}
-
-                    {% if kelompok_form.nama_kelompok.errors %}
-                    <small class="form-text text-danger form-errors">
-                        {% for error in kelompok_form.nama_kelompok.errors %}
-                            {{ error|escape }}
-                        {% endfor %}
-                    </small>
-                    {% endif %}
-                </div>
-            </div>
-
-            {% if kelompok_form.non_form_errors %}
-            <small class="form-text text-danger">
-                {% for error in kelompok_form.non_form_errors %}
-                    {{ error|escape }}
-                {% endfor %}
-            </small>
-            {% endif %}
-
-            <hr>
-
             <div class="anggota-daq-form">
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -114,8 +89,24 @@ Enroll - {{ competition.judul }}
                 </div>
 
                 <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Daftar Sebagai</label>
+                        {{ anggota_daq_form.is_ketua }}
+    
+                        {% if anggota_daq_form.is_ketua.errors %}
+                        <small class="form-text text-danger form-errors">
+                            {% for error in anggota_daq_form.is_ketua.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group col-md-4">
                         <label>Foto KTM</label>
+                        <small class="form-text">Pastikan nama file merupakan KTM_[NAMA_LOMBA]_[NPM_PESERTA] (Misal: KTM_MTQ_1234567890)</small>
                         {{ anggota_daq_form.foto_ktm }}
     
                         {% if anggota_daq_form.foto_ktm.errors %}
@@ -129,6 +120,7 @@ Enroll - {{ competition.judul }}
 
                     <div class="form-group col-md-4">
                         <label>Screenshot SIAK</label>
+                        <small class="form-text">Pastikan nama file merupakan SIAK_[NAMA_LOMBA]_[NPM_PESERTA] (Misal: SIAK_MTL_1234567890)</small>
                         {{ anggota_daq_form.screenshot_siak }}
     
                         {% if anggota_daq_form.screenshot_siak.errors %}
@@ -142,6 +134,7 @@ Enroll - {{ competition.judul }}
 
                     <div class="form-group col-md-4">
                         <label>Berkas CV</label>
+                        <small class="form-text">Pastikan nama file merupakan CV_[NAMA_LOMBA]_[NPM_PESERTA] (Misal: CV_DAQ_1234567890)</small>
                         {{ anggota_daq_form.file_cv }}
     
                         {% if anggota_daq_form.file_cv.errors %}
@@ -177,6 +170,9 @@ Enroll - {{ competition.judul }}
     $(document).ready( () => {
         $("input:text").css("background-color", "#E8F0FF");
         $("input:text").css("border-color", "#51B1F6");
+
+        $("select").css("background-color", "#E8F0FF");
+        $("select").css("border-color", "#51B1F6");
 
         $("button:submit").css("background-color", "#51B1F6");
         $("button:submit").css("border", "none");

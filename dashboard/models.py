@@ -32,10 +32,25 @@ class Kompetisi(models.Model):
     fakultas = models.ForeignKey(User, on_delete=models.CASCADE, related_name="kompetisi")
 
     def get_enrollment_count(self):
-        if str(self.tipe) == "Individu":
+        if self.get_tipe() == "Individu":
             return self.peserta.all().count()
-        else:
+
+        elif self.get_tipe() == "Kelompok":
             return self.kelompok.all().count()
+        
+        elif self.get_tipe() == "DAQ":
+            kelompok = self.kelompok.all().first()
+
+            if kelompok:
+                return kelompok.anggota.all().count()
+            
+            return 0
+
+    def get_kuota(self):
+        if self.get_tipe() == "DAQ":
+            return self.kapasitas_kelompok
+        else:
+            return self.kuota
 
     def get_deadline(self):
         return self.deadline_pendaftaran.strftime("%d - %b - %Y")
@@ -53,9 +68,14 @@ class Kompetisi(models.Model):
         return self.fakultas
 
     def can_enroll(self):
+        if self.get_tipe() == "DAQ":
+            quota_available = self.get_enrollment_count() < self.kapasitas_kelompok
+        else:
+            quota_available = self.get_enrollment_count() < self.kuota
+
         is_open = self.is_open()
         is_before_deadline = not self.is_deadline()
-        quota_available = self.get_enrollment_count() < self.kuota
+        
         return (is_open and is_before_deadline and quota_available)
     
     def can_view_enrollments(self):
@@ -95,16 +115,7 @@ class Kelompok(models.Model):
 
     def get_kapasitas(self):
         return self.kompetisi.kapasitas_kelompok
-    
-    def get_ketua(self):
-        for anggota in self.anggota.all():
-            if anggota.is_ketua:
-                return anggota
-        return None
-    
-    def get_ketua_choices(self):
-        return ( (anggota.id, anggota.nama) for anggota in self.anggota.all() )
-    
+        
     def get_tipe(self):
         return self.kompetisi.get_tipe()
 
@@ -113,7 +124,7 @@ class Kelompok(models.Model):
 
     def can_add_member(self):
         is_before_deadline = not self.kompetisi.is_deadline()
-        capacity_available = self.anggota.all().count() < self.kompetisi.kapasitas_kelompok
+        capacity_available = self.anggota.all().count() < self.get_kapasitas()
         return (is_before_deadline and capacity_available)
     
     def can_be_edited(self):
@@ -155,8 +166,13 @@ class Anggota(models.Model):
 
     def can_be_deleted(self):
         is_before_deadline = not self.kelompok.kompetisi.is_deadline()
-        will_still_have_members = (self.kelompok.anggota.all().count() - 1) > 0
-        return (is_before_deadline and will_still_have_members)
+
+        if self.get_tipe() == "Kelompok":
+            will_still_have_members = (self.kelompok.anggota.all().count() - 1) > 0
+            return (is_before_deadline and will_still_have_members)
+
+        elif self.get_tipe() == "DAQ":
+            return is_before_deadline
 
     def __str__(self):
         return self.nama

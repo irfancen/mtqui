@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from admin_mtqui.forms import KompetisiForm
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http.response import HttpResponse, HttpResponseForbidden
+from django.http.response import HttpResponse
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from dashboard.models import Kompetisi, TipeKompetisi
 
@@ -9,7 +10,7 @@ from dashboard.models import Kompetisi, TipeKompetisi
 @login_required
 def create_kompetisi(request):
     if not request.user.is_superuser:
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     context = {}
 
