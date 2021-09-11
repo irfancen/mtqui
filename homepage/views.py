@@ -16,6 +16,9 @@ def grandopening(request):
 def grandclosing(request):
     return render(request, 'closing.html')
 
+def grandopeningform(request):
+    return render(request, 'opening_form.html')
+
 
 def bad_request_view(request, exception):
     context = {
