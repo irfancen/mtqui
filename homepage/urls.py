@@ -8,5 +8,5 @@ urlpatterns = [
     path('guidebook/', guidebook, name='guidebook'),
     path('GO/', grandopening, name='grandopening'),
     path('CC/', grandclosing, name='grandclosing'),
-    path('GOenroll/', grandopeningform, name='grandopeningform')
+    path('GO/enroll/', grandopeningform, name='grandopeningform')
 ]
