@@ -153,6 +153,44 @@ li::marker {
     word-break: break-word;
 }
 
+.speaker_container {
+    max-width: 500px;
+}
+
+#img_go {
+    object-fit: cover;
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
+    margin:auto;
+}
+
+.bio {
+    width: 80%;
+}
+
+.nama_speaker {
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.gambar_judul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: max-content
+}
+
+.bio_container {
+    margin-top: 7px;
+}
+
+#speaker2 {
+    margin-left: 7vw;
+}
+
 @media screen and (max-width: 1024px) {
 
     .about {
@@ -188,6 +226,35 @@ li::marker {
         display: none;
     }
 
+    #speaker2{
+        margin-left: 0;
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+
+
+    .all_speaker {
+        flex-direction: column;
+    }
+
+    .gambar_judul {
+        width: auto;
+    }
+
+    .speaker_container {
+        max-width: none;
+    }
+
+    #speaker2 {
+        margin-top: 30px;
+    }
+
+    .bio_container {
+        padding-left: 50px;
+    }
+
 }
 
 @media screen and (max-width: 500px) {
@@ -207,5 +274,10 @@ li::marker {
     .max_content_behavior {
         width: max-content;
     }
+
+    .bio_container {
+        padding-left: 5vw
+    }
+
 }
 
