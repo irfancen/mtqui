@@ -191,6 +191,14 @@ li::marker {
     margin-left: 7vw;
 }
 
+.subjects {
+    width: 1000px;
+}
+.subjects li {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
 @media screen and (max-width: 1024px) {
 
     .about {
@@ -230,6 +238,10 @@ li::marker {
         margin-left: 0;
     }
 
+    .subjects {
+        width: auto;
+    }
+
 }
 
 @media screen and (max-width: 650px) {
@@ -240,7 +252,7 @@ li::marker {
     }
 
     .gambar_judul {
-        width: auto;
+        width: auto !important;
     }
 
     .speaker_container {
