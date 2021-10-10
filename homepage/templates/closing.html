@@ -31,18 +31,80 @@
     <ul class="list-group list-group-flush">
     <li class="list-group-item">
         <h4>About</h4>
-        <p style="width: 60%" class="about">Merupakan penutupan rangkaian acara MTQ UI 2021 dilengkapi dengan talkshow yang bertajuk Mengarungi Samudra Keajaiban Al-Quran.</p>
+        <p style="width: 60%" class="about">Merupakan penutupan rangkaian acara MTQ UI 2021 dilengkapi dengan talkshow yang bertajuk "Mengarungi Samudra Keajaiban Al-Quran".</p>
     </li>
-    <li class="list-group-item">
+
+
+    <li class="list-group-item" style="display: flex; flex-direction: column">
         <h4>Speakers</h4>
-        <ul class="guest_stars">
-            <li>MTQ UI</li>
+<div class="all_speaker" style="display: flex; margin-top: 15px; margin-bottom: 15px">
+            <div class="speaker_container" >
+
+
+                <div class="gambar_judul">
+                <img src="{% static '/img/cc/pembicara1_small.png' %}" class="img-fluid" id="img_go" alt="">
+                <h5 class="nama_speaker">Ustaz KH. Deden M. Makhyaruddin, M.A.</h5>
+                </div>
+
+
+                <div class="bio_container">
+                <h4>Achievement</h4>
+                <ul class="bio">
+                    <li>Pendakwah Nasional</li>
+                    <li>Pengasuh dan Pendiri Ponpes Tahfidhil Quran Al-Mustaqimiyyah</li>
+                    <li>Founder Indonesia Murojaah</li>
+                    <li>Magister dalam bidang Ilmu Al-Quran dan Tafsir</li>
+                    <li>Pemimpin Pesantren Pasca Tahfizh Indonesia Murojaah</li>
+                </ul>
+                </div>
+
+            </div>
+
+            <div class="speaker_container" id="speaker2">
+
+                <div class="gambar_judul">
+                <img src="{% static '/img/cc/pembicara2.jpg' %}" class="img-fluid" id="img_go" alt="">
+
+                <h5 class="nama_speaker">Dr. Oki Setiana Dewi,.S.Hum,.M.Pd</h5>
+                 </div>
+
+                <div class="bio_container">
+                <h4>Achievement</h4>
+                <ul class="bio">
+                    <li>Pendakwah Nasional</li>
+                    <li>Penulis</li>
+                    <li>Pimpinan Yayasan Maskanul Huffadz</li>
+                    <li>S3 Konsentrasi Dakwah dan Komunikasi UIN Jakarta </li>
+                    <li>S3 ilmu Al Qur’an dan tafsir konsentrasi pendidikan berbasis Qur’an PTIQ Jakarta</li>
+                </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+    </li>
+
+
+    <li class="list-group-item">
+        <h4>We’ll be talking about...</h4>
+        <ul class="subjects">
+                <li>Apa saja isi yang terkandung dalam Al-Qur'an?</li>
+                <li>Apakah sesungguhnya semua ilmu pengetahuan sudah ada dalam Al-Qur'an dan kita, sebagai umat Islam, hanya perlu membacanya agar tahu?</li>
+                <li>Bagaimana agar kita tidak hanya takjub dengan segala keajaiban fakta yang dimuat di dalam Al-Qur'an, tetapi juga mau menjadi cerdas dengan Al-Qur'an?</li>
+                <li>Bagaimana Al-Qur'an dan ilmu pengetahuan saling terkait?</li>
+                <li>Al-Qur'an mengandung begitu banyak hal yang selain wajib kita imani, kita juga diminta untuk memikirkan hal-hal tersebut.</li>
+                <li>Bagaimana cara agar menanamkan bahwa Al-Qur'an adalah spirit milenial Islam untuk terus belajar dan belajar karena ilmu di dalam Al-Qur'an tidak akan habis untuk dipelajari?</li>
+                <li>Setelah belajar melalui kajian Al-Qur'an dan memupuk rasa selalu ingin tahu, bagaimana caranya menjadi generasi emas dengan Al-Qur'an?</li>
+                <li>Bagaimana Al-Qur'an dan ilmu pengetahuan saling terkait?</li>
         </ul>
     </li>
 
+
     <li class="list-group-item" style="display:flex; justify-content: center;align-items: center; flex-direction: column">
         <p style="margin: 5px">Interested?</p>
-        <button class="btn btn-primary" disabled>ENROLL NOW!</button>
+        <a href="{% url 'homepage:closingform' %}"><button class="btn btn-primary">ENROLL NOW!</button></a>
+
 
     </li>
 
