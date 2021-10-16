@@ -198,6 +198,9 @@ li::marker {
     margin-top: 3px;
     margin-bottom: 3px;
 }
+.freebirdFormviewerViewEmbedded .freebirdFormviewerViewFormCard {
+    width: 100%;
+}
 
 @media screen and (max-width: 1024px) {
 
