@@ -8,6 +8,6 @@ urlpatterns = [
     path('guidebook/', guidebook, name='guidebook'),
     path('GO/', grandopening, name='grandopening'),
     path('CC/', grandclosing, name='grandclosing'),
-    path('GO/enroll/', grandopeningform, name='grandopeningform'),
-    path('CC/enroll/', closingform, name='closingform')
+    # path('GO/enroll/', grandopeningform, name='grandopeningform'),
+    # path('CC/enroll/', closingform, name='closingform')
 ]
