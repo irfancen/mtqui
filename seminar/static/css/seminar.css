@@ -66,7 +66,6 @@ svg {
 .card_container {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
 }
 
 .seminar_card {
@@ -146,12 +145,61 @@ li::marker {
 }
 
 .past_seminar {
-    padding: 50px;
+    padding: 50px 10vw;
     background-color: #e8f0ff;
 }
 
 .kenta-head-content h2 {
     word-break: break-word;
+}
+
+.speaker_container {
+    max-width: 500px;
+}
+
+#img_go {
+    object-fit: cover;
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
+    margin:auto;
+}
+
+.bio {
+    width: 80%;
+}
+
+.nama_speaker {
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.gambar_judul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: max-content
+}
+
+.bio_container {
+    margin-top: 7px;
+}
+
+#speaker2 {
+    margin-left: 7vw;
+}
+
+.subjects {
+    width: 1000px;
+}
+.subjects li {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.freebirdFormviewerViewEmbedded .freebirdFormviewerViewFormCard {
+    width: 100%;
 }
 
 @media screen and (max-width: 1024px) {
@@ -189,12 +237,49 @@ li::marker {
         display: none;
     }
 
+    #speaker2{
+        margin-left: 0;
+    }
+
+    .subjects {
+        width: auto;
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+
+
+    .all_speaker {
+        flex-direction: column;
+    }
+
+    .gambar_judul {
+        width: auto !important;
+    }
+
+    .speaker_container {
+        max-width: none;
+    }
+
+    #speaker2 {
+        margin-top: 30px;
+    }
+
+    .bio_container {
+        padding-left: 50px;
+    }
+
 }
 
 @media screen and (max-width: 500px) {
 
     .kenta-blurlable {
         width: auto;
+    }
+
+    .judul_seminar_cont {
+        height: auto;
     }
 
     #tema {
@@ -204,5 +289,10 @@ li::marker {
     .max_content_behavior {
         width: max-content;
     }
+
+    .bio_container {
+        padding-left: 5vw
+    }
+
 }
 
